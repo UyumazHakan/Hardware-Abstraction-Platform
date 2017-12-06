@@ -1,0 +1,5 @@
+{
+	"log_directory": "/var/log/iot/",
+	"communication_protocols": [],
+	"devices": []
+}
