@@ -6,9 +6,11 @@ class DeviceManager:
 
 	devices = {}
 	devices_config = {}
+	callback = None
 
 	def __init__(self, devices_config, callback):
 		self.devices_config = devices_config
+		self.callback = callback
 		self.init_devices()
 
 	def init_devices(self):
@@ -19,5 +21,3 @@ class DeviceManager:
 		device_type = DeviceEnum[device_config["type"]]
 		devices[device_config["id"]] = device_constructors[device_type](device_config, self.callback)
 
-	def callback(self):
-		pass
