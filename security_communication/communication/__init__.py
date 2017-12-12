@@ -1,0 +1,1 @@
+from kafka_communication_protocol import KakfaCommunicationProtocol
