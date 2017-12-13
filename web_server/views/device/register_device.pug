@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+    .page-header
+        h3 Device Registration
+
+    form.form-horizontal(action='/register_device', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+            label.col-sm-3.control-label IP Address of Device
+            .col-sm-7
+                input.form-control(type='text', name='ip_address', id='ip_address')
+        .form-group
+            label.col-sm-3.control-label Device Name
+            .col-sm-7
+                input.form-control(type='text', name='name', id='name')
+        //.form-group
+        //    label.col-sm-3.control-label Input/Output
+        //    .col-sm-6
+        //        label.radio.col-sm-3
+        //            input(type='radio', name='type', value='gpio', data-toggle='radio')
+        //            span GPIO
+        //        label.radio.col-sm-3
+        //            input(type='radio', name='type', value='one_wire_io', data-toggle='radio')
+        //            span One-Wire I/O
+        //        label.radio.col-sm-3
+        //            input(type='radio', name='type', value='spi', data-toggle='radio')
+        //            span SPI
+        .form-group
+            .col-sm-offset-3.col-sm-4
+                button.btn.btn.btn-primary(type='submit')
+                    i.fa.fa-pencil
+                    | Register Device

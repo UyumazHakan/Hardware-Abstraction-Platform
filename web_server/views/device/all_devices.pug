@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+    .page-header
+        h3 Device List in the System
+        
+    table#pickle.table.table-hover.table-striped.table-bordered
+        thead
+            tr
+                th Ip Address
+                th Device Name
+        tbody
+            for device in devices
+                tr
+                    td= device.ip_address
+                    td= device.name
