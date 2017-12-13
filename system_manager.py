@@ -27,12 +27,18 @@ class SystemManager:
 	def device_manager_callback(self):
 		pass
 
-	def communication_manager_callback(self):
+	def communication_manager_send_callback(self):
+		pass
+
+	def communication_manager_receive_callback(self, data):
 		pass
 
 	def __init__(self, config_file_directory):
 		self.config_file_directory = config_file_directory
 		self.update_config()
+		if self.config["board"] == "raspberry_pi":
+			import RPi.GPIO as GPIO
+			GPIO.setmode(GPIO.BOARD)
 		self.device_manager = DeviceManager(self.config["devices"], self.device_manager_callback)
 		self.communication_manager = CommunicationManager(self.config["communication_protocols"], self.communication_manager_callback)
 
@@ -50,6 +56,7 @@ def main():
 def exit_handler():
 	logging.info("Stopped")
 	logging.shutdown()
+	GPIO.cleanup()
 
 atexit.register(exit_handler)
 

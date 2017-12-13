@@ -6,9 +6,13 @@ class CommunicationManager:
 
 	communication_protocols = {}
 	communication_protocols_config = {}
+	send_callback = None
+	receive_callback = None
 
-	def __init__(self, communication_protocols_config, callback):
+	def __init__(self, communication_protocols_config, send_callback, receive_callback):
 		self.communication_protocols_config = communication_protocols_config
+		self.send_callback = send_callback
+		self.receive_callback = receive_callback
 		self.init_communication_protocols()
 
 	def init_communication_protocols(self):
@@ -17,7 +21,11 @@ class CommunicationManager:
 
 	def init_communication_protocol(self, communication_protocol_config):
 		security_type = SecurityEnum[communication_protocol_config["security_type"]]
-		communication_protocols[communication_protocol_config["id"]] = securtiy_constructors[security_type](communication_protocol_config, self.callback)
+		self.communication_protocols[communication_protocol_config["id"]] = securtiy_constructors[security_type](communication_protocol_config, self.send_callback, self.receive_callback)
 
-	def callback(self):
-		pass
+
+	def send_all(self, data, callback = None):
+		if not callback:
+			callback = self.send_callback
+		self.communication_protocols[protocol_id].send(data, callback) for protocol_id in self.communication_protocols
+
