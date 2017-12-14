@@ -11,13 +11,21 @@ class KafkaCommunicationProtocol(CommunicationProtocol):
 	send_buffer = []
 	time_interval = 1
 	send_lock = Lock()
+	packet = {
+		"id": None,
+		"devices": {
+			"sensors": []
+		}
+
+	}
 
 	def __init__(self, config, send_callback = None, receive_callback = None):
 		super(KafkaCommunicationProtocol, self).__init__(config, send_callback, receive_callback)
 		target = self.config["ip"] + ":" + self.config.get("port", "9092")
-		self.producer = KafkaProducer(bootstrap_servers=[target], value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+		self.producer = KafkaProducer(bootstrap_servers=[target], value_serializer=lambda v: json.dumps(v).encode('utf-8'), api_version=(0,self.config["api_version"]))
 		self.topic = self.config["topic"]
 		self.time_interval = self.config["time_interval"]
+		self.packet["id"] = self.config["device_id"]
 		send_timer = Timer(self.time_interval, self.__send_buffer, [])
 		send_timer.start()
 
@@ -26,9 +34,15 @@ class KafkaCommunicationProtocol(CommunicationProtocol):
 		print("Sending...")
 		self.send_lock.acquire()
 		print(self.send_buffer)
+		packets = {}
 		for (data, callback) in self.send_buffer:
 			topic = self.topic + data.get("sub_topic", "")
-			self.producer.send(topic, data["msg"])
+			if not topic in packets:
+				packets[topic] = self.packet
+			packets[topic]["devices"]["sensors"].append(data["msg"])
+		for topic in packets:
+			self.producer.send(topic, packets[topic])
+			print("Sent:", packets[topic])
 			if callback:
 				callback()
 		self.send_buffer = []

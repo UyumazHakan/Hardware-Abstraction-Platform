@@ -1,6 +1,6 @@
 import threading
 import logging
-from secure_communication_enum import SecurityEnum, CommunicationEnum, security_constructors, communication_constructors
+from security_communication.secure_communication_enum import SecurityEnum, CommunicationEnum, security_constructors, communication_constructors
 
 class CommunicationManager:
 

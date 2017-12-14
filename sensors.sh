@@ -17,3 +17,4 @@ if [ ! -d $LOG_DIR ]
 fi
 
 python3 $MAIN_FILE
+
