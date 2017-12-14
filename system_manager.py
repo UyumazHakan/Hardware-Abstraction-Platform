@@ -24,11 +24,12 @@ class SystemManager:
 			self.config = json.loads(config_file.read())
 			logging.debug("New config : " + json.dumps(self.config))
 
-	def device_manager_callback(self):
-		pass
+	def device_manager_callback(self, data):
+		print("system",data)
+		self.communication_manager.send_all(data)
 
 	def communication_manager_send_callback(self):
-		pass
+		print("Successfully sent a packet")
 
 	def communication_manager_receive_callback(self, data):
 		pass
@@ -41,6 +42,8 @@ class SystemManager:
 			GPIO.setmode(GPIO.BOARD)
 		self.device_manager = DeviceManager(self.config["devices"], self.device_manager_callback)
 		self.communication_manager = CommunicationManager(self.config["communication_protocols"], self.communication_manager_send_callback, self.communication_manager_receive_callback)
+		time.sleep(5)
+		self.device_manager.read_all()
 
 
 
