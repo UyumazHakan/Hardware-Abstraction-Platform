@@ -1,3 +1,5 @@
+from threading import Timer
+
 class Device:
 	input_outputs = []
 	callback = None

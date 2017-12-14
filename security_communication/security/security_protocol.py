@@ -1,6 +1,6 @@
-from .secure_communication_protocol import SecureCommunicationProtocol
+from ..secure_communication_protocol import SecureCommunicationProtocol
 
-class SecurtiyProtocol(SecureCommunicationProtocol):
+class SecurityProtocol(SecureCommunicationProtocol):
 
 	communication_protocol = None
 

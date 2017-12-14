@@ -1,6 +1,6 @@
 from enum import Enum
-from security import *
-from communication import *
+from .security import *
+from .communication import *
 
 security_constructors = {
 	1 : PlainTextSecurityProtocol

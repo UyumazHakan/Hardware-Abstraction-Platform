@@ -1,6 +1,6 @@
 import threading
 import logging
-from secure_communication_enum import SecurityEnum, CommunicationEnum, security_constructors
+from security_communication.secure_communication_enum import SecurityEnum, CommunicationEnum, security_constructors
 
 class CommunicationManager:
 
@@ -27,5 +27,6 @@ class CommunicationManager:
 	def send_all(self, data, callback = None):
 		if not callback:
 			callback = self.send_callback
-		self.communication_protocols[protocol_id].send(data, callback) for protocol_id in self.communication_protocols
+		for protocol_id in self.communication_protocols:
+			self.communication_protocols[protocol_id].send(data, callback) 
 

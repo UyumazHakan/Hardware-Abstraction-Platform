@@ -1,4 +1,4 @@
-from communication_protocol import CommunicationProtocol
+from .communication_protocol import CommunicationProtocol
 from threading import Timer, Lock
 
 

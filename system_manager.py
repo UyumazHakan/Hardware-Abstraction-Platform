@@ -40,7 +40,7 @@ class SystemManager:
 			import RPi.GPIO as GPIO
 			GPIO.setmode(GPIO.BOARD)
 		self.device_manager = DeviceManager(self.config["devices"], self.device_manager_callback)
-		self.communication_manager = CommunicationManager(self.config["communication_protocols"], self.communication_manager_callback)
+		self.communication_manager = CommunicationManager(self.config["communication_protocols"], self.communication_manager_send_callback, self.communication_manager_receive_callback)
 
 
 
@@ -54,9 +54,13 @@ def main():
 	system_manager = SystemManager(config_file_directory)
 
 def exit_handler():
+	with open(config_file_directory) as config_file:
+		config = json.loads(config_file.read())
 	logging.info("Stopped")
 	logging.shutdown()
-	GPIO.cleanup()
+	if config["board"] == "raspberry_pi":
+		import RPi.GPIO as GPIO
+		GPIO.cleanup()
 
 atexit.register(exit_handler)
 

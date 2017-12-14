@@ -1,1 +1,1 @@
-from kafka_communication_protocol import KakfaCommunicationProtocol
+from .kafka_communication_protocol import KafkaCommunicationProtocol

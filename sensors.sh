@@ -16,4 +16,4 @@ if [ ! -d $LOG_DIR ]
 		sudo mkdir $LOG_DIR
 fi
 
-python $MAIN_FILE
+python3 $MAIN_FILE

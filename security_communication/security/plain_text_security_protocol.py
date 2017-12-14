@@ -1,5 +1,5 @@
-from security_protocol import SecurityProtocol
-from .secure_communication_enum import CommunicationEnum, communication_constructors
+from .security_protocol import SecurityProtocol
+from ..secure_communication_enum import *
 
 
 class PlainTextSecurityProtocol(SecurityProtocol):
