@@ -1,6 +1,6 @@
 import threading
 import logging
-from security_communication.secure_communication_enum import SecurityEnum, CommunicationEnum, security_constructors
+from secure_communication_enum import SecurityEnum, CommunicationEnum, security_constructors, communication_constructors
 
 class CommunicationManager:
 
@@ -20,8 +20,10 @@ class CommunicationManager:
 			self.init_communication_protocol(communication_protocol_config)
 
 	def init_communication_protocol(self, communication_protocol_config):
-		security_type = SecurityEnum[communication_protocol_config["security_type"]]
-		self.communication_protocols[communication_protocol_config["id"]] = securtiy_constructors[security_type](communication_protocol_config, self.send_callback, self.receive_callback)
+		communication_type = CommunicationEnum[communication_protocol_config["communication_type"]].value
+		communication_protocol = communication_constructors[communication_type](communication_protocol_config, self.send_callback, self.receive_callback)
+		security_type = SecurityEnum[communication_protocol_config["security_type"]].value
+		self.communication_protocols[communication_protocol_config["id"]] = security_constructors[security_type](communication_protocol_config, communication_protocol, self.send_callback, self.receive_callback)
 
 
 	def send_all(self, data, callback = None):

@@ -1,7 +1,7 @@
 import glob
 import time
-from input_output import InputOutput
-from gpio_input import GPIOInput
+from input_output.input_output import InputOutput
+from .gpio_input import GPIOInput
 
 
 class OneWireInputOutput(InputOutput):

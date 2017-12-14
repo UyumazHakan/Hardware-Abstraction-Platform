@@ -1,13 +1,14 @@
-from ..secure_communication_protocol import SecureCommunicationProtocol
+from security_communication.secure_communication_protocol import SecureCommunicationProtocol
+
+
 
 class SecurityProtocol(SecureCommunicationProtocol):
 
 	communication_protocol = None
 
-	def __init__(self, config, send_callback = None, receive_callback = None):
-		super(SecurtiyProtocol, self).__init__(config, send_callback, receive_callback)
-		communication_type = CommunicationEnum[communication_protocol_config["communication_type"]]
-		self.communication_protocol = securtiy_constructors[security_type](self.config, self.callback)
+	def __init__(self, config, communication_protocol, send_callback = None, receive_callback = None):
+		super(SecurityProtocol, self).__init__(config, send_callback, receive_callback)
+		self.communication_protocol = communication_protocol
 
 	def send(self, data, callback = None):
 		pass

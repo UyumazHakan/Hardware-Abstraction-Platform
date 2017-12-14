@@ -4,8 +4,8 @@ from ..secure_communication_enum import *
 
 class PlainTextSecurityProtocol(SecurityProtocol):
 
-	def __init__(self, config, send_callback = None, receive_callback = None):
-		super(PlainTextSecurityProtocol, self).__init__(config, send_callback, receive_callback)
+	def __init__(self, config, communication_protocol, send_callback = None, receive_callback = None):
+		super(PlainTextSecurityProtocol, self).__init__(config, communication_protocol, send_callback, receive_callback)
 
 
 	def send(self, data, callback = None):

@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from input_output import InputOutput
+from input_output.input_output import InputOutput
 
 class GPIOInputOutput(InputOutput):
 	pin = None
