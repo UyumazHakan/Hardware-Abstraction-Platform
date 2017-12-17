@@ -1,6 +1,7 @@
 from .device import Device
 from input_output import *
 from threading import Timer
+import copy
 
 class KY_01(Device):
 
@@ -30,7 +31,7 @@ class KY_01(Device):
 		if equals_pos != -1:
 			temp_string = lines[1][equals_pos+2:]
 			temp_c = float(temp_string) / 1000.0
-			values = self.values
+			values = copy.deepcopy(self.values)
 			values[0]["value"] = temp_c
 			return values
 

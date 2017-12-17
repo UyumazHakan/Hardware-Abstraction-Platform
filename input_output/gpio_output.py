@@ -27,9 +27,9 @@ class GPIOOutput(GPIOInputOutput):
    
 	def toggle_output(self, time = None):
 		GPIO.output(self.pin, not (GPIO.input(self.pin)))
-		self.state = not self.state
+		self.state = GPIO.input(self.pin)
 		if time:
 			sleep(time)
-			GPIO.output(self.pin, self.state)
-			self.state = not self.state
+		GPIO.output(self.pin, not self.state)
+		self.state = not self.state
 
