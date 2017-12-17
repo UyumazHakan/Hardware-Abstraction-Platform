@@ -2,7 +2,7 @@ from .communication_protocol import CommunicationProtocol
 from threading import Timer, Lock
 from kafka import KafkaProducer
 import json
-
+import copy
 
 class KafkaCommunicationProtocol(CommunicationProtocol):
 
@@ -27,7 +27,7 @@ class KafkaCommunicationProtocol(CommunicationProtocol):
 		self.time_interval = self.config["time_interval"]
 		self.packet["id"] = self.config["device_id"]
 		send_timer = Timer(self.time_interval, self.__send_buffer, [])
-		send_timer.start()
+		#send_timer.start()
 
 
 	def __send_buffer(self):
@@ -52,12 +52,18 @@ class KafkaCommunicationProtocol(CommunicationProtocol):
 
 
 	def send(self, data, callback = None):
-		self.send_lock.acquire()
+		#self.send_lock.acquire()
 		if not callback:
 			callback = self.send_callback
-		print(data)
-		self.send_buffer.append((data, callback))
-		self.send_lock.release()
+		topic = self.topic + data.get("sub_topic", "")
+		packet = copy.deepcopy(self.packet)
+		packet["devices"]["sensors"].append(data["msg"])
+		self.producer.send(topic, packet)
+		print(json.dumps(packet, indent=4, sort_keys=True))
+		if callback:
+			callback()
+		#self.send_buffer.append((data, callback))
+		#self.send_lock.release()
 
 	def receive(self, callback = None):
 		pass

@@ -25,7 +25,6 @@ class SystemManager:
 			logging.debug("New config : " + json.dumps(self.config))
 
 	def device_manager_callback(self, data):
-		print("system",data)
 		self.communication_manager.send_all(data)
 
 	def communication_manager_send_callback(self):
@@ -55,6 +54,8 @@ def main():
 		format="%(asctime)s - %(funcName)-25s:%(filename)-30s:%(thread)d - %(levelname)-5s - %(message)s")
 	logging.info("Started")
 	system_manager = SystemManager(config_file_directory)
+	while True:
+		pass
 
 def exit_handler():
 	with open(config_file_directory) as config_file:
