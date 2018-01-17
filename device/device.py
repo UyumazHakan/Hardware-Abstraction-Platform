@@ -6,10 +6,12 @@ class Device:
 	callback = None
 	config = None
 	read_value_imp = None
+	board = None
 
 	def __init__(self, config, callback):
 		self.callback = callback
 		self.config = config
+		self.board = self.config["board"]
 
 
 	def read_value(self, callback=None):

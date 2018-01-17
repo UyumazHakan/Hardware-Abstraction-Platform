@@ -1,6 +1,4 @@
 from device.device import Device
-from input_output import GPIOOutput, GPIOInput
-from threading import Timer
 import time
 import copy
 
@@ -23,11 +21,13 @@ class KY_50(Device):
 
 	def __init__(self, config, callback):
 		super(KY_50, self).__init__(config, callback)
-		self.trigger = GPIOOutput(config["input_output"]["0"])
-		self.input_outputs.append(self.trigger)
-		self.echo = GPIOInput(config["input_output"]["1"])
-		self.input_outputs.append(self.echo)
-		self.trigger.low_output()
+		if self.board is "raspberry_pi":
+			from input_output import GPIOOutput, GPIOInput
+			self.trigger = GPIOOutput(config["input_output"]["0"])
+			self.input_outputs.append(self.trigger)
+			self.echo = GPIOInput(config["input_output"]["1"])
+			self.input_outputs.append(self.echo)
+			self.trigger.low_output()
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):

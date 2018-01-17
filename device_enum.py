@@ -4,7 +4,8 @@ from device import *
 
 device_constructors ={
 	1 : KY_01,
-	50 : KY_50
+	50 : KY_50,
+	51 : WEATHER2_BOARD
 }
 
 class DeviceEnum(Enum):
@@ -58,3 +59,4 @@ class DeviceEnum(Enum):
 	KY48 = 48
 	KY49 = 49
 	KY50 = 50
+	WEATHER2BOARD = 51
