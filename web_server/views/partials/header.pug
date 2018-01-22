@@ -11,16 +11,17 @@
         | IoT Project
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li(class=(title === 'Home') ? 'active' : undefined)
-          a(href='/') Home
-        li(class=(title === 'Register Device') ? 'active' : undefined)
-          a(href='/register_device') Register Device
-        li(class=(title === 'All Devices') ? 'active' : undefined)
-          a(href='/all_devices') All Devices
-        li(class=(title === 'Contact') ? 'active' : undefined)
-          a(href='/contact') Contact
-        li
-          a(href='/status') Status
+        if user
+          li(class=(title === 'Home') ? 'active' : undefined)
+            a(href='/') Home
+          li(class=(title === 'Register Device') ? 'active' : undefined)
+            a(href='/register_device') Register Device
+          li(class=(title === 'All Devices') ? 'active' : undefined)
+            a(href='/all_devices') All Devices
+          li(class=(title === 'Contact') ? 'active' : undefined)
+            a(href='/contact') Contact
+          li
+            a(href='/status') Status
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=(title === 'Login') ? 'active' : undefined)

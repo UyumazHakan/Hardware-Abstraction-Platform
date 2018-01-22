@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
 const Device = require('../models/Device');
+const passportConfig = require('../config/passport');
 
 /**
  * GET /register_device
@@ -44,9 +45,9 @@ exports.postRegisterDevice = (req, res, next) => {
             return next(err);
         }
         if (existingDevice) {
-            console.log(existingDevice);
+            console.log("device exists:", existingDevice);
             req.flash('errors', { msg: 'Device with that ip address already exists.' });
-            return;
+            return res.redirect('/register_device');
         }
         device.save((err) => {
             if (err) { return next(err); }
@@ -62,15 +63,47 @@ exports.postRegisterDevice = (req, res, next) => {
  */
 exports.getAllDevices = (req, res) => {
     Device.find({}, (err, devices) => {
-        console.log("Devices: ", devices);
-        if (err) { return next(err); }
-        res.render('device/all_devices', {
-            title: 'All Devices',
-            devices: devices
-        });
+        //
+        // // for API
+        // if (req.body["token"] !== null) {
+        //     if (err) {
+        //         res.status(404).json({ success: false, message: err.message });
+        //         return res.send();
+        //     }
+        //     console.log(req.body.token);
+        // } else {
+            if (err) { return next(err); }
+            // for UI
+            res.render('device/all_devices', {
+                title: 'All Devices',
+                devices: devices
+            });
+        // }
+
     });
+
+
 };
 
+/**
+ * GET /device_info/:ip_address
+ * Fetch device information in json format.
+ */
+exports.getDeviceInfo = (req, res, next) => {
+    const ip_address = req.params.ip_address;
+
+    Device.findOne({ ip_address: ip_address}, function (err, doc){
+        if (err) {
+            res.sendStatus(404);
+        }
+        if (doc == null) {
+            res.sendStatus(404);
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify({ device: doc }));
+        }
+    });
+};
 
 
 

@@ -35,6 +35,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const deviceController = require('./controllers/device');
+const externalDeviceController = require('./controllers/externalDevice');
 
 /**
  * API keys and Passport configuration.
@@ -88,7 +89,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
+  if (req.path === '/api/upload' || req.path === '/external/auth') {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -139,6 +140,10 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 app.get('/register_device', passportConfig.isAuthenticated, deviceController.getRegisterDevice);
 app.post('/register_device', passportConfig.isAuthenticated, deviceController.postRegisterDevice);
 app.get('/all_devices', passportConfig.isAuthenticated, deviceController.getAllDevices);
+
+app.get('/external/all_devices', passportConfig.externalRequestIsAuthenticated, externalDeviceController.getAllDevices);
+app.get('/external/all_devices/:device_id', passportConfig.externalRequestIsAuthenticated, externalDeviceController.getDevice);
+app.post('/external/auth', externalDeviceController.postAuth);
 
 
 /**
