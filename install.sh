@@ -1,4 +1,10 @@
 #!/bin/bash
+if [[ ! $# -gt 0 ]]
+	then
+		echo "Usage: sudo bash install.sh [username]"
+		exit 0
+fi
+USERNAME=$1
 echo "STARTING..."
 CONFIG="config.json"
 DEV_CONFIG="config.dev_local.json"
@@ -7,7 +13,7 @@ STARTUP_SCRIPT_NAME="sensor_startup.sh"
 STARTUP_SCRIPT="$INITD/$STARTUP_SCRIPT_NAME"
 MAIN_SH_FILE="sensors.sh"
 INSTALL_SCRIPT_NAME="install.sh"
-DST_DIR="/home/$( logname )/sensors"
+DST_DIR="/home/$USERNAME/sensors"
 TMP_DIR="/tmp/sensors"
 LOG_DIR="/var/log/iot"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -45,25 +51,18 @@ fi
 
 echo "CREATING CONFIG FILE..."
 
-if [ ! -f $CONFIG ]
+if [ ! -f $DIR/$CONFIG ]
 	then
-		sudo cp $DEV_CONFIG $CONFIG
+		sudo cp $DIR/$DEV_CONFIG $DIR/$CONFIG
 fi
 
 echo "ADDING STARTUP FUNCTIONALITY..."
 
-
+sudo echo "#!/bin/bash" > /etc/rc.local
 sudo echo "sudo bash $DST_DIR/$MAIN_SH_FILE &" >> /etc/rc.local
-
-#sudo echo "#!/bin/bash" >> $STARTUP_SCRIPT
-#sudo echo "DST_DIR=\"/home/$( logname )/sensors\"">> $STARTUP_SCRIPT
-#sudo echo "SH_FILE=\"sensors.sh\"" >> $STARTUP_SCRIPT
-#sudo echo "sudo bash $DST_DIR/$SH_FILEh" >> $STARTUP_SCRIPT
+sudo echo "exit 0" >> /etc/rc.local
 
 
-#sudo chmod +x $STARTUP_SCRIPT
-
-#sudo update-rc.d $STARTUP_SCRIPT_NAME defaults 100
 
 echo "COPYING FILES TO DESTINATION..."
 
