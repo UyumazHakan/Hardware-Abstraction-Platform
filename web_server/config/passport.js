@@ -2,8 +2,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GitHubStrategy = require('passport-github').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -167,13 +168,53 @@ passport.use(new GoogleStrategy({
 }));
 
 /**
- * Login Required middleware.
+ * Login Required middleware for UI
  */
 exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
   res.redirect('/login');
+};
+
+/**
+ * Checks if provided JWT token is valid
+ */
+exports.externalRequestIsAuthenticated = (req, res, next) => {
+    // check header or url parameters or post parameters for token
+    let authorization_pair = req.headers['authorization'];
+    // decode authorization_pair
+    if (authorization_pair) {
+        // extract JWT from string
+        let token = authorization_pair.split(' ')[1];
+        if (token) {
+            console.log(token);
+            // verifies secret and checks exp
+            jwt.verify(token, 'super_secret_key_for_web_server', function (err, decoded) {
+                if (err) {
+                    return res.json({success: false, message: 'Failed to authenticate token.'});
+                } else {
+                    // if everything is good, save to request for use in other routes
+                    req.decoded = decoded;
+                    next();
+                }
+            });
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: "Token is not provided in the valid format. " +
+                "Please provide it as JWT + token in Authorization field of request headers"
+            })
+        }
+
+    } else {
+        return res.status(400).json({
+            success: false,
+            message: "Token is not provided. " +
+            "Please first retrieve your token from /external/auth by providing valid email and password values in a POST request. " +
+            "Then put the retrieved token into req.headers.Authorization as JWT token"
+        })
+    }
 };
 
 /**

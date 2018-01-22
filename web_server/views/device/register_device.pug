@@ -1,19 +1,43 @@
 extends ../layout
 
 block content
+    script.
+        function addSensor() {
+            var element = document.createElement("div");
+            element.classList.add("form-group");
+            var label = document.createElement("label");
+            label.classList.add("col-sm-2");
+            label.classList.add("control-label");
+            element.appendChild(document.createTextNode('The man who mistook his wife for a hat'));
+            var btn = document.getElementById("add_button_id");
+            document.getElementById('sensorTab').insertBefore(element, btn);
+        }
+
     .page-header
         h3 Device Registration
 
     form.form-horizontal(action='/register_device', method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
         .form-group
+            label.col-sm-3.control-label Device Name
+            .col-sm-7
+                input.form-control(type='text', name='name', id='name')
+        .form-group
             label.col-sm-3.control-label IP Address of Device
             .col-sm-7
                 input.form-control(type='text', name='ip_address', id='ip_address')
         .form-group
-            label.col-sm-3.control-label Device Name
+            label.col-sm-3.control-label Board Type
             .col-sm-7
-                input.form-control(type='text', name='name', id='name')
+                select#propertyType.select.form-control.input-sm(name='propertyType')
+                    option(value='0', selected= true, disabled=true) -- Select --
+                    option(value='raspberry_pi') Raspberry PI
+                    option(value='odroid') Odroid
+        .form-group
+            label.col-sm-3.control-label Sensors
+            .col-sm-7#sensorTab
+                button.btn.btn.btn-primary#add_button_id(onclick='addSensor()') Add Sensor
+
         //.form-group
         //    label.col-sm-3.control-label Input/Output
         //    .col-sm-6
@@ -26,8 +50,8 @@ block content
         //        label.radio.col-sm-3
         //            input(type='radio', name='type', value='spi', data-toggle='radio')
         //            span SPI
-        .form-group
-            .col-sm-offset-3.col-sm-4
-                button.btn.btn.btn-primary(type='submit')
-                    i.fa.fa-pencil
-                    | Register Device
+        //.form-group
+        //    .col-sm-offset-3.col-sm-4.pull-right
+        //        button.btn.btn.btn-primary(type='submit')
+        //            i.fa.fa-pencil
+        //            | Register Device
