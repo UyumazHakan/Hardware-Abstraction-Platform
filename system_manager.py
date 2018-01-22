@@ -24,11 +24,11 @@ class SystemManager:
 			self.config = json.loads(config_file.read())
 			logging.debug("New config : " + json.dumps(self.config))
 
-	def device_manager_callback(self):
-		pass
+	def device_manager_callback(self, data):
+		self.communication_manager.send_all(data)
 
 	def communication_manager_send_callback(self):
-		pass
+		print("Successfully sent a packet")
 
 	def communication_manager_receive_callback(self, data):
 		pass
@@ -40,7 +40,9 @@ class SystemManager:
 			import RPi.GPIO as GPIO
 			GPIO.setmode(GPIO.BOARD)
 		self.device_manager = DeviceManager(self.config["devices"], self.device_manager_callback)
-		self.communication_manager = CommunicationManager(self.config["communication_protocols"], self.communication_manager_callback)
+		self.communication_manager = CommunicationManager(self.config["communication_protocols"], self.communication_manager_send_callback, self.communication_manager_receive_callback)
+		time.sleep(5)
+		self.device_manager.read_all()
 
 
 
@@ -52,11 +54,17 @@ def main():
 		format="%(asctime)s - %(funcName)-25s:%(filename)-30s:%(thread)d - %(levelname)-5s - %(message)s")
 	logging.info("Started")
 	system_manager = SystemManager(config_file_directory)
+	while True:
+		pass
 
 def exit_handler():
+	with open(config_file_directory) as config_file:
+		config = json.loads(config_file.read())
 	logging.info("Stopped")
 	logging.shutdown()
-	GPIO.cleanup()
+	if config["board"] == "raspberry_pi":
+		import RPi.GPIO as GPIO
+		GPIO.cleanup()
 
 atexit.register(exit_handler)
 

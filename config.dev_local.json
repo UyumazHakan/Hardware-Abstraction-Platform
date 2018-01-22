@@ -1,5 +1,39 @@
 {
+	"id": "123e4567-e89b-12d3-a456-426655440000",
 	"log_directory": "/var/log/iot/",
-	"communication_protocols": [],
-	"devices": []
+	"communication_protocols": [
+		{
+			"id":"0",
+			"device_id": "123e4567-e89b-12d3-a456-426655440000",
+			"security_type": "PlainText",
+			"communication_type": "Kafka",
+			"ip": "141.40.254.120",
+			"port": "9092",
+			"topic": "sensor-input",
+			"time_interval": 5,
+			"api_version": 10
+
+		}
+	],
+	"devices": [
+		{
+			"id": "0",
+			"type": "KY50",
+			"input_output": {
+				"0": {
+					"type": "GPIOOutput",
+					"name": "Trigger",
+					"initial": 0,
+					"pin" : 11
+				},
+				"1": {
+					"type": "GPIOInput",
+					"name": "Echo",
+					"pin": 12
+				}
+			},
+			"interval": 5
+		}
+	],
+	"board": "raspberry_pi"
 }

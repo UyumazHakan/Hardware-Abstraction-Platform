@@ -1,4 +1,4 @@
-from gpio_input_output import *
+from .gpio_input_output import *
 from time import sleep
 
 class GPIOOutput(GPIOInputOutput):
@@ -7,13 +7,13 @@ class GPIOOutput(GPIOInputOutput):
 		super(GPIOOutput, self).__init__(config)
 		
 		if self.config["initial"] and self.config["initial"] == 0:
-			GPIO.setup(self.pin, GPIO.IN, GPIO.LOW)
+			GPIO.setup(self.pin, GPIO.OUT, GPIO.LOW)
 			self.state = GPIO.LOW
 		elif self.config["initial"] and self.config["initial"] == 1:
-			GPIO.setup(self.pin, GPIO.IN, GPIO.HIGH)
+			GPIO.setup(self.pin, GPIO.OUT, GPIO.HIGH)
 			self.state = GPIO.HIGH
 		else:
-			GPIO.setup(self.pin, GPIO.IN)
+			GPIO.setup(self.pin, GPIO.OUT)
 
 
 	def low_output(self):
@@ -26,13 +26,10 @@ class GPIOOutput(GPIOInputOutput):
 
    
 	def toggle_output(self, time = None):
-		if not self.state:
-			raise Exception("This output pin has no current state.")
-		elif self.state == GPIO.LOW:
-		 	GPIO.output(self.pin, GPIO.HIGH)
-		elif self.state == GPIO.HIGH:
-			GPIO.output(self.pin, GPIO.LOW)
+		GPIO.output(self.pin, not (GPIO.input(self.pin)))
+		self.state = GPIO.input(self.pin)
 		if time:
 			sleep(time)
-			GPIO.output(self.pin, state)
+		GPIO.output(self.pin, not self.state)
+		self.state = not self.state
 

@@ -1,57 +1,10 @@
 from enum import Enum
+from device import *
 
 
 device_constructors ={
-'''	1 : KY01
-	2 : KY02
-	3 : KY03
-	4 : KY04
-	5 : KY05
-	6 : KY06
-	7 : KY07
-	8 : KY08
-	9 : KY09
-	10 : KY10
-	11 : KY11
-	12 : KY12
-	13 : KY13
-	14 : KY14
-	15 : KY15
-	16 : KY16
-	17 : KY17
-	18 : KY18
-	19 : KY19
-	20 : KY20
-	21 : KY21
-	22 : KY22
-	23 : KY23
-	24 : KY24
-	25 : KY25
-	26 : KY26
-	27 : KY27
-	28 : KY28
-	29 : KY29
-	30 : KY30
-	31 : KY31
-	32 : KY32
-	33 : KY33
-	34 : KY34
-	35 : KY35
-	36 : KY36
-	37 : KY37
-	38 : KY38
-	39 : KY39
-	40 : KY40
-	41 : KY41
-	42 : KY42
-	43 : KY43
-	44 : KY44
-	45 : KY45
-	46 : KY46
-	47 : KY47
-	48 : KY48
-	49 : KY49
-	50 : KY50'''
+	1 : KY_01,
+	50 : KY_50
 }
 
 class DeviceEnum(Enum):

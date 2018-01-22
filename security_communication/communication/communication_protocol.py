@@ -1,4 +1,4 @@
-from .secure_communication_protocol import SecureCommunicationProtocol
+from ..secure_communication_protocol import SecureCommunicationProtocol
 
 class CommunicationProtocol(SecureCommunicationProtocol):
 
