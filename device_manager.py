@@ -26,8 +26,9 @@ class DeviceManager:
 
 	def read_all(self):
 		for device in self.devices.values():
-			device_thread = Thread(target=device.read_value_loop,  kwargs={'callback': self.callback})
-			device_thread.daemon = True
-			device_thread.start()
+			if not device.is_switch:
+				device_thread = Thread(target=device.read_value_loop,  kwargs={'callback': self.callback})
+				device_thread.daemon = True
+				device_thread.start()
 
 

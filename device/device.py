@@ -7,6 +7,7 @@ class Device:
 	config = None
 	read_value_imp = None
 	board = None
+	is_switch = False
 
 	def __init__(self, config, callback):
 		self.callback = callback

@@ -4,28 +4,19 @@ from threading import Timer, Thread
 
 class GPIOInput(GPIOInputOutput):
 	state = None
-	on_change_flag = False
-	def __init__(self, config):
+	def __init__(self, config, pull_up_down=None):
 		super(GPIOInput, self).__init__(config)
-		GPIO.setup(self.pin, GPIO.IN)
+		if pull_up_down:
+			GPIO.setup(self.pin, GPIO.IN, pull_up_down = GPIO.PUD_UP if pull_up_down == "up" else GPIO.PUD_DOWN)
+		else:
+			GPIO.setup(self.pin, GPIO.IN)
 		self.state = GPIO.input(self.pin)
 
-	def on_change(self, callback):
-		def __on_change(callback):
-			self.on_change_flag = True
-			self.state = GPIO.input(self.pin)
-			while self.on_change_flag:
-				if self.state is not GPIO.input(self.pin):
-					self.state = GPIO.input(self.pin)
-					callback_thread = Thread(target=callback, args=(self.state))
-					callback_thread.daemon = True
-					callback_thread.start()
-		on_change_thread = Thread(target=self.__on_change, args=(callback))
-		on_change_thread.daemon = True
-		on_change_thread.start()
+	def on_change(self, callback, bouncetime=100):
+		GPIO.add_event_detect(self.pin, GPIO.BOTH, callback=callback, bouncetime=bouncetime)
 
 	def stop_on_change(self):
-		self.on_change_flag = False
+		GPIO.remove_event_detect(self.pin)
 
 	def get_state(self):
 		self.state = GPIO.input(self.pin)
