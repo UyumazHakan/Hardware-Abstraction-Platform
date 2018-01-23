@@ -5,6 +5,7 @@ from device import *
 device_constructors ={
 	1 : KY_01,
 	2 : KY_02,
+	3 : KY_03,
 	10 : KY_10,
 	50 : KY_50,
 	51 : WEATHER2_BOARD
