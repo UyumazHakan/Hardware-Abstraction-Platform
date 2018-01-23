@@ -7,8 +7,7 @@
 			"device_id": "123e4567-e89b-12d3-a456-426655440000",
 			"security_type": "PlainText",
 			"communication_type": "Kafka",
-			"ip": "141.40.254.120",
-			"port": "9092",
+			"bootstrap_servers":["141.40.254.141:19092","141.40.254.141:29092","141.40.254.141:39092"],
 			"topic": "sensor-input",
 			"time_interval": 5,
 			"api_version": 10
@@ -18,18 +17,14 @@
 	"devices": [
 		{
 			"id": "0",
-			"type": "KY50",
+			"type": "KY01",
 			"input_output": {
 				"0": {
-					"type": "GPIOOutput",
-					"name": "Trigger",
-					"initial": 0,
-					"pin" : 11
-				},
-				"1": {
-					"type": "GPIOInput",
-					"name": "Echo",
-					"pin": 12
+					"type": "OneWireInputOutput",
+					"name": "Signal",
+					"pin" : 7,
+					"base_dir": "/sys/bus/w1/devices/",
+					"slave_name": "w1_slave"
 				}
 			},
 			"interval": 5
