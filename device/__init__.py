@@ -3,5 +3,8 @@ from .KY_02 import KY_02
 from .KY_03 import KY_03
 from .KY_10 import KY_10
 from .KY_17 import KY_17
+from .KY_31 import KY_31
+from .KY_32 import KY_32
+from .KY_33 import KY_33
 from .KY_50 import KY_50
 from .WEATHER2_BOARD import WEATHER2_BOARD
