@@ -19,7 +19,7 @@ class KY_24(Device):
 
 	def __init__(self, config, callback):
 		super(KY_24, self).__init__(config, callback)
-		if self.board is "raspberry_pi":
+		if self.board == "raspberry_pi":
 			from input_output import GPIOADCInput, GPIOInput
 			self.digital = GPIOInput(config["input_output"]["0"])
 			self.input_outputs.append(self.digital)
@@ -28,6 +28,7 @@ class KY_24(Device):
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
+		values = copy.deepcopy(self.values)
 		values[0]["value"] = self.analog.get_state()
 		values[1]["value"] = self.digital.get_state()
 		return values

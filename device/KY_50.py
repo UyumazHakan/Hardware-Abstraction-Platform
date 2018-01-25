@@ -21,7 +21,7 @@ class KY_50(Device):
 
 	def __init__(self, config, callback):
 		super(KY_50, self).__init__(config, callback)
-		if self.board is "raspberry_pi":
+		if self.board == "raspberry_pi":
 			from input_output import GPIOOutput, GPIOInput
 			self.trigger = GPIOOutput(config["input_output"]["0"])
 			self.input_outputs.append(self.trigger)

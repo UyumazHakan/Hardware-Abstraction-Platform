@@ -1,7 +1,7 @@
 from .device import Device
 import copy
 
-class KY_033(Device):
+class KY_33(Device):
 
 	values = [
 		{
@@ -13,7 +13,7 @@ class KY_033(Device):
 	signal = None
 
 	def __init__(self, config, callback):
-		super(KY_033, self).__init__(config, callback)
+		super(KY_33, self).__init__(config, callback)
 		self.is_switch = True
 		if self.board == "raspberry_pi":
 			from input_output import GPIOInput
