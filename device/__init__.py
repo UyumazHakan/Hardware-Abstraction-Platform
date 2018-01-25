@@ -3,6 +3,8 @@ from .KY_02 import KY_02
 from .KY_03 import KY_03
 from .KY_10 import KY_10
 from .KY_17 import KY_17
+from .KY_24 import KY_24
+from .KY_25 import KY_25
 from .KY_26 import KY_26
 from .KY_31 import KY_31
 from .KY_32 import KY_32

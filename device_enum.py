@@ -8,6 +8,8 @@ device_constructors ={
 	3 : KY_03,
 	10 : KY_10,
 	17 : KY_17,
+	24 : KY_24,
+	25 : KY_25,
 	26 : KY_26,
 	31 : KY_31,
 	32 : KY_32,
