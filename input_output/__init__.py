@@ -8,6 +8,7 @@ if config["board"] == "raspberry_pi":
 	from .gpio_input import GPIOInput
 	from .gpio_output import GPIOOutput
 	from .one_wire_input_output import OneWireInputOutput
+	from .gpio_adc_input import GPIOADCInput
 elif config["board"] == "odroid":
 	from .BME280 import BME280
 	from .SI1132 import SI1132
