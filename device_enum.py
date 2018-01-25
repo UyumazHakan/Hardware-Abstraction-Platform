@@ -12,6 +12,8 @@ device_constructors ={
 	31 : KY_31,
 	32 : KY_32,
 	33 : KY_33,
+	36 : KY_36,
+	37 : KY_37,
 	50 : KY_50,
 	51 : WEATHER2_BOARD
 }
