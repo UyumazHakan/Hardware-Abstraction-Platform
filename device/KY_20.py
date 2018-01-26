@@ -1,4 +1,4 @@
-from device import Device
+from .device import Device
 import copy
 
 class KY_20(Device):

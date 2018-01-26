@@ -8,7 +8,7 @@ class KY_28(Device):
 		{
 		"name": "temperature",
 		"value": None,
-		"unit":"celcius"
+		"unit":"mV"
 		},
 		{
 		"name": "extreme_value",
