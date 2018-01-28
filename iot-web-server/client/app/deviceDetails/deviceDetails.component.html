@@ -1,0 +1,203 @@
+﻿﻿<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <i class="fa fa-cube" aria-hidden="true"></i><a class="navbar-brand">IoT Project Web Server</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" *ngIf="currentUser">
+                <li title="Home"><a [routerLink]="['/']">Home</a></li>
+                <li title="Register Device"><a [routerLink]="['/register_device']">Register Device</a></li>
+                <li title="All Devices"><a [routerLink]="['/all_devices']">All Devices</a></li>
+                <li title="Device Details" class="active"><a routerLink="/devices/details/{{currentDevice.id}}">Device Details</a></li>
+                <li title="Logout"><a [routerLink]="['/login']">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="col-md-12">
+    <h2>Device Details</h2>
+    <form name="form" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+            <label>Device Name</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="currentDevice.name" #name="ngModel" required disabled/>
+            <div *ngIf="f.submitted && !name.valid" class="help-block">Device name is required</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !description.valid }">
+            <label>Device Description</label>
+            <input type="text" class="form-control" name="description" [(ngModel)]="currentDevice.description" #description="ngModel" required disabled/>
+            <div *ngIf="f.submitted && !description.valid" class="help-block">Device description is required</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !board_type.valid }">
+            <label for="board_type">Board Type</label>
+            <select required disabled class="select form-control input-sm" id="board_type" name="board_type" #board_type="ngModel" [(ngModel)]="currentDevice.board_type">
+                <option value="raspberry_pi">Raspberry PI</option>
+                <option value="odroid">Odroid</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && currentDevice.communication_protocols.length === 0 }">
+                        <label>Communication Protocols</label>
+                    </div>
+                </div>
+
+                <div class="panel-body" *ngFor="let communication_protocol of currentDevice.communication_protocols; let i = index">
+                    <h4><b>Protocol # {{i + 1}}</b></h4>
+                    <div class="row form-group">
+                        <div class="col-md-2" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.security_type-i.valid }">
+                            <label>Security Type</label>
+                            <input type="text" class="form-control" name="security_type-{{i}}" [(ngModel)]="communication_protocol.security_type" #communication_protocol.security_type="ngModel" disabled/>
+                        </div>
+
+                        <div class="col-md-3" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.communication_type-i.valid }">
+                            <label>Communication Type</label>
+                            <input type="text" class="form-control" name="communication_type-{{i}}" [(ngModel)]="communication_protocol.communication_type" #communication_protocol.communication_type="ngModel" disabled/>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>Api Version</label>
+                            <input type="text" class="form-control" name="api-{{i}}" [(ngModel)]="currentDevice.api_version" disabled/>
+                        </div>
+
+                        <div class="col-md-3" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.topic-i.valid }">
+                            <label>Kafka Topic</label>
+                            <input type="text" class="form-control" name="topic-{{i}}" [(ngModel)]="communication_protocol.topic" #communication_protocol.topic="ngModel" required disabled/>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row form-group">
+                        <!--<div class="col-md-12 panel-heading" [ngClass]="{ 'has-error': f.submitted && communication_protocol.bootstrap_servers.length === 0 }">-->
+                        <div class="col-md-12 panel-heading">
+                            <label>Bootstrap Servers</label>
+                            <hr>
+                        </div>
+
+                        <div class="panel-body" *ngFor="let bootstrap_server of communication_protocol.bootstrap_servers; let j = index" >
+                            <div class="col-md-4">
+                                <label>Bootstrap Server IP Address</label>
+                                <input type="text" class="form-control" name="bootstrap_ip_address-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.ip_address"
+                                       minlength="7" maxlength="15" placeholder="127.0.0.1" required disabled/>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Bootstrap Server Port</label>
+                                <input type="number" class="form-control" name="bootstrap_server.port-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.port" [min]="0" [max]="65535" required disabled/>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="currentDevice.board_type === 'raspberry_pi' ">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && currentDevice.devices.length === 0 }">
+                        <a target="_blank" href="http://sensorkit.en.joy-it.net/index.php?title=Main_Page">Sensors Wiki</a>
+                        <!--<div class="btn btn-s btn-warning" (click)="addDevice()" type="button">-->
+                            <!--<i class="fa fa-plus push-5-r"></i> Add Sensor-->
+                        <!--</div>-->
+                        <!--<div class="btn btn-s btn-danger" (click)="removeAllDevices()"-->
+                             <!--*ngIf="currentDevice.devices.length > 1">-->
+                            <!--<i class="fa fa-remove"></i> Remove All Sensors-->
+                        <!--</div>-->
+                    </div>
+                </div>
+
+                <div class="panel-body" *ngFor="let device of currentDevice.devices; let i = index">
+                    <h4><b>Sensor # {{i + 1}}</b></h4>
+                    <div class="row form-group">
+                        <!--<div class="col-sm-1 pull-left" style="padding-right: 0; padding-top: 3%">-->
+                            <!--<div (click)="removeDevice(i, device)" class="btn btn-xs btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></div>-->
+                        <!--</div>-->
+                        <div class="col-md-6" [ngClass]="{ 'has-error': f.submitted && !device.type-i.valid }">
+                            <label>Device Type</label>
+                            <select class="select form-control input-sm"
+                                    name="device.type-{{i}}"
+                                    #device.type="ngModel"
+                                    [(ngModel)]="device.type"
+                                    required disabled>
+                                <option value="KY01">Temperature sensor module</option>
+                                <option value="KY02">Vibration-switch module</option>
+                                <option value="KY03">Hall Magneticfield-Sensor module</option>
+                                <option value="KY05">Infrared Transmitter module</option>
+                                <option value="KY06">Passiv Piezo-Buzzer module</option>
+                                <option value="KY10">Light barrier-module</option>
+                                <option value="KY12">Active Piezo-Buzzer module</option>
+                                <option value="KY13">Temperature-Sensor module</option>
+                                <option value="KY14">GPIO Output</option>
+                                <option value="KY15">Combi-Sensor Temperature+Humidity</option>
+                                <option value="KY17">Tilt switch module</option>
+                                <option value="KY18">Photoresistor module</option>
+                                <option value="KY20">Tilt switch module</option>
+                                <option value="KY21">Mini magnetic Reed module</option>
+                                <option value="KY22">Infrared receiver module</option>
+                                <option value="KY24">Linear magnetic Hall sensor</option>
+                                <option value="KY25">Reed module</option>
+                                <option value="KY26">Flame-sensor module</option>
+                                <option value="KY27">Magic light cup module</option>
+                                <option value="KY28">Temperature Sensor module (Thermistor)</option>
+                                <option value="KY31">Knock-sensor module</option>
+                                <option value="KY32">Obstacle-detect module</option>
+                                <option value="KY33">Tracking sensor module</option>
+                                <option value="KY36">Metal-touch sensor module</option>
+                                <option value="KY37">Microphone sensor module (high sensitivity)</option>
+                                <option value="KY38">Microphone sound sensor module</option>
+                                <option value="KY50">Ultrasonic-distance-sensor</option>
+                                <option value="KY52">Pressure-sensor / Temperature-sensor (BMP280)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3" [ngClass]="{ 'has-error': f.submitted && !device.interval-i.valid }">
+                            <label>Read Interval (in seconds)</label>
+                            <input type="number"
+                                   class="form-control"
+                                   name="device.interval-{{i}}"
+                                   [(ngModel)]="device.interval"
+                                   #device.interval="ngModel"
+                                   required disabled/>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12 panel-heading" [ngClass]="{ 'has-error': f.submitted && keys(device.input_output).length === 0 }">
+                            <label>Input/Output Types</label>
+                            <hr>
+                        </div>
+                        <div class="panel-body" *ngFor="let key of keys(device.input_output); let j = index">
+                            <div class="col-md-3">
+                                <label>Type</label>
+                                <select class="select form-control input-sm" id="iotype-{{i}}-{{j}}" name="iotype-{{i}}-{{j}}" #values(device.input_output)[j].type="ngModel" [(ngModel)]="values(device.input_output)[j].type" required>
+                                    <option value="OneWireInputOutput">One Wire Input/Output</option>
+                                    <option value="GPIOInputOutput">GPIO Input/Output</option>
+                                    <option value="GPIOInput">GPIO Input</option>
+                                    <option value="GPIOOutput">GPIO Output</option>
+                                    <option value="GPIOADCInput">GPIO ADC Input</option>
+                                </select>
+                                <div *ngIf="f.submitted && !iotype-i-j.valid" class="help-block">Type is required</div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Name</label>
+                                <input type="text" class="form-control" name="ioname-{{i}}-{{j}}" [(ngModel)]="values(device.input_output)[j].name" #values(device.input_output)[j].name="ngModel" required/>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Pin</label>
+                                <input type="number" class="form-control" name="iopin-{{i}}-{{j}}" [(ngModel)]="values(device.input_output)[j].pin" #values(device.input_output)[j].pin="ngModel" [max]="50" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

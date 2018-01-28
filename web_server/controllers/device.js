@@ -28,10 +28,10 @@ exports.postRegisterDevice = (req, res, next) => {
     // req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
 
     const errors = req.validationErrors();
-
+    console.log(errors);
     if (errors) {
-        req.flash('errors', errors);
-        return;
+        req.flash('errors', { msg: 'Values cannot be blank' });
+        return res.redirect('/register_device');
     }
 
     const device = new Device({

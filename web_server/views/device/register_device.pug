@@ -1,20 +1,26 @@
 extends ../layout
 
 block content
+    - var data = [];
     script.
+        function addSensor2() {
+            data.push({});
+        }
         function addSensor() {
             var element = document.createElement("div");
             element.classList.add("form-group");
             var label = document.createElement("label");
-            label.classList.add("col-sm-2");
+            label.classList.add("col-sm-3");
             label.classList.add("control-label");
+            label.innerText ="Interval";
+            element.appendChild(label);
             element.appendChild(document.createTextNode('The man who mistook his wife for a hat'));
             var btn = document.getElementById("add_button_id");
             document.getElementById('sensorTab').insertBefore(element, btn);
         }
 
     .page-header
-        h3 Device Registration
+        h3 #{title}
 
     form.form-horizontal(action='/register_device', method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
@@ -33,10 +39,22 @@ block content
                     option(value='0', selected= true, disabled=true) -- Select --
                     option(value='raspberry_pi') Raspberry PI
                     option(value='odroid') Odroid
+
+        each sensor, index in data
+            .form-group
+                label.col-sm-3.control-label Sensor Type
+                .col-sm-7
+                    select.select.form-control.input-sm(name='sensorType')
+                        option(value='0', selected= true, disabled=true) -- Select --
+                        option(value='KY01') KY-001 (Temperature)
+                        option(value='KY02') KY-002 (Vibration-switch)
+                        option(value='KY04') KY-004 (Button-module)
+                        option(value='KY50') KY-050 (Distance)
+
         .form-group
             label.col-sm-3.control-label Sensors
             .col-sm-7#sensorTab
-                button.btn.btn.btn-primary#add_button_id(onclick='addSensor()') Add Sensor
+                button.btn.btn.btn-primary#add_button_id(onclick='addSensor2()', type='button') Add Sensor
 
         //.form-group
         //    label.col-sm-3.control-label Input/Output
