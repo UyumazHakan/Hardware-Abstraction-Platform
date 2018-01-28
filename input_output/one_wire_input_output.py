@@ -12,7 +12,7 @@ class OneWireInputOutput(InputOutput):
 		self.input_gpio = GPIOInput({"pin": config["pin"]})
 		while True:
 			try:
-				device_folder = glob.glob(config["base_dir"]+"28*")
+				device_folder = glob.glob(config["base_dir"]+"28*")[0]
 				break
 			except IndexError:
 				time.sleep(0.5)

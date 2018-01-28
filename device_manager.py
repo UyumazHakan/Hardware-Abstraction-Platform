@@ -7,10 +7,12 @@ class DeviceManager:
 	devices = {}
 	devices_config = {}
 	callback = None
+	board = None
 
-	def __init__(self, devices_config, callback):
+	def __init__(self, devices_config, board, callback):
 		self.devices_config = devices_config
 		self.callback = callback
+		self.board = board
 		self.init_devices()
 
 	def init_devices(self):
@@ -19,12 +21,14 @@ class DeviceManager:
 
 	def init_device(self, device_config):
 		device_type = DeviceEnum[device_config["type"]].value
+		device_config["board"] = self.board
 		self.devices[device_config["id"]] = device_constructors[device_type](device_config, self.callback)
 
 	def read_all(self):
 		for device in self.devices.values():
-			device_thread = Thread(target=device.read_value_loop,  kwargs={'callback': self.callback})
-			device_thread.daemon = True
-			device_thread.start()
+			if not device.is_switch:
+				device_thread = Thread(target=device.read_value_loop,  kwargs={'callback': self.callback})
+				device_thread.daemon = True
+				device_thread.start()
 
 
