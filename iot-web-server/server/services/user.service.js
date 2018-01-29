@@ -31,7 +31,7 @@ function authenticate(username, password) {
                 username: user.username,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                token: jwt.sign({ sub: user.id }, config.secret)
+                token: jwt.sign({ user_id: user.id, username: user.username }, config.secret)
             });
         } else {
             // authentication failed

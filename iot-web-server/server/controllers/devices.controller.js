@@ -2,6 +2,8 @@
 var express = require('express');
 var router = express.Router();
 var Device = require("../schemas/deviceSchema");
+var jwt = require('jsonwebtoken');
+
 // routes
 router.get('/api', getApi);
 router.post('/create', createDevice);
@@ -27,16 +29,31 @@ function getAllDevicesForExternal(req, res) {
         if (err) {
             res.status(204).send([]);
         } else {
-            var deviceArr = [];
-            for (var i = 0; i < devices.length; i++) {
-                var deviceJSON = {};
-                deviceJSON.name = devices[i].name;
-                deviceJSON.description = devices[i].description;
-                deviceJSON.id = devices[i].id;
-                deviceArr.push(deviceJSON);
+            var token = req.headers.authorization.split(' ')[1] || req.headers['x-access-token'];
+            if (token) {
+                jwt.verify(token, config.secret, function (err, decoded) {
+                    if (err) {
+                        console.error('JWT Verification Error', err);
+                        return res.status(403).send(err);
+                    } else {
+                        req.decoded = decoded;
+                        var username = req.decoded.username;
+
+                        var deviceArr = [];
+                        for (var i = 0; i < devices.length; i++) {
+                            if (devices[i].created_by === username) {
+                                var deviceJSON = {};
+                                deviceJSON.name = devices[i].name;
+                                deviceJSON.description = devices[i].description;
+                                deviceJSON.id = devices[i].id;
+                                deviceArr.push(deviceJSON);
+                            }
+                        }
+                        console.log("deviceArr", deviceArr);
+                        res.status(200).send(deviceArr);
+                    }
+                });
             }
-            console.log("deviceArr", deviceArr);
-            res.status(200).send(deviceArr);
         }
     });
 }

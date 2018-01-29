@@ -32,7 +32,6 @@ export class EditDeviceComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.currentDevice.id = params['id'];
             this.getCurrentDevice(this.currentDevice.id);
-            console.log(this.currentDevice);
         });
 
     }
