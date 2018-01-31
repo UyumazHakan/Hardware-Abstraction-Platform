@@ -4,10 +4,12 @@ from threading import Timer, Thread
 
 class GPIOInput(GPIOInputOutput):
 	state = None
-	def __init__(self, config, pull_up_down=None):
+	def __init__(self, config):
 		super(GPIOInput, self).__init__(config)
-		if pull_up_down:
-			GPIO.setup(self.pin, GPIO.IN, pull_up_down = GPIO.PUD_UP if pull_up_down == "up" else GPIO.PUD_DOWN)
+		if self.config["pull_up_down"] != "None":
+			GPIO.setup(self.pin, GPIO.IN, \
+				pull_up_down = GPIO.PUD_UP if self.config["pull_up_down"] == "up" \
+				else GPIO.PUD_DOWN)
 		else:
 			GPIO.setup(self.pin, GPIO.IN)
 		self.state = GPIO.input(self.pin)
