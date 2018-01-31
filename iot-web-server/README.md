@@ -11,7 +11,26 @@
 - Erkin Kırdan
 - Mikayil Murad
 
-
 [Original project readme](http://jasonwatmore.com/post/2017/02/22/mean-with-angular-2-user-registration-and-login-example-tutorial)
 
-[User interface link](https://github.com/akveo/ngx-admin/tree/starter-kit)
+
+## Deployment
+Tested with 
+- `Ubuntu 16.04.3 LTS`,
+- `MongoDB v3.2.18`,
+- `npm v3.5.2`
+    
+#### How to Deploy MongoDB
+See [MongoDB installation instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
+
+#### How to Deploy Backend Module
+- `cd server`
+- `npm install`
+- `npm start` or `forever start -c "npm start" ./` to run in the background. See [forever package](https://www.npmjs.com/package/forever)
+
+#### How to Deploy Frontend Module
+- `cd client`
+- `npm install`
+- `npm start` or `forever start -c "npm start" ./`
+- navigate to `<ip_address_of_server>:3001`
+
