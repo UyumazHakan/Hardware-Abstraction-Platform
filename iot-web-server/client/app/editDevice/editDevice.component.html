@@ -206,22 +206,66 @@
                                 <label>Type</label>
                                 <select class="select form-control input-sm" id="iotype-{{i}}-{{j}}" name="iotype-{{i}}-{{j}}" #io_entry.type="ngModel" [(ngModel)]="io_entry.type" required>
                                     <option value="OneWireInputOutput">One Wire Input/Output</option>
-                                    <option value="GPIOInputOutput">GPIO Input/Output</option>
                                     <option value="GPIOInput">GPIO Input</option>
                                     <option value="GPIOOutput">GPIO Output</option>
                                     <option value="GPIOADCInput">GPIO ADC Input</option>
+                                    <option value="GPIOBMP280Input">GPIO BMP 280 Input</option>
+                                    <option value="GPIODHTInput">GPIO DHT Input</option>
                                 </select>
                                 <div *ngIf="f.submitted && !iotype-i-j.valid" class="help-block">Type is required</div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Name</label>
                                 <input type="text" class="form-control" name="ioname-{{i}}-{{j}}" [(ngModel)]="io_entry.name" #io_entry.name="ngModel" required/>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 <label>Pin</label>
-                                <input type="number" class="form-control" name="iopin-{{i}}-{{j}}" [(ngModel)]="io_entry.pin" #io_entry.pin="ngModel" [max]="50" required/>
+                                <input type="number" class="form-control" name="iopin-{{i}}-{{j}}" [(ngModel)]="io_entry.pin" #io_entry.pin="ngModel" [min]="0" [max]="50" required/>
                             </div>
-                            <div class="col-md-2 pull-left">
+
+                            <div class="col-md-2" *ngIf="io_entry.type==='OneWireInputOutput'">
+                                <label>Slave Name</label>
+                                <input type="text" class="form-control" name="ioslavename-{{i}}-{{j}}" [(ngModel)]="io_entry.slave_name" #io_entry.slave_name="ngModel" required/>
+                            </div>
+
+                            <div class="col-md-2" *ngIf="io_entry.type==='OneWireInputOutput'">
+                                <label>Base Directory</label>
+                                <input type="text" class="form-control" name="basedirectory-{{i}}-{{j}}" [(ngModel)]="io_entry.base_dir" #io_entry.base_dir="ngModel" required/>
+                            </div>
+
+                            <div class="col-md-2" *ngIf="io_entry.type==='GPIOInput'">
+                                <label>Pull Up/Down</label>
+                                <select class="select form-control input-sm" id="gpiopullupdown-{{i}}-{{j}}" name="gpiopullupdown-{{i}}-{{j}}" #io_entry.gpiopullupdown="ngModel" [(ngModel)]="io_entry.gpiopullupdown" required>
+                                    <option value="none">None</option>
+                                    <option value="up">Up</option>
+                                    <option value="down">Down</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2" *ngIf="io_entry.type==='GPIOADCInput'">
+                                <label>GPIO ADS Value</label>
+                                <select class="select form-control input-sm" id="gpioadsvalue-{{i}}-{{j}}" name="gpioadsvalue-{{i}}-{{j}}" #io_entry.gpioadsvalue="ngModel" [(ngModel)]="io_entry.gpioadsvalue" required>
+                                    <option value="0">ADS1015</option>
+                                    <option value="1">ADS1115</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2" *ngIf="io_entry.type==='GPIOADCInput'">
+                                <label>GPIO ADC Channel</label>
+                                <select class="select form-control input-sm" id="gpioadschannel-{{i}}-{{j}}" name="gpioadschannel-{{i}}-{{j}}" #io_entry.gpioadschannel="ngModel" [(ngModel)]="io_entry.gpioadcchannel" required>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2" *ngIf="io_entry.type==='GPIOBMP280Input'">
+                                <label>Address</label>
+                                <input type="text" class="form-control" name="bmp_address-{{i}}-{{j}}" [(ngModel)]="io_entry.bmp_address" #io_entry.bmp_address="ngModel" required/>
+                            </div>
+                            <div class="col-md-2" *ngIf="io_entry.type==='GPIODHTInput'">
+                                <label>BCM Pin</label>
+                                <input type="text" class="form-control" name="bcm_pin-{{i}}-{{j}}" [(ngModel)]="io_entry.bcm_pin" #io_entry.bcm_pin="ngModel" required/>
+                            </div>
+                            <div class="col-md-1 pull-left">
                                 <div (click)="removeIO(i, j)" class="btn btn-xs btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></div>
                             </div>
 

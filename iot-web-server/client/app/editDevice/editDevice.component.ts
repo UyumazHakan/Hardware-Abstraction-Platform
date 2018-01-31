@@ -75,12 +75,70 @@ export class EditDeviceComponent implements OnInit {
         }
     }
 
+    public addIO(device_index: any) {
+        let index_key = 0;
+        if (this.currentDevice.devices[device_index].hasOwnProperty("input_output")) {
+            index_key = this.currentDevice.devices[device_index].input_output.length;
+        }
+        this.currentDevice.devices[device_index].input_output.push({
+            "type": "",
+            "name": "",
+            "pin": 0,
+            "gpiopullupdown": "None",
+            "gpioadsvalue": 0,
+            "gpioadcchannel": 0,
+            "bmp_address": 0,
+            "base_dir": "/sys/bus/w1/devices/",
+            "bcm_pin": 0,
+            "slave_name": "w1_slave",
+            "index_key": index_key
+        });
+    }
+
     public editDevice() {
         if (this.validateForm()) {
             console.log(this.currentDevice);
-            // additional check for odroid: remove devices array if it's selected
+            // additional check for odroid: create default array & io if it's selected
             if (this.currentDevice.board_type === 'odroid') {
                 this.currentDevice.devices = [];
+                this.currentDevice.devices.push({
+                    "id": this.newGuid(),
+                    "type": "",
+                    "interval": 5,
+                    "input_output": []
+                });
+                this.currentDevice.devices[0].input_output.push({
+                    "type": "WEATHER2BOARD",
+                    "name": "I2C",
+                    "pin": 5
+                });
+            } else if(this.currentDevice.board_type === 'raspberry_pi') {
+                for (let i = 0; i < this.currentDevice.devices.length; i++) {
+                    for (let j = 0; j < this.currentDevice.devices[i].input_output.length; j++) {
+                        let io_entity = this.currentDevice.devices[i].input_output[j];
+                        console.log("io_entity", io_entity);
+                        console.log("type", typeof io_entity);
+                        
+                        // filter out unnecessary fields
+                        if (io_entity.type !== 'OneWireInputOutput') {
+                            delete io_entity.slave_name;
+                            delete io_entity.base_dir;
+                        }
+                        if (io_entity.type !== 'GPIOInput') {
+                            delete io_entity.gpiopullupdown;
+                        }
+                        if (io_entity.type !== 'GPIOADCInput') {
+                            delete io_entity.gpioadsvalue;
+                            delete io_entity.gpioadcchannel;
+                        }
+                        if (io_entity.type !== 'GPIOBMP280Input') {
+                            delete io_entity.bmp_address;
+                        }
+                        if (io_entity.type !== 'GPIODHTInput') {
+                            delete io_entity.bcm_pin;
+                        }
+                    }
+                }
             }
             this.deviceService.update(this.currentDevice).subscribe( data => {
                 console.log(data);
@@ -193,21 +251,6 @@ export class EditDeviceComponent implements OnInit {
         this.currentDevice.communication_protocols[communication_protocol_index]["bootstrap_servers"].splice(0);
     }
 
-    public addIO(device_index: any) {
-        let index_key = 0;
-        if (this.currentDevice.devices[device_index].hasOwnProperty("input_output")) {
-            index_key = this.currentDevice.devices[device_index].input_output.length;
-        }
-        this.currentDevice.devices[device_index].input_output.push({
-            "type": "",
-            "name": "",
-            "pin": 0,
-            "base_dir": "/sys/bus/w1/devices/",
-            "slave_name": "w1_slave",
-            "index_key": index_key
-        });
-    }
-
     public removeIO(device_index: any, io_entry_index: any) {
         this.currentDevice.devices[device_index]["input_output"].splice(io_entry_index, 1);
     }
@@ -225,7 +268,6 @@ export class EditDeviceComponent implements OnInit {
             "id": this.newGuid(),
             "type": "",
             "interval": 5,
-            // "input_output": new Map<string, any>()
             "input_output": []
         });
     }

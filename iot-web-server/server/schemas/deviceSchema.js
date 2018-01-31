@@ -14,7 +14,12 @@ var io_entry = new Schema({
     pin : Number,
     base_dir: String,
     slave_name: String,
-    index_key: Number
+    index_key: Number,
+    bmp_address: String,
+    gpioadcchannel: Number,
+    gpioadsvalue: Number,
+    gpiopullupdown: String,
+    bcm_pin: Number
 });
 
 
