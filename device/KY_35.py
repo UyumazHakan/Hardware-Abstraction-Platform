@@ -12,14 +12,16 @@ class KY_35(Device):
 	]
 
 	def __init__(self, config, callback):
+		self.decide_io_imp = self.__decide_io
 		super(KY_35, self).__init__(config, callback)
-		if self.board == "raspberry_pi":
-			from input_output import GPIOADCInput
-			self.analog = GPIOADCInput(config["input_output"]["0"], 0x01, 0)
-			self.input_outputs.append(self.analog)
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
 		values = copy.deepcopy(self.values)
-		values[0]["value"] = self.analog.get_state()
+		values[0]["value"] = self.input_outputs["Analog"].get_state()
 		return values
+
+	def __decide_io(self, io_name):
+		if io_name == "Analog" and self.board == "raspberry_pi":
+			from input_output import GPIOADCInput
+			return GPIOADCInput

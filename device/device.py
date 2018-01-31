@@ -2,12 +2,13 @@ from threading import Timer
 import time
 
 class Device:
-	input_outputs = []
+	input_outputs = {}
 	callback = None
 	config = None
 	read_value_imp = None
 	board = None
 	is_switch = False
+	decide_io_imp = None
 
 	def __init__(self, config, callback):
 		self.callback = callback
@@ -26,3 +27,9 @@ class Device:
 		self.read_value(callback)
 		t = Timer(interval, self.read_value_loop, [interval, callback])
 		t.start()
+
+	def init_input_outputs(self, input_outputs):
+		for io in input_outputs:
+			name = io["name"]
+			io_constructor = decide_io_imp(name)
+			self.input_outputs[name] = io_constructor(io)

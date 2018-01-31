@@ -49,8 +49,8 @@ class WEATHER2_BOARD(Device):
 
 	def __init__(self, config, callback):
 		super(WEATHER2_BOARD, self).__init__(config, callback)
-		self.si1132 = SI1132.SI1132(str(config["input_output"]["0"]["pin"]))
-		self.bme280 = BME280.BME280(str(config["input_output"]["1"]["pin"]), 0x03, 0x02, 0x02, 0x02)
+		self.si1132 = SI1132.SI1132(str(config["input_output"][0]["pin"]))
+		self.bme280 = BME280.BME280(str(config["input_output"][0]["pin"]), 0x03, 0x02, 0x02, 0x02)
 		self.input_outputs.extend([self.si1132, self.bme280])
 		self.read_value_imp = self.__read_value
 

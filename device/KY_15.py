@@ -17,20 +17,19 @@ class KY_15(Device):
 	]
 
 	def __init__(self, config, callback):
+		self.decide_io_imp = self.__decide_io
 		super(KY_15, self).__init__(config, callback)
-		if self.board == "raspberry_pi":
-			from input_output import GPIODHTInput
-			self.dht = GPIODHTInput(config["input_output"]["0"])
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
-		humidity, temperature = self.dht.get_state()
+		humidity, temperature = self.input_outputs["DHT"].get_state()
 		values = copy.deepcopy(self.values)
 		values[0]["value"] = temperature
 		values[1]["value"] = humidity
 		return values
 		 
  
-
-
-
+	def __decide_io(self, io_name):
+		if io_name == "DHT" and self.board == "raspberry_pi":
+			from input_output import GPIODHTInput
+			return GPIODHTInput
