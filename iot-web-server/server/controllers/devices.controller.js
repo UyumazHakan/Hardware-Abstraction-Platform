@@ -3,10 +3,12 @@ var express = require('express');
 var router = express.Router();
 var Device = require("../schemas/deviceSchema");
 var jwt = require('jsonwebtoken');
-
+var fs = require('fs');
+var rimraf = require('rimraf'); // to remove devices' log directories
 // routes
 router.get('/api', getApi);
 router.post('/create', createDevice);
+router.post('/upload', uploadFileToDeviceFolder);
 router.get('/external', getAllDevicesForExternal);
 router.get('/', getAllDevices);
 router.get('/:id', getDevice);
@@ -21,6 +23,24 @@ function getAllDevices(req, res) {
             console.log("devices", devices);
             res.status(200).send(devices);
         }
+    });
+}
+
+function uploadFileToDeviceFolder(req, res) {
+    if (!req.files)
+        return res.status(400).send('No files were uploaded.');
+
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    var sampleFile = req.files.sampleFile;
+    var currentTimeMillis = Date.now();
+    var id = req.body.id;
+    var destination = './uploads/' + id + '/' + currentTimeMillis.toString();
+
+    // Use the mv() method to place the file somewhere on your server
+    sampleFile.mv(destination, function(err) {
+        if (err)
+            return res.status(500).send(err);
+        res.send('File uploaded!');
     });
 }
 
@@ -84,6 +104,10 @@ function createDevice(req, res) {
         if (err) {
             res.status(400).json({message: "Device already exists"});
         } else {
+            var dir = './uploads/'+ newDevice.id;
+            if (!fs.existsSync(dir)){
+                fs.mkdirSync(dir);
+            }
             res.json({device: newDevice});
         }
     });
@@ -122,7 +146,10 @@ function deleteDevice(req, res) {
         if (err) {
             res.status(400).send(err);
         } else {
-            res.json('success');
+            var dirToDelete = './uploads/' + req.params.id;
+            rimraf(dirToDelete, function () {
+                res.json('success');
+            });
         }
     });
 }

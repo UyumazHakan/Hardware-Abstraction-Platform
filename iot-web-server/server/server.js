@@ -1,5 +1,6 @@
 ﻿﻿require('rootpath')();
 var express = require('express');
+var fileUpload = require('express-fileupload');
 var app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser');
@@ -10,6 +11,9 @@ mongoose.connect(config.connectionString);
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// default options
+app.use(fileUpload());
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 app.use(expressJwt({

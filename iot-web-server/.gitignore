@@ -40,3 +40,12 @@ typings
 # Generated files
 client/app/**/*.js
 client/app/**/*.js.map
+
+# files in uploads directory
+uploads/*
+
+# config.json in angular
+client/app/app.config.ts
+
+# intelliJ files
+idea
