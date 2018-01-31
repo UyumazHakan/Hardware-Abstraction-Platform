@@ -10,7 +10,20 @@
 			"device_id": "123e4567-e89b-12d3-a456-426655441111",
 			"security_type": "PlainText",
 			"communication_type": "Kafka",
-			"bootstrap_servers":["141.40.254.2:19092","141.40.254.2:29092","141.40.254.2:39092"],
+			"bootstrap_servers":[
+				{
+					"ip_address": "141.40.254.2",
+					"port": 19092
+				},
+				{
+					"ip_address": "141.40.254.2",
+					"port": 29092
+				},
+				{
+					"ip_address": "141.40.254.2",
+					"port": 39092
+				}
+			],
 			"topic": "sensor-input",
 			"time_interval": 60,
 			"api_version": 10
