@@ -12,7 +12,7 @@ class Device:
 	def __init__(self, config, callback):
 		self.callback = callback
 		self.config = config
-		self.board = self.config["board"]
+		self.board = self.config["board_type"]
 
 
 	def read_value(self, callback=None):

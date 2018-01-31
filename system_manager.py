@@ -36,7 +36,7 @@ class SystemManager:
 	def __init__(self, config_file_directory):
 		self.config_file_directory = config_file_directory
 		self.update_config()
-		if self.config["board"] == "raspberry_pi":
+		if self.config["board_type"] == "raspberry_pi":
 			import RPi.GPIO as GPIO
 			GPIO.setmode(GPIO.BOARD)
 		self.device_manager = DeviceManager(self.config["devices"], self.config["board"], self.device_manager_callback)

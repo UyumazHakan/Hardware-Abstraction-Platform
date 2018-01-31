@@ -1,15 +1,18 @@
 {
-	"id": "123e4567-e89b-12d3-a456-426655440000",
+	"id": "123e4567-e89b-12d3-a456-426655441111",
 	"log_directory": "/var/log/iot/",
+	"name": "test_board",
+	"description": "Board used for tests of the system",
+	"created_by": "uyumazhakan",
 	"communication_protocols": [
 		{
 			"id":"0",
-			"device_id": "123e4567-e89b-12d3-a456-426655440000",
+			"device_id": "123e4567-e89b-12d3-a456-426655441111",
 			"security_type": "PlainText",
 			"communication_type": "Kafka",
-			"bootstrap_servers":["141.40.254.141:19092","141.40.254.141:29092","141.40.254.141:39092"],
+			"bootstrap_servers":["141.40.254.2:19092","141.40.254.2:29092","141.40.254.2:39092"],
 			"topic": "sensor-input",
-			"time_interval": 5,
+			"time_interval": 60,
 			"api_version": 10
 
 		}
@@ -27,8 +30,8 @@
 					"slave_name": "w1_slave"
 				}
 			},
-			"interval": 5
+			"interval": 60
 		}
 	],
-	"board": "raspberry_pi"
+	"board_type": "raspberry_pi"
 }
