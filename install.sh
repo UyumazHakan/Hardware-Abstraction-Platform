@@ -8,9 +8,6 @@ USERNAME=$1
 echo "Starting..."
 CONFIG="config.json"
 DEV_CONFIG="config.dev_local.json"
-INITD="/etc/init.d"
-STARTUP_SCRIPT_NAME="sensor_startup.sh"
-STARTUP_SCRIPT="$INITD/$STARTUP_SCRIPT_NAME"
 MAIN_SH_FILE="sensors.sh"
 INSTALL_SCRIPT_NAME="install.sh"
 DST_DIR="/home/$USERNAME/sensors"
@@ -19,15 +16,12 @@ LOG_DIR="/var/log/iot"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SERVER_IP="http://141.40.254.141:4000"
 
-echo "Deleting old files..."
+echo "Installing dependencies..."
 
 sudo apt-get install jq
 pip3 install kafka
 
-if [ -f $STARTUP_SCRIPT ]
-	then
-		sudo rm -f $STARTUP_SCRIPT
-fi
+echo "Deleting old files..."
 
 if [ -d $TMP_DIR ]
 	then
