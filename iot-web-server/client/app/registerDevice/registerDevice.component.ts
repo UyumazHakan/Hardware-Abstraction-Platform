@@ -40,10 +40,12 @@ export class RegisterDeviceComponent {
             data => {
                 this.loading = false;
                 this.router.navigate(['/all_devices']);
+                alert("Device is registered successfully");
                 this.alertService.success("Device is registered successfully");
             }, error2 => {
                 this.loading = false;
                 console.log(error2);
+                alert("Error occurred: " + error2.message);
                 this.alertService.error(error2.message);
             }
         );

@@ -143,10 +143,12 @@ export class EditDeviceComponent implements OnInit {
             console.log("device to be updated", this.currentDevice);
             this.deviceService.update(this.currentDevice).subscribe( data => {
                 console.log(data);
+                alert(data["message"].toString());
                 this.alertService.success(data["message"]);
             },
             error => {
                 console.log("error", error);
+                alert("Error occurred: " + error);
                 this.alertService.error(error);
             });
         }

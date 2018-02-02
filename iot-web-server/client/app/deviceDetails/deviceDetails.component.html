@@ -12,7 +12,7 @@
                 <li title="All Devices"><a [routerLink]="['/all_devices']"><i class="fa fa-list-ul"></i>All Devices</a></li>
                 <li title="Device Details" class="active"><a routerLink="/devices/details/{{currentDevice.id}}"><i class="fa fa-info-circle"></i>Device Details</a></li>
                 <!--TODO: remove hardcoding the localhost here-->
-                <li title="Device Logs"><a target="_blank" href="http://localhost:4000/uploads/{{currentDevice.id}}"><i class="fa fa-folder"></i> Device Logs</a></li>
+                <li title="Device Logs"><a target="_blank" href="{{apiUrl}}/uploads/{{currentDevice.id}}"><i class="fa fa-folder"></i> Device Logs</a></li>
                 <li title="Logout"><a [routerLink]="['/login']"><i class="fa fa-sign-out"></i>Logout</a></li>
             </ul>
         </div>

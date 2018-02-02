@@ -3,7 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {AlertService, DeviceService, UserService} from '../_services/index';
 import { User, Device} from "../_models";
-import {forEach} from "@angular/router/src/utils/collection";
+import { forEach } from "@angular/router/src/utils/collection";
+import { appConfig } from "../app.config";
 
 @Component({
     moduleId: module.id,
@@ -11,6 +12,8 @@ import {forEach} from "@angular/router/src/utils/collection";
 })
 
 export class DeviceDetailsComponent implements OnInit {
+    apiUrl: String;
+
     currentDevice: Device;
     loading = false;
     currentUser: User;
@@ -27,7 +30,7 @@ export class DeviceDetailsComponent implements OnInit {
 
         // initialize entities
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+        this.apiUrl = appConfig.apiUrl;
     }
 
     ngOnInit() {
