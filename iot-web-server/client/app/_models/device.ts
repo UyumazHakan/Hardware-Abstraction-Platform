@@ -7,5 +7,6 @@ export interface Device {
     created_by: string,
     communication_protocols: any,
     devices: any,
-    api_version: number
+    api_version: number,
+    log_level: number
 }

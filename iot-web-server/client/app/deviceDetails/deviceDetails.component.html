@@ -2,16 +2,18 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <i class="fa fa-cube" aria-hidden="true"></i><a class="navbar-brand">IoT Project Web Server</a>
+            <a class="navbar-brand">IoT Project Web Server</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav" *ngIf="currentUser">
-                <li title="Home"><a [routerLink]="['/']">Home</a></li>
-                <li title="Register Device"><a [routerLink]="['/register_device']">Register Device</a></li>
-                <li title="All Devices"><a [routerLink]="['/all_devices']">All Devices</a></li>
-                <li title="Device Details" class="active"><a routerLink="/devices/details/{{currentDevice.id}}">Device Details</a></li>
-                <li title="Logout"><a [routerLink]="['/login']">Logout</a></li>
+                <li title="Home"><a [routerLink]="['/']"><i class="fa fa-home"></i>Home</a></li>
+                <li title="Register Device"><a [routerLink]="['/register_device']"><i class="fa fa-plus-square"></i>Register Device</a></li>
+                <li title="All Devices"><a [routerLink]="['/all_devices']"><i class="fa fa-list-ul"></i>All Devices</a></li>
+                <li title="Device Details" class="active"><a routerLink="/devices/details/{{currentDevice.id}}"><i class="fa fa-info-circle"></i>Device Details</a></li>
+                <!--TODO: remove hardcoding the localhost here-->
+                <li title="Device Logs"><a target="_blank" href="http://localhost:4000/uploads/{{currentDevice.id}}"><i class="fa fa-folder"></i> Device Logs</a></li>
+                <li title="Logout"><a [routerLink]="['/login']"><i class="fa fa-sign-out"></i>Logout</a></li>
             </ul>
         </div>
     </div>
@@ -38,6 +40,16 @@
                 <option value="raspberry_pi">Raspberry PI</option>
                 <option value="odroid">Odroid</option>
             </select>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !log_level.valid }">
+            <label>Log Level</label>
+            <span *ngIf="currentDevice.log_level === 0">Notset</span>
+            <span *ngIf="currentDevice.log_level === 10">Debug</span>
+            <span *ngIf="currentDevice.log_level === 20">Info</span>
+            <span *ngIf="currentDevice.log_level === 30">Warning</span>
+            <span *ngIf="currentDevice.log_level === 40">Error</span>
+            <span *ngIf="currentDevice.log_level === 50">Critical</span>
         </div>
 
         <div class="form-group">
@@ -173,3 +185,31 @@
         </div>
     </form>
 </div>
+<!--<div class="col-md-6" *ngIf="!is_enough_logs">-->
+    <!--&lt;!&ndash;TODO: remove hard-coding the localhost!!&ndash;&gt;-->
+    <!--<a target="_blank" href="http://localhost:4000/uploads/{{currentDevice.id}}"><i class="fa fa-folder"></i> Device Logs</a>-->
+    <!--<div class="panel panel-default">-->
+        <!--<div class="panel-body" >-->
+            <!--<table class="table" style="margin-top: 20px" >-->
+                <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th scope="col" class="col-md-1">#</th>-->
+                    <!--<th scope="col" class="col-md-3">File Name</th>-->
+                    <!--<th scope="col" class="col-md-2">Action</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr *ngFor="let file of trimmed_file_paths; let i = index">-->
+                    <!--<td style="width: 1%">{{i + 1}}</td>-->
+                    <!--<td style="width: 1%">{{file}}</td>-->
+                    <!--<td style="padding-right: 0px" >-->
+                        <!--<button class="btn btn-xs btn-default" type="button" routerLink="/uploads/{{currentDevice.id}}/{{file}}">-->
+                            <!--<i class="fa fa-download"></i> Download-->
+                        <!--</button>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

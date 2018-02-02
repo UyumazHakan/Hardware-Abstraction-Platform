@@ -2,19 +2,19 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <i class="fa fa-cube" aria-hidden="true"></i><a class="navbar-brand">IoT Project Web Server</a>
+            <a class="navbar-brand">IoT Project Web Server</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav" *ngIf="currentUser">
-                <li title="Home"><a [routerLink]="['/']">Home</a></li>
-                <li title="Register Device" class="active"><a [routerLink]="['/register_device']">Register Device</a></li>
-                <li title="All Devices"><a [routerLink]="['/all_devices']">All Devices</a></li>
-                <li title="Logout"><a [routerLink]="['/login']">Logout</a></li>
+                <li title="Home"><a [routerLink]="['/']"><i class="fa fa-home"></i>Home</a></li>
+                <li title="Register Device" class="active"><a [routerLink]="['/register_device']"><i class="fa fa-plus-square"></i>Register Device</a></li>
+                <li title="All Devices"><a [routerLink]="['/all_devices']"><i class="fa fa-list-ul"></i>All Devices</a></li>
+                <li title="Logout"><a [routerLink]="['/login']"><i class="fa fa-sign-out"></i>Logout</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" *ngIf="!currentUser">
-                <li title="Login"><a [routerLink]="['/login']">Login</a></li>
+                <li title="Login"><a [routerLink]="['/login']">Sign-in</a></li>
                 <li title="Create Account"><a [routerLink]="['/register']">Register</a></li>
             </ul>
         </div>
@@ -51,7 +51,7 @@
 
 
         <div class="form-group" style="padding-top: 2%">
-            <button [disabled]="!f.form.valid" class="btn btn-primary">Register Device</button>
+            <button [disabled]="!f.form.valid" class="btn btn-primary"><i class="fa fa-plus-circle"></i>Register Device</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
         </div>
     </form>

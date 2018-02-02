@@ -32,4 +32,8 @@ export class DeviceService {
     getApiVersion() {
         return this.http.get(appConfig.apiUrl + '/devices/api');
     }
+
+    getFilePaths(device: Device) {
+        return this.http.post<string[]>(appConfig.apiUrl + '/devices/getFileNames', device);
+    }
 }

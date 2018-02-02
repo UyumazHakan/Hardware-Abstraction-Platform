@@ -18,10 +18,13 @@
         "mongodb": "^2.1.16",
         "mongoose": "^5.0.1",
         "mongoskin": "^2.1.0",
+        "node-static": "^0.7.10",
+        "path-to-regexp": "^2.1.0",
         "q": "^1.4.1",
         "request": "^2.58.0",
         "rimraf": "^2.6.2",
         "rootpath": "^0.1.2",
+        "serve-index": "^1.9.1",
         "update": "^0.7.4"
     },
     "license": "MIT"

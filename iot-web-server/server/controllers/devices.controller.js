@@ -5,10 +5,13 @@ var Device = require("../schemas/deviceSchema");
 var jwt = require('jsonwebtoken');
 var fs = require('fs');
 var rimraf = require('rimraf'); // to remove devices' log directories
+var folderService = require('../services/folder.service');
+
 // routes
 router.get('/api', getApi);
 router.post('/create', createDevice);
 router.post('/upload', uploadFileToDeviceFolder);
+router.post('/getFileNames', getFileNames);
 router.get('/external', getAllDevicesForExternal);
 router.get('/', getAllDevices);
 router.get('/:id', getDevice);
@@ -26,22 +29,51 @@ function getAllDevices(req, res) {
     });
 }
 
+function getFileNames(req, res) {
+    if (req.body.id) {
+        Device.findOne({id: req.body.id}, function(err, device) {
+            if (err) {
+                res.status(400).send(err);
+            } else {
+                console.log(device);
+                var filePaths = [];
+                folderService.walkSync('./uploads/' + device.id, function(filePath, stat) {
+                    filePaths.push(filePath);
+                });
+                res.status(200).send(filePaths);
+            }
+        });
+    } else {
+        res.status(400).send("Please provide an id in body to search for its logs in server");
+    }
+
+}
+
 function uploadFileToDeviceFolder(req, res) {
     if (!req.files)
         return res.status(400).send('No files were uploaded.');
 
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    var sampleFile = req.files.sampleFile;
-    var currentTimeMillis = Date.now();
-    var id = req.body.id;
-    var destination = './uploads/' + id + '/' + currentTimeMillis.toString();
+    // The name of the input field (i.e. "file") is used to retrieve the uploaded file(s)
+    var files = req.files.file;
 
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(destination, function(err) {
-        if (err)
-            return res.status(500).send(err);
-        res.send('File uploaded!');
-    });
+
+    for (var i = 0; i < files.length; i++) {
+        console.log(files[i]);
+        var file = files[i];
+        var fileName = file.name;
+
+        var id = req.body.id;
+        var destination = './uploads/' + id + '/' + fileName;
+
+        // Use the mv() method to place the file somewhere on your server
+        file.mv(destination, function(err) {
+            if (err) {
+                return res.status(400).send("Either id is wrong or server does not have a folder for given id");
+            }
+        });
+    }
+    res.send('File(s) uploaded!');
+
 }
 
 function getAllDevicesForExternal(req, res) {
@@ -125,6 +157,7 @@ function update(req, res) {
             device.description = deviceParam.description;
             device.board_type = deviceParam.board_type;
             device.communication_protocols = deviceParam.communication_protocols;
+            device.log_level = deviceParam.log_level;
             device.devices = deviceParam.devices;
             device.save(function(err2, updatedDevice){
                 if(err2) {

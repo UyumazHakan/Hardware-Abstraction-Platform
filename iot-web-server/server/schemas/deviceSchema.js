@@ -61,6 +61,7 @@ var deviceSchema = new Schema({
         type: String,
         // required: true
     },
+    log_level: Number,
     communication_protocols: [communicationProtocol],
     devices: [device]
 });

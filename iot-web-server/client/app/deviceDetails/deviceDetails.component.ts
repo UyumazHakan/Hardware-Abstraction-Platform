@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {AlertService, DeviceService, UserService} from '../_services/index';
 import { User, Device} from "../_models";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
     moduleId: module.id,
@@ -13,6 +14,9 @@ export class DeviceDetailsComponent implements OnInit {
     currentDevice: Device;
     loading = false;
     currentUser: User;
+    is_enough_logs = false;
+    file_paths: string[] = [];
+    trimmed_file_paths: string[] = []; // split \ / etc. for better UI
 
     constructor(
         private router: Router,
@@ -33,25 +37,39 @@ export class DeviceDetailsComponent implements OnInit {
             this.currentDevice.id = params['id'];
         });
         this.getCurrentDevice(this.currentDevice.id);
-        console.log(this.currentDevice);
+
     }
 
     getCurrentDevice(id: string) {
         this.deviceService.getById(id).subscribe( data => {
-
+            console.log("retrieved", data);
             // attributes retrieved from server & populated automatically
             this.currentDevice.name = data["name"];
             this.currentDevice.description = data["description"];
             this.currentDevice.board_type = data["board_type"];
             this.currentDevice.log_directory = data["log_directory"];
+            this.currentDevice.log_level = data["log_level"];
 
             // also retrieve the api version
             this.deviceService.getApiVersion().subscribe(api_version => {
                 this.currentDevice.api_version = Number(api_version);
             });
 
-            // attributes to be filled by the user or retrieved by server. mapper would be useful here...
             this.populateDeviceAttributes(data);
+
+            // also retrieve paths of log files
+            // this.deviceService.getFilePaths(this.currentDevice).subscribe(filePaths => {
+            //     this.file_paths = filePaths; // keep the original for download
+            //     console.log(filePaths);
+            //     for (var i = 0; i < filePaths.length; i++) {
+            //
+            //         // https://stackoverflow.com/questions/423376/how-to-get-the-file-name-from-a-full-path-using-javascript
+            //         var file_name = filePaths[i].replace(/^.*[\\\/]/, '');
+            //         console.log(this.file_paths[i]);
+            //         this.trimmed_file_paths.push(file_name);
+            //     }
+            //
+            // });
 
         }, error => {
             this.alertService.error(error);
@@ -60,7 +78,6 @@ export class DeviceDetailsComponent implements OnInit {
     }
 
     private populateDeviceAttributes(data: Object) {
-        console.log("data in populate", data);
         if (!data["communication_protocols"]) {
             this.currentDevice.communication_protocols = [];
         } else {
@@ -84,7 +101,8 @@ export class DeviceDetailsComponent implements OnInit {
             devices: [], // denotes the devices array in our config.json
             name: "",
             api_version: null,
-            log_directory: "/var/log/iot/"
+            log_directory: "/var/log/iot/",
+            log_level: null
         };
         return device
     }

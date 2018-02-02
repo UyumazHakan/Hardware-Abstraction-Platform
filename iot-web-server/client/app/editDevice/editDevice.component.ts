@@ -140,6 +140,7 @@ export class EditDeviceComponent implements OnInit {
                     }
                 }
             }
+            console.log("device to be updated", this.currentDevice);
             this.deviceService.update(this.currentDevice).subscribe( data => {
                 console.log(data);
                 this.alertService.success(data["message"]);
@@ -224,7 +225,8 @@ export class EditDeviceComponent implements OnInit {
             devices: [], // denotes the devices array in our config.json
             name: "",
             api_version: null,
-            log_directory: "/var/log/iot/"
+            log_directory: "/var/log/iot/",
+            log_level: 0
         };
         return device
     }
