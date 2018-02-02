@@ -41,8 +41,9 @@ typings
 client/app/**/*.js
 client/app/**/*.js.map
 
-# files in uploads directory, but not the directory, exclude everything in uploads
-uploads/*
+# folders & files in uploads directory, but not the directory itself, exclude everything in uploads
+uploads/**/**
+uploads/*/*
 
 # exception to the rule
 !uploads/.gitkeep
