@@ -18,7 +18,9 @@ SERVER_IP="http://141.40.254.141:4000"
 
 echo "Installing dependencies..."
 
-sudo apt-get install jq
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install curl jq wget
 pip3 install kafka
 
 echo "Deleting old files..."

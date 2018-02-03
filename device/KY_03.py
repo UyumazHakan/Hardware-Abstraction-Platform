@@ -12,7 +12,7 @@ class KY_03(Device):
 	]
 
 	def __init__(self, config, callback):
-		super(KY_02, self).__init__(config, callback)
+		super(KY_03, self).__init__(config, callback)
 		self.init_input_outputs(self.__decide_io)
 		self.is_switch = True
 		self.input_outputs["Signal"].on_change(self.__on_trigger)

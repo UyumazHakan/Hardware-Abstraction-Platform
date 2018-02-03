@@ -2,14 +2,10 @@ from threading import Timer
 import time
 
 class Device:
-	input_outputs = {}
-	callback = None
-	config = None
-	read_value_imp = None
-	board = None
-	is_switch = False
 
 	def __init__(self, config, callback):
+		self.is_switch = False
+		self.input_outputs = {}
 		self.callback = callback
 		self.config = config
 		self.board = self.config["board_type"]

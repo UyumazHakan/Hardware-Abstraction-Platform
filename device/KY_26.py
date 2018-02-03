@@ -11,16 +11,22 @@ class KY_26(Device):
 		"unit":"mV"
 		},
 		{
-		"name": "extreme_value",
+		"name": "is_flame",
 		"value": None,
 		"unit": "boolean"
 		}
 	]
 
 	def __init__(self, config, callback):
-		super(KY_25, self).__init__(config, callback)
+		super(KY_26, self).__init__(config, callback)
 		self.init_input_outputs(self.__decide_io)
+		self.is_switch = True
+		self.input_outputs["Digital"].on_change(self.__on_trigger)
 		self.read_value_imp = self.__read_value
+
+
+	def __on_trigger(self, channel):
+		self.read_value(self.callback)
 
 	def __read_value(self):
 		values = copy.deepcopy(self.values)
