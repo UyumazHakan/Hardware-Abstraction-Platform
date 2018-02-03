@@ -55,24 +55,35 @@ function uploadFileToDeviceFolder(req, res) {
 
     // The name of the input field (i.e. "file") is used to retrieve the uploaded file(s)
     var files = req.files.file;
+    var id = req.body.id;
 
-
-    for (var i = 0; i < files.length; i++) {
-        console.log(files[i]);
-        var file = files[i];
+    if (files.length) {
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var fileName = file.name;
+            var destination = './uploads/' + id + '/' + fileName;
+            // Use the mv() method to place files somewhere on your server
+            file.mv(destination, function(err) {
+                if (err) {
+                    return res.status(400).send("Either id is wrong or server does not have a folder for given id");
+                }
+            });
+        }
+        return res.send('Files are uploaded successfully');
+    } else {
+        var file = files;
         var fileName = file.name;
-
-        var id = req.body.id;
         var destination = './uploads/' + id + '/' + fileName;
-
-        // Use the mv() method to place the file somewhere on your server
+        // Use the mv() method to place files somewhere on your server
         file.mv(destination, function(err) {
             if (err) {
                 return res.status(400).send("Either id is wrong or server does not have a folder for given id");
+            } else {
+                return res.send('File is uploaded successfully');
             }
         });
     }
-    res.send('File(s) uploaded!');
+
 
 }
 
