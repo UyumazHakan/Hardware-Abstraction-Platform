@@ -11,6 +11,6 @@ if config["board_type"] == "raspberry_pi":
 	from .gpio_adc_input import GPIOADCInput
 	from .gpio_dht_input import GPIODHTInput
 	from .gpio_bmp280_input import GPIOBMP280Input
-elif config["board"] == "odroid":
+elif config["board_type"] == "odroid":
 	from .BME280 import BME280
 	from .SI1132 import SI1132

@@ -11,7 +11,7 @@ class PlainTextSecurityProtocol(SecurityProtocol):
 	def send(self, data, callback = None):
 		if not callback:
 			callback = self.send_callback
-		self.communication_protocol.send(data, callback)
+		return self.communication_protocol.send(data, callback)
 
 	def receive(self, callback = None):
 		if not callback:

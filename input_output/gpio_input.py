@@ -6,7 +6,7 @@ class GPIOInput(GPIOInputOutput):
 	state = None
 	def __init__(self, config):
 		super(GPIOInput, self).__init__(config)
-		if self.config["pull_up_down"] != "None":
+		if self.config["pull_up_down"] != "none":
 			GPIO.setup(self.pin, GPIO.IN, \
 				pull_up_down = GPIO.PUD_UP if self.config["pull_up_down"] == "up" \
 				else GPIO.PUD_DOWN)

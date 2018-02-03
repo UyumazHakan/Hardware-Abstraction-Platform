@@ -21,7 +21,7 @@ class KafkaCommunicationProtocol(CommunicationProtocol):
 
 	def __init__(self, config, send_callback = None, receive_callback = None):
 		super(KafkaCommunicationProtocol, self).__init__(config, send_callback, receive_callback)
-		self.bootstrap_servers = list(map(lambda x: str(x["ip"]) + str(["port"])))
+		self.bootstrap_servers = list(map(lambda x: str(x["ip_address"]) + ":" + str(x["port"]), self.config["bootstrap_servers"]))
 		self.producer = KafkaProducer(
 			bootstrap_servers=self.bootstrap_servers, \
 			value_serializer=lambda v: json.dumps(v).encode('utf-8'), \

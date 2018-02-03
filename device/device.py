@@ -8,7 +8,6 @@ class Device:
 	read_value_imp = None
 	board = None
 	is_switch = False
-	decide_io_imp = None
 
 	def __init__(self, config, callback):
 		self.callback = callback
@@ -28,8 +27,8 @@ class Device:
 		t = Timer(interval, self.read_value_loop, [interval, callback])
 		t.start()
 
-	def init_input_outputs(self, input_outputs):
-		for io in input_outputs:
+	def init_input_outputs(self, decide_io):
+		for io in self.config["input_output"]:
 			name = io["name"]
-			io_constructor = decide_io_imp(name)
+			io_constructor = decide_io(name)
 			self.input_outputs[name] = io_constructor(io)

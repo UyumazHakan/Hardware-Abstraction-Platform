@@ -46,10 +46,11 @@ if [ ! -d $LOG_DIR ]
 		sudo mkdir $LOG_DIR
 fi
 
-while true; do
-	read -p 'Do you want to configure the platform manually?[Y/n] ' yn
+while true; 
+do
+	read -p 'Do you want to use web server capabilities?[Y/n] ' yn
 	case $yn in
-		[Yy]* )
+		[Nn]* )
 			echo "Creating config file..."
 			if [ ! -f $DIR/$CONFIG ]
 				then
@@ -58,10 +59,12 @@ while true; do
 			echo "Config file located at $DIR/$CONFIG"
 			break
 			;;
-		[Nn]* )
-			while true; do
+		[Yy]* )
+			while true; 
+			do
 				read -p 'Username: ' USERNAME_PLATFORM
 				read -sp 'Password: ' PASSWORD_PLATFORM
+				echo
 				DATA='{
 				    "username": "'$USERNAME_PLATFORM'",
 				    "password": "'$PASSWORD_PLATFORM'"
@@ -81,7 +84,8 @@ while true; do
 			done
 			TOKEN=$(echo "$HTTP_BODY" | \
 			jq -r '.token')
-			while true; do
+			while true; 
+			do
 				DEVICES=$(curl -s -X GET \
 				 $SERVER_IP/devices/external \
 				 -H 'Authorization: Bearer '$TOKEN)
@@ -104,6 +108,9 @@ while true; do
 					echo "Could not retrieve asked board configuration, try again."
 					continue
 				fi
+				jq '.username |= . + "'$USERNAME_PLATFORM'" | .password |= . + "'$PASSWORD_PLATFORM'"' $DIR/$CONFIG \
+				> $DIR/$CONFIG.tmp && mv $DIR/$CONFIG.tmp $DIR/$CONFIG
+
 				break
 			done
 			break

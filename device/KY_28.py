@@ -18,8 +18,8 @@ class KY_28(Device):
 	]
 
 	def __init__(self, config, callback):
-		self.decide_io_imp = self.__decide_io
 		super(KY_28, self).__init__(config, callback)
+		self.init_input_outputs(self.__decide_io)
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
@@ -28,7 +28,7 @@ class KY_28(Device):
 		values[1]["value"] = self.input_outputs["Digital"].get_state()
 		return values
 		 
- 	def __decide_io(self, io_name):
+	def __decide_io(self, io_name):
 		if io_name == "Digital" and self.board == "raspberry_pi":
 			from input_output import GPIOInput
 			return GPIOInput

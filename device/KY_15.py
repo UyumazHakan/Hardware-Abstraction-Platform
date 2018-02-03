@@ -17,8 +17,8 @@ class KY_15(Device):
 	]
 
 	def __init__(self, config, callback):
-		self.decide_io_imp = self.__decide_io
 		super(KY_15, self).__init__(config, callback)
+		self.init_input_outputs(self.__decide_io)
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
