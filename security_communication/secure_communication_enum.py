@@ -9,13 +9,15 @@ class SecurityEnum(Enum):
 
 class CommunicationEnum(Enum):
 	Kafka = 1
+	HTTP = 2
 
 security_constructors = {
 	1 : PlainTextSecurityProtocol
 }
 
 communication_constructors = {
-	1 : KafkaCommunicationProtocol
+	1 : KafkaCommunicationProtocol,
+	2 : HTTPCommunicationProtocol
 }
 
 

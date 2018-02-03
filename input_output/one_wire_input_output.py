@@ -5,11 +5,9 @@ from .gpio_input import GPIOInput
 
 
 class OneWireInputOutput(InputOutput):
-	input_gpio = None
-	device_file = None
 	def __init__(self, config):
 		super(OneWireInputOutput, self).__init__(config)
-		self.input_gpio = GPIOInput({"pin": config["pin"]})
+		self.input_gpio = GPIOInput({"pin": config["pin"], "gpiopullupdown": "up"})
 		while True:
 			try:
 				device_folder = glob.glob(config["base_dir"]+"28*")[0]

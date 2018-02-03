@@ -6,10 +6,10 @@ class GPIOOutput(GPIOInputOutput):
 	def __init__(self, config):
 		super(GPIOOutput, self).__init__(config)
 		
-		if self.config["initial"] and self.config["initial"] == 0:
+		if "initial" in self.config and self.config["initial"] == 0:
 			GPIO.setup(self.pin, GPIO.OUT, GPIO.LOW)
 			self.state = GPIO.LOW
-		elif self.config["initial"] and self.config["initial"] == 1:
+		elif "initial" in self.config and self.config["initial"] == 1:
 			GPIO.setup(self.pin, GPIO.OUT, GPIO.HIGH)
 			self.state = GPIO.HIGH
 		else:

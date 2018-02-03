@@ -21,7 +21,7 @@ class DeviceManager:
 
 	def init_device(self, device_config):
 		device_type = DeviceEnum[device_config["type"]].value
-		device_config["board"] = self.board
+		device_config["board_type"] = self.board
 		self.devices[device_config["id"]] = device_constructors[device_type](device_config, self.callback)
 
 	def read_all(self):

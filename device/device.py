@@ -2,17 +2,13 @@ from threading import Timer
 import time
 
 class Device:
-	input_outputs = []
-	callback = None
-	config = None
-	read_value_imp = None
-	board = None
-	is_switch = False
 
 	def __init__(self, config, callback):
+		self.is_switch = False
+		self.input_outputs = {}
 		self.callback = callback
 		self.config = config
-		self.board = self.config["board"]
+		self.board = self.config["board_type"]
 
 
 	def read_value(self, callback=None):
@@ -26,3 +22,9 @@ class Device:
 		self.read_value(callback)
 		t = Timer(interval, self.read_value_loop, [interval, callback])
 		t.start()
+
+	def init_input_outputs(self, decide_io):
+		for io in self.config["input_output"]:
+			name = io["name"]
+			io_constructor = decide_io(name)
+			self.input_outputs[name] = io_constructor(io)

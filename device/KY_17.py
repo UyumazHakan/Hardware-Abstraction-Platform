@@ -10,16 +10,12 @@ class KY_17(Device):
 		"unit":"boolean"
 		}
 	]
-	signal = None
 
 	def __init__(self, config, callback):
 		super(KY_17, self).__init__(config, callback)
+		self.init_input_outputs(self.__decide_io)
 		self.is_switch = True
-		if self.board == "raspberry_pi":
-			from input_output import GPIOInput
-			self.signal = GPIOInput(config["input_output"]["0"])
-			self.input_outputs.append(self.signal)
-			self.signal.on_change(self.__on_trigger)
+		self.input_outputs["Signal"].on_change(self.__on_trigger)
 		self.read_value_imp = self.__read_value
 
 
@@ -28,6 +24,11 @@ class KY_17(Device):
 
 	def __read_value(self):
 		values = copy.deepcopy(self.values)
-		values[0]["value"] = self.signal.get_state()
+		values[0]["value"] = self.input_outputs["Signal"].get_state()
 		return values
 
+	def __decide_io(self, io_name):
+		if io_name == "Signal" and self.board == "raspberry_pi":
+			from input_output import GPIOInput
+			return GPIOInput
+			
