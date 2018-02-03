@@ -103,22 +103,20 @@ export class EditDeviceComponent implements OnInit {
                 this.currentDevice.devices = [];
                 this.currentDevice.devices.push({
                     "id": this.newGuid(),
-                    "type": "I2C",
+                    "type": "WEATHER2BOARD",
                     "interval": 5,
                     "input_output": []
                 });
                 this.currentDevice.devices[0].input_output.push({
-                    "type": "WEATHER2BOARD",
-                    "name": "I2C",
+                    "type": "I2C",
+                    "name": "odroid i2c",
                     "pin": 5
                 });
             } else if(this.currentDevice.board_type === 'raspberry_pi') {
                 for (let i = 0; i < this.currentDevice.devices.length; i++) {
                     for (let j = 0; j < this.currentDevice.devices[i].input_output.length; j++) {
                         let io_entity = this.currentDevice.devices[i].input_output[j];
-                        console.log("io_entity", io_entity);
-                        console.log("type", typeof io_entity);
-                        
+
                         // filter out unnecessary fields
                         if (io_entity.type !== 'OneWireInputOutput') {
                             delete io_entity.slave_name;
@@ -142,13 +140,11 @@ export class EditDeviceComponent implements OnInit {
             }
             console.log("device to be updated", this.currentDevice);
             this.deviceService.update(this.currentDevice).subscribe( data => {
-                console.log(data);
-                alert(data["message"].toString());
+                alert("Device is updated successfully");
                 this.alertService.success(data["message"]);
             },
             error => {
-                console.log("error", error);
-                alert("Error occurred: " + error);
+                alert("Update failed");
                 this.alertService.error(error);
             });
         }
