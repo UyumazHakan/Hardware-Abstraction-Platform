@@ -103,7 +103,7 @@ export class EditDeviceComponent implements OnInit {
                 this.currentDevice.devices = [];
                 this.currentDevice.devices.push({
                     "id": this.newGuid(),
-                    "type": "",
+                    "type": "I2C",
                     "interval": 5,
                     "input_output": []
                 });
