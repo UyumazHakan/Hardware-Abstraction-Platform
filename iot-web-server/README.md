@@ -26,7 +26,7 @@ See [MongoDB installation instructions](https://docs.mongodb.com/manual/tutorial
 #### How to Deploy Backend Module
 - `cd server`
 - `npm install`
-- `npm start` or `forever start -c "npm start" ./` to run in the background. See [forever package](https://www.npmjs.com/package/forever)
+- `node server.js` or `forever start server.js` to run in the background. See [forever package](https://www.npmjs.com/package/forever)
 
 #### How to Deploy Frontend Module
 - `cd client`
