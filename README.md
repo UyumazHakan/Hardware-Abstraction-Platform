@@ -8,9 +8,15 @@ This project contains different components to retrieve data from a wide variety 
 - Configuration of devices and their sensors easily with the help of its web-server. [See](https://gitlab.lrz.de/IoT-Practicum-Group/sensors/tree/master/iot-web-server)
 - Data transfer to [Layer 2](https://gitlab.lrz.de/IoT-Practicum-Group/data_layer)
 
-## Installation
+## Deployment & Usage
 
-Please see respective readme files of components.
+- Deploy supported sensors to your device (Raspberry PI, Odroid etc.) and note-down sensors' corresponding PINs etc.
+- Clone this repository, and follow [web-server deployment instructions](https://gitlab.lrz.de/IoT-Practicum-Group/sensors/tree/master/iot-web-server)
+- Assuming that web-server is running smoothly in a cloud environment, use it to register yourself as a user, create a device, and make necessary edit operations for newly-created device.
+- Make sure your device is connected to the internet
+- Install [Python](https://www.python.org/) to your device 
+- run `sudo sh sensors.sh` in the root folder of this repository, and follow instructions via command line
+
 
 ## Contributors
 - Ali Naci Uysal ([Github page](https://github.com/alinaciuysal), [LinkedIn page](https://www.linkedin.com/in/ali-naci-uysal/))
