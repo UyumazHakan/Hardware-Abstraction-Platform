@@ -12,11 +12,10 @@ This project contains different components to retrieve data from a wide variety 
 
 - Deploy supported sensors to your device (Raspberry PI, Odroid etc.) and note-down sensors' corresponding PINs etc.
 - Clone this repository, and follow [web-server deployment instructions](https://gitlab.lrz.de/IoT-Practicum-Group/sensors/tree/master/iot-web-server)
-- Assuming that web-server is running smoothly in a cloud environment, use it to register yourself as a user, create a device, and make necessary edit operations for newly-created device.
+- Assuming that web-server is running smoothly in a cloud environment, use it to register yourself as a user (write down your username), create a device, and make necessary edit operations for newly-created device.
 - Make sure your device is connected to the internet
-- Install [Python](https://www.python.org/) to your device 
-- run `sudo sh sensors.sh` in the root folder of this repository, and follow instructions via command line
-
+- Install [Python 3.5+](https://www.python.org/) to your device
+- run `sudo bash install.sh <username>` in the root folder of this repository, and follow instructions via command line
 
 ## Contributors
 - Ali Naci Uysal ([Github page](https://github.com/alinaciuysal), [LinkedIn page](https://www.linkedin.com/in/ali-naci-uysal/))
