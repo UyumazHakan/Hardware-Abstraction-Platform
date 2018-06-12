@@ -1,4 +1,4 @@
-## Sensor Layer of  IoT Practical Course Project - TUM
+## Sensor Layer of [IoT Practical Course](http://www.caps.in.tum.de/en/teaching/ss18/practical-courses/internet-of-things-iot/) Project
 This project contains different components to retrieve data from a wide variety of sensors that can be deployed with Raspberry PIs and Odroid devices. 
 
 ## Features
@@ -11,19 +11,19 @@ This project contains different components to retrieve data from a wide variety 
 ## Deployment & Usage
 
 - Deploy supported sensors to your device (Raspberry PI, Odroid etc.) and note-down sensors' corresponding PINs etc.
-- Clone this repository, and follow [web-server deployment instructions](https://gitlab.lrz.de/IoT-Practicum-Group/sensors/tree/master/iot-web-server)
+- Clone this repository, and follow [web-server deployment instructions](https://github.com/UyumazHakan/Hardware-Abstraction-Platform/tree/master/iot-web-server)
 - Assuming that web-server is running smoothly in a cloud environment, use it to register yourself as a user (write down your username), create a device, and make necessary edit operations for newly-created device.
 - Make sure your device is connected to the internet
 - Install [Python 3.5+](https://www.python.org/) to your device
 - run `sudo bash install.sh <username>` in the root folder of this repository, and follow instructions via command line
 
 ## Contributors
-- Ali Naci Uysal ([Github page](https://github.com/alinaciuysal), [LinkedIn page](https://www.linkedin.com/in/ali-naci-uysal/))
-- Hakan Uyumaz ([Github page](https://github.com/UyumazHakan), [LinkedIn page](https://www.linkedin.com/in/uyumazhakan/))
+- Ali Naci Uysal ([Github page](https://github.com/alinaciuysal), [LinkedIn](https://www.linkedin.com/in/ali-naci-uysal/))
+- Hakan Uyumaz ([Github page](https://github.com/UyumazHakan), [LinkedIn](https://www.linkedin.com/in/uyumazhakan/))
 - Erkin Kırdan
-- Mikayil Murad [LinkedIn page](https://www.linkedin.com/in/mikayilmurad/)
+- Mikayil Murad [LinkedIn](https://www.linkedin.com/in/mikayilmurad/)
 
 ## License
->You can check out the full license [here](https://gitlab.lrz.de/IoT-Practicum-Group/sensors/blob/master/LICENSE)
+>You can check out the full license [here](https://github.com/UyumazHakan/Hardware-Abstraction-Platform/blob/master/LICENSE)
 
 This project is licensed under the terms of the MIT license.
