@@ -1,8 +1,6 @@
-# MEAN Stack with Angular 5 
+# MEAN Stack Web Application 
 
-[For more info](https://gitlab.lrz.de/IoT-Practicum-Group/sensors)
-
-### Technical University of Munich - IoT Practical Course Project
+### Technical University of Munich - [IoT Practical Course](http://www.caps.in.tum.de/en/teaching/ss18/practical-courses/internet-of-things-iot/) Project
 
 
 ### Contributors:
