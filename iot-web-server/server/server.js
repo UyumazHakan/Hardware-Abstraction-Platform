@@ -1,4 +1,4 @@
-﻿﻿require('rootpath')();
+require('rootpath')();
 var express = require('express');
 var fileUpload = require('express-fileupload');
 var app = express();
@@ -15,6 +15,8 @@ var serveStatic = require('serve-static');
 var contentDisposition = require('content-disposition');
 var path = require('path');
 
+var morgan  = require('morgan')
+
 mongoose.connect(config.connectionString);
 
 app.use(cors());
@@ -22,6 +24,8 @@ app.use(bodyParser.json());
 
 // default options for file-upload
 app.use(fileUpload());
+
+app.use(morgan('combined'))
 
 // Use unprotected APIs
 const unprotected = [
