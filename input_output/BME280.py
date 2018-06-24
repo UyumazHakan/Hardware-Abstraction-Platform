@@ -1,5 +1,5 @@
 import time
-import smbus
+import smbus2 as smbus
 
 to_s16 = lambda x: (x + 2**15) % 2**16 - 2**15
 to_u16 = lambda x: x % 2**16
