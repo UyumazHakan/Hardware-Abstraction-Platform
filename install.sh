@@ -37,8 +37,8 @@ if [ -d $DST_DIR ]
 		if pgrep -f $DST_DIR/system_manager.py > /dev/null
 			then
 			sudo pkill -9 -f $DST_DIR/system_manager.py
+			sudo rm -rf $DST_DIR
 		fi
-		sudo rm -rf $DST_DIR
 fi
 
 echo "Creating log folder..."
@@ -48,7 +48,7 @@ if [ ! -d $LOG_DIR ]
 		sudo mkdir $LOG_DIR
 fi
 
-while true; 
+while true;
 do
 	read -p 'Do you want to use web server capabilities?[Y/n] ' yn
 	case $yn in
@@ -62,7 +62,7 @@ do
 			break
 			;;
 		[Yy]* )
-			while true; 
+			while true;
 			do
 				read -p 'Username: ' USERNAME_PLATFORM
 				read -sp 'Password: ' PASSWORD_PLATFORM
@@ -86,7 +86,7 @@ do
 			done
 			TOKEN=$(echo "$HTTP_BODY" | \
 			jq -r '.token')
-			while true; 
+			while true;
 			do
 				DEVICES=$(curl -s -X GET \
 				 $SERVER_IP/devices/external \
