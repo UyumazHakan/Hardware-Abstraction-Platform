@@ -53,7 +53,7 @@ def main():
 	web_server = security_constructors[SecurityEnum.PlainText.value] \
 	({}, \
 	communication_constructors[CommunicationEnum.HTTP.value] \
-	({"ip": "141.40.254.148", "port": 3000}))
+	({"ip": "141.40.254.122", "port": 4000}))
 	login_response = web_server.send( \
 		{"msg":{"username": config["username"], "password": config["password"]}, \
 		"http_header":{"Content-Type": "application/json"}, "http_method": "POST", \
