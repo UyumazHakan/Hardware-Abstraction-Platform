@@ -17,6 +17,9 @@ This project contains different components to retrieve data from a wide variety 
 - Install [Python 3.5+](https://www.python.org/) to your device
 - run `sudo bash install.sh <username>` in the root folder of this repository, and follow instructions via command line
 
+## Documentation for Intermediate Data Storage on Edge Device
+- http://tinydb.readthedocs.io/en/latest/usage.html
+
 ## Contributors
 - Ali Naci Uysal ([Github page](https://github.com/alinaciuysal), [LinkedIn page](https://www.linkedin.com/in/ali-naci-uysal/))
 - Hakan Uyumaz ([Github page](https://github.com/UyumazHakan), [LinkedIn page](https://www.linkedin.com/in/uyumazhakan/))
