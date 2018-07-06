@@ -10,6 +10,7 @@ CONFIG="config.json"
 DEV_CONFIG="config.dev_local.json"
 MAIN_SH_FILE="sensors.sh"
 INSTALL_SCRIPT_NAME="install.sh"
+HOME_DIR="/home/$USERNAME"
 DST_DIR="/home/$USERNAME/sensors"
 TMP_DIR="/tmp/sensors"
 LOG_DIR="/var/log/iot"
@@ -22,7 +23,10 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install curl jq wget
 pip3 install kafka
+
 pip3 install tinydb
+sudo mkdir /home/$USERNAME/data
+DATA_DIR="/home/$USERNAME/data"
 
 echo "Deleting old files..."
 
@@ -142,7 +146,7 @@ sudo rm -rf $TMP_DIR
 
 echo "Running..."
 
-sudo bash $DST_DIR/db_setup.py &
+sudo python3 $DST_DIR/db_setup.py $DATA_DIR &
 sudo bash $DST_DIR/$MAIN_SH_FILE &
 
 echo "Installation finished."
