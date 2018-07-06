@@ -22,6 +22,7 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install curl jq wget
 pip3 install kafka
+pip3 install tinydb
 
 echo "Deleting old files..."
 
@@ -141,6 +142,7 @@ sudo rm -rf $TMP_DIR
 
 echo "Running..."
 
+sudo bash $DST_DIR/db_setup.py &
 sudo bash $DST_DIR/$MAIN_SH_FILE &
 
 echo "Installation finished."
