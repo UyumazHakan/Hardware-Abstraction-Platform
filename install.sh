@@ -21,7 +21,10 @@ echo "Installing dependencies..."
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install curl jq wget
+
+
 pip3 install kafka
+pip3 install tinydb
 
 echo "Deleting old files..."
 
@@ -38,7 +41,6 @@ if [ -d $DST_DIR ]
 			then
 			sudo pkill -9 -f $DST_DIR/system_manager.py
 		fi
-		sudo rm -rf $DST_DIR
 fi
 
 echo "Creating log folder..."
@@ -141,6 +143,7 @@ sudo rm -rf $TMP_DIR
 
 echo "Running..."
 
+sudo python3 $DST_DIR/db_setup.py
 sudo bash $DST_DIR/$MAIN_SH_FILE &
 
 echo "Installation finished."
