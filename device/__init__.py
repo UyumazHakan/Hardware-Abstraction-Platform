@@ -20,3 +20,4 @@ from .KY_37 import KY_37
 from .KY_50 import KY_50
 from .WEATHER2_BOARD import WEATHER2_BOARD
 from .KY_52 import KY_52
+from .MYAHRS_PLUS import MYAHRS_PLUS

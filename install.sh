@@ -18,13 +18,13 @@ SERVER_IP="http://141.40.254.150/api"
 
 echo "Installing dependencies..."
 
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install curl jq wget
+#sudo apt-get update
+#sudo apt-get upgrade
+#sudo apt-get install curl jq wget
 
 
-pip3 install kafka
-pip3 install tinydb
+#pip3 install kafka
+#pip3 install tinydb
 
 echo "Deleting old files..."
 

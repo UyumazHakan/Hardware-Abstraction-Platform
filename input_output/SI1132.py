@@ -1,4 +1,4 @@
-import smbus
+import smbus2 as smbus
 import time
 
 SI1132_I2C_ADDR = 0x60

@@ -60,6 +60,7 @@ class WEATHER2_BOARD(Device):
 		values[4]["value"] = self.bme280.read_humidity()
 		values[5]["value"] = self.bme280.read_pressure() / 100.0
 		values[6]["value"] = self.get_altitude(self.bme280.read_pressure(), 1024.25)
+		print(values)
 		return values
 
 	def get_altitude(self, pressure, seaLevel):
