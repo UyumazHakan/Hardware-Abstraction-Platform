@@ -1,52 +1,80 @@
+from device.device import Device
 import copy
 import serial
 import time
 import traceback
-from input_output import BME280
-from device.device import Device
-import copy
 
 
 
 class MYAHRS_PLUS(Device):
 
         values = [
-                {
-                "name": "UV_index",
-                "value": None,
-                "unit": "%%"
-                },
-                {
-                "name": "Visible",
-                "value": None,
-                "unit": "Lux"
-                },
-                {
-                "name": "IR",
-                "value": None,
-                "unit":"Lux"
-                },
-                {
-                "name": "temperature",
-                "value": None,
-                "unit": "'C"
-                },
-                {
-                "name": "humidity",
-                "value": None,
-                "unit": "%%"
-                },
-                {
-                "name": "pressure",
-                "value": None,
-                "unit":"hPa"
-                },
-                {
-                "name": "altitude",
-                "value": None,
-                "unit":"m"
-                }
-        ]
+        {
+            "name": "ROLL",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "PITCH",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "YAW",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "ACCEL_X",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "ACCEL_Y",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "ACCEL_Z",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "GYRO_X",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "GYRO_Y",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "GYRO_Z",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "MAG_X",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "MAG_Y",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "MAG_Z",
+            "value": None,
+            "unit": "%%"
+        },
+        {
+            "name": "TEMPERATURE",
+            "value": None,
+            "unit": "%%"
+        }
+    ]
 
         def __init__(self, config, callback):
                 super(MYAHRS_PLUS, self).__init__(config, callback)
@@ -102,11 +130,13 @@ class MYAHRS_PLUS(Device):
 
                 # for i in range(50):
                 time.sleep(0.5)
-
+                rsp = self.send_command(serial_port, 'version')
+                rsp = self.send_command(serial_port, 'mode,AT')
+                rsp = self.send_command(serial_port, 'asc_out,RPYIMU')
                 self.send_command(serial_port, 'trig')
 
                 line = serial_port.readline().strip()
-                print(line)
+                #print(line)
                 # 'DATA MESSAGE : <%s>' % line
 
                 items = self.parse_data_message_rpyimu(line)
