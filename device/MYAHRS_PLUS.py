@@ -85,7 +85,7 @@ class MYAHRS_PLUS(Device):
         def __read_value(self):
                 serial_device = '/dev/ttyACM0'
                 #serial_device = 'COM5'
-                self.read_example(serial_device)
+                return self.read_example(serial_device)
 
         def send_command(self,serial_port, cmd_msg):
                 cmd_msg = '@' + cmd_msg.strip()
@@ -100,6 +100,7 @@ class MYAHRS_PLUS(Device):
                 if (cmd_msg != '@trig'):
                     while (True):
                         line = serial_port.readline().strip()
+                        line = line.decode()
                         if (line[0] == '~'):
                             return line
         
@@ -145,5 +146,5 @@ class MYAHRS_PLUS(Device):
                 if self.values == None:
                     print('Error collecting data')
                 else:
-                    print(self.values)
-
+                    #print(self.values)
+                    return self.values
