@@ -32,7 +32,7 @@ pip3 install paho-mqtt
 
 #install intermediate storage
 pip3 install tinydb
-sudo mkdir /home/$USERNAME/data
+sudo mkdir /home/$USERNAME/data > /dev/null
 DATA_DIR="/home/$USERNAME/data"
 
 echo "Deleting old files..."
