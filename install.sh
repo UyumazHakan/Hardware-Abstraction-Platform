@@ -1,10 +1,14 @@
 #!/bin/bash
-if [[ ! $# -gt 0 ]]
+if [[ ! $# -gt 1 ]]
 	then
-		echo "Usage: sudo bash install.sh [username]"
+		echo "Usage: sudo bash install.sh [username] [api server ip]"
 		exit 0
 fi
+
 USERNAME=$1
+SERVER_IP=$2
+#"http://141.40.254.150/api"
+
 echo "Starting..."
 CONFIG="config.json"
 DEV_CONFIG="config.dev_local.json"
@@ -15,15 +19,18 @@ DST_DIR="/home/$USERNAME/sensors"
 TMP_DIR="/tmp/sensors"
 LOG_DIR="/var/log/iot"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-SERVER_IP="http://141.40.254.150/api"
 
 echo "Installing dependencies..."
 
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install curl jq wget
-pip3 install kafka
 
+# install protocol libraries in python
+pip3 install kafka
+pip3 install paho-mqtt
+
+#install intermediate storage
 pip3 install tinydb
 sudo mkdir /home/$USERNAME/data
 DATA_DIR="/home/$USERNAME/data"

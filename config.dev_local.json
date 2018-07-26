@@ -1,50 +1,52 @@
 {
-	"id": "123e4567-e89b-12d3-a456-426655441111",
-	"log_directory": "/var/log/iot/",
-	"name": "test_board",
-	"description": "Board used for tests of the system",
-	"created_by": "uyumazhakan",
-	"communication_protocols": [
-		{
-			"id":"0",
-			"device_id": "123e4567-e89b-12d3-a456-426655441111",
-			"security_type": "PlainText",
-			"communication_type": "Kafka",
-			"bootstrap_servers":[
-				{
-					"ip_address": "141.40.254.2",
-					"port": 19092
+  "id": "123e4567-e89b-12d3-a456-426655441111",
+  "log_directory": "/var/log/iot/",
+  "name": "test_board",
+  "description": "Board used for tests of the system",
+  "created_by": "uyumazhakan",
+  "communication_protocols": [
+    {
+      "id": "0",
+      "device_id": "123e4567-e89b-12d3-a456-426655441111",
+      "security_type": "PlainText",
+      "communication_type": "Kafka",
+      "bootstrap_servers": [
+        {
+          "ip_address": "141.40.254.2",
+          "port": 19092,
+          "user": "JWT",
+          "password": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MzI2MDA2ODAsImlzcyI6ImlvdHBsYXRmb3JtIiwic3ViIjoiMSJ9.sILEq0ivxHWClrbUdCjD0DMiik7dkUFn4KCRQ8mwQpL2JXtFx1giOFP5FNjMiXpBzcAph7ee_OVCZFm9Ok7flx2BkQwsbakXUm9ueL2bKPDEFdPuhjFcYlGvev7p--nbfYmjrPD1v5-e8aJJ5qWMmd5m8fvcn82KfQv5BxjniW8dwWedTIXOeHk6xq678Y1JjNv4xWiM3KiYDyiu41yLFfgIFCa0hrA2Jj-l1_Kpu0-5WpusCKzZJ6Hc4jXxUIQ0yhbrnfjcGKCGztXHd-pR0dfLsxgpR50vTr9QdFONd1yJwLPcI-1ZAnF8fswatAx66a_M8KLhRWa8TkEEaB8Hivdb3yp2cdVelUW8_0OeBb4nq2LInApoPtJGRJySKX42xu7qYxcmBOqqOmUHV-mA2Exf2VOeMBz3NMd9hA_qkGEucCzZraoCGF6RPSClqfowm6dLLE7X9Id_HM_aq2DpXamSthqunnsSyiLndd6ATGMfa5uckiY-hLwNARDIWtzePaR5bbVhzKRFScJkFg-tp-O8hwvELGuEwBjexmIYYMwA6Hta9jqxNkD4fG9ORl7__Exzy1Pxj87Rj0oDI96_0jdRjj6nS4OpBhEBYPnbU0GqBH9EctAH6MW82_I0pn5q7aVcfL0N_YnosAnMRRFjk6wmW0Vbt9h2s7NZpX2_tKE"
 				},
-				{
-					"ip_address": "141.40.254.2",
-					"port": 29092
+        {
+          "ip_address": "141.40.254.2",
+          "port": 29092
 				},
-				{
-					"ip_address": "141.40.254.2",
-					"port": 39092
+        {
+          "ip_address": "141.40.254.2",
+          "port": 39092
 				}
 			],
-			"topic": "sensor-input",
-			"time_interval": 60,
-			"api_version": 10
+      "topic": "sensor-input",
+      "time_interval": 60,
+      "api_version": 10
 
 		}
 	],
-	"devices": [
-		{
-			"id": "0",
-			"type": "KY01",
-			"input_output": [
-				{
-					"type": "OneWireInputOutput",
-					"name": "Signal",
-					"pin" : 7,
-					"base_dir": "/sys/bus/w1/devices/",
-					"slave_name": "w1_slave"
+  "devices": [
+    {
+      "id": "0",
+      "type": "KY01",
+      "input_output": [
+        {
+          "type": "OneWireInputOutput",
+          "name": "Signal",
+          "pin": 7,
+          "base_dir": "/sys/bus/w1/devices/",
+          "slave_name": "w1_slave"
 				}
 			],
-			"interval": 60
+      "interval": 60
 		}
 	],
-	"board_type": "raspberry_pi"
+  "board_type": "raspberry_pi"
 }
