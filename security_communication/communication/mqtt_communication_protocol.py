@@ -17,7 +17,6 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         self.topic = self.config["topic"]
         self.time_interval = self.config["time_interval"]
         #self.packet["id"] = self.config["device_id"]
-        send_timer = Timer(self.time_interval, self.__send_buffer, [])
 
     # Define on_publish event function
     def on_publish(self, client, userdata, mid):
