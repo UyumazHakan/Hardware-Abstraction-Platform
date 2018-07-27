@@ -16,14 +16,14 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         self.servers = self.config["bootstrap_servers"]
         self.topic = self.config["topic"]
         self.time_interval = self.config["time_interval"]
-        self.packet["id"] = self.config["device_id"]
+        #self.packet["id"] = self.config["device_id"]
         send_timer = Timer(self.time_interval, self.__send_buffer, [])
 
     # Define on_publish event function
     def on_publish(self, client, userdata, mid):
         print("Message Published...")
 
-    def on_connect(client, userdata, flags, rc):
+    def on_connect(self, client, userdata, flags, rc):
         if rc==0:
             client.connected_flag=True #set flag
             print("connected OK")
@@ -31,7 +31,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             print("Bad connection Returned code=", rc)
             client.bad_connection_flag=True
 
-    def on_message(client, userdata, msg):
+    def on_message(self, client, userdata, msg):
         print(msg.topic)
         print(msg.payload)
         payload = json.loads(msg.payload)
@@ -49,19 +49,18 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
         # Connect with MQTT Broker
         try:
-            mqttc.connect(broker.ip_address, broker.port) #connect to broker
-            mqttc.username_pw_set(broker.user, password=broker.password)
-            mqttc.subscribe(self.topic)
+            #mqttc.connect(broker.ip_address, broker.port) #connect to broker
+            #mqttc.username_pw_set(broker.user, password=broker.password)
+            #mqttc.subscribe(self.topic)
 
             packet = copy.deepcopy(self.packet)
             packet["devices"]["sensors"].append(data["msg"])
             print(json.dumps(packet, indent=4, sort_keys=True))
             #mqttc.publish(self.topic, MQTT_MSG)
+            #Loop forever
+            #mqttc.loop_forever()
         except:
             print("connection to {}:{} failed".format(broker.ip_address, broker.port))
-
-        # Loop forever
-        mqttc.loop_forever()
 
     def send(self, data, callback = None):
         if not callback:
