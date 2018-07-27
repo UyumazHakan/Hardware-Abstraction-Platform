@@ -48,35 +48,35 @@ class SystemManager:
 
 
 def main():
-	with open(config_file_directory) as config_file:
-		config = json.loads(config_file.read())
-	web_server = security_constructors[SecurityEnum.PlainText.value] \
-	({}, \
-	communication_constructors[CommunicationEnum.HTTP.value] \
-	({"ip": "141.40.254.150", "port": 80}))
-	login_response = web_server.send( \
-		{"msg":{"username": config["username"], "password": config["password"]}, \
-		"http_header":{"Content-Type": "application/json"}, "http_method": "POST", \
-		"http_selector": "/api/users/authenticate", \
-		"http_body_type": web_server.communication_protocol.BodyTypes.RAW})
-	token = json.loads(login_response.read().decode("utf-8"))["token"]
-	for root, dirs, files in os.walk(config["log_directory"], topdown=False):
-		for name in files:
-			old_log=os.path.join(root, name)
-			response = web_server.send( \
-			{"fields":{"id": config["id"]}, \
-			"files":{"file":old_log}, \
-			"http_header":{"Authorization": "Bearer "+token}, "http_method": "POST", \
-			"http_selector": "/api/devices/upload", \
-			"http_body_type": web_server.communication_protocol.BodyTypes.MULTIPART})
-			print(response.read())
-			status = response.status
-			if status == 200:
-				os.remove(old_log)
-	logging.basicConfig(filename= config["log_directory"] + "log_" + str(int(time.time())) + ".txt", \
-		filemode= "w", level=logging.DEBUG, \
-		format="%(asctime)s - %(funcName)-25s:%(filename)-30s:%(thread)d - %(levelname)-5s - %(message)s")
-	logging.info("Started")
+	# with open(config_file_directory) as config_file:
+	# 	config = json.loads(config_file.read())
+	# web_server = security_constructors[SecurityEnum.PlainText.value] \
+	# ({}, \
+	# communication_constructors[CommunicationEnum.HTTP.value] \
+	# ({"ip": "141.40.254.150", "port": 80}))
+	# login_response = web_server.send( \
+	# 	{"msg":{"username": config["username"], "password": config["password"]}, \
+	# 	"http_header":{"Content-Type": "application/json"}, "http_method": "POST", \
+	# 	"http_selector": "/api/users/authenticate", \
+	# 	"http_body_type": web_server.communication_protocol.BodyTypes.RAW})
+	# token = json.loads(login_response.read().decode("utf-8"))["token"]
+	# for root, dirs, files in os.walk(config["log_directory"], topdown=False):
+	# 	for name in files:
+	# 		old_log=os.path.join(root, name)
+	# 		response = web_server.send( \
+	# 		{"fields":{"id": config["id"]}, \
+	# 		"files":{"file":old_log}, \
+	# 		"http_header":{"Authorization": "Bearer "+token}, "http_method": "POST", \
+	# 		"http_selector": "/api/devices/upload", \
+	# 		"http_body_type": web_server.communication_protocol.BodyTypes.MULTIPART})
+	# 		print(response.read())
+	# 		status = response.status
+	# 		if status == 200:
+	# 			os.remove(old_log)
+	# logging.basicConfig(filename= config["log_directory"] + "log_" + str(int(time.time())) + ".txt", \
+	# 	filemode= "w", level=logging.DEBUG, \
+	# 	format="%(asctime)s - %(funcName)-25s:%(filename)-30s:%(thread)d - %(levelname)-5s - %(message)s")
+	# logging.info("Started")
 	system_manager = SystemManager(config_file_directory)
 	while True:
 		pass
