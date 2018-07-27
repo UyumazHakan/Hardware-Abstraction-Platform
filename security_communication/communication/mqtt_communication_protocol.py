@@ -18,34 +18,34 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         self.time_interval = self.config["time_interval"]
         #self.packet["id"] = self.config["device_id"]
 
-    # Define on_publish event function
-    def on_publish(self, client, userdata, mid):
-        print("Message Published...")
-
-    def on_connect(self, client, userdata, flags, rc):
-        if rc==0:
-            client.connected_flag=True #set flag
-            print("connected OK")
-        else:
-            print("Bad connection Returned code=", rc)
-            client.bad_connection_flag=True
-
-    def on_message(self, client, userdata, msg):
-        # print(msg.topic)
-        # print(msg.payload)
-        # payload = json.loads(msg.payload)
-        # print(payload)
-        # client.disconnect()
-        print("on message callback called...\n")
-
     def _send_to_single_broker(self, broker, data):
+
+        # Define on_publish event function
+        def on_publish(client, userdata, mid):
+            print("Message Published...")
+
+        def on_connect(client, userdata, flags, rc):
+            if rc==0:
+                client.connected_flag=True #set flag
+                print("connected OK")
+            else:
+                print("Bad connection Returned code=", rc)
+                client.bad_connection_flag=True
+
+        def on_message(self, client, userdata, msg):
+            # print(msg.topic)
+            # print(msg.payload)
+            # payload = json.loads(msg.payload)
+            # print(payload)
+            # client.disconnect()
+            print("on message callback called...\n")
         # Initiate MQTT Client
         mqttc = mqtt.Client()
 
         # Register publish callback function
-        mqttc.on_publish = self.on_publish
-        mqttc.on_connect = self.on_connect
-        mqttc.on_message = self.on_message
+        mqttc.on_publish = on_publish
+        mqttc.on_connect = on_connect
+        mqttc.on_message = on_message
 
         # Connect with MQTT Broker
         try:
