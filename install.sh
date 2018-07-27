@@ -1,20 +1,24 @@
 #!/bin/bash
-if [[ ! $# -gt 0 ]]
+if [[ ! $# -gt 1 ]]
 	then
-		echo "Usage: sudo bash install.sh [username]"
+		echo "Usage: sudo bash install.sh [username] [api server ip]"
 		exit 0
 fi
+
 USERNAME=$1
+SERVER_IP=$2
+#"http://141.40.254.150/api"
+
 echo "Starting..."
 CONFIG="config.json"
 DEV_CONFIG="config.dev_local.json"
 MAIN_SH_FILE="sensors.sh"
 INSTALL_SCRIPT_NAME="install.sh"
+HOME_DIR="/home/$USERNAME"
 DST_DIR="/home/$USERNAME/sensors"
 TMP_DIR="/tmp/sensors"
 LOG_DIR="/var/log/iot"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-SERVER_IP="http://141.40.254.150/api"
 
 echo "Installing dependencies..."
 
@@ -40,6 +44,7 @@ if [ -d $DST_DIR ]
 		if pgrep -f $DST_DIR/system_manager.py > /dev/null
 			then
 			sudo pkill -9 -f $DST_DIR/system_manager.py
+			sudo rm -rf $DST_DIR
 		fi
 fi
 
@@ -50,7 +55,7 @@ if [ ! -d $LOG_DIR ]
 		sudo mkdir $LOG_DIR
 fi
 
-while true; 
+while true;
 do
 	read -p 'Do you want to use web server capabilities?[Y/n] ' yn
 	case $yn in
@@ -64,7 +69,7 @@ do
 			break
 			;;
 		[Yy]* )
-			while true; 
+			while true;
 			do
 				read -p 'Username: ' USERNAME_PLATFORM
 				read -sp 'Password: ' PASSWORD_PLATFORM
@@ -88,7 +93,7 @@ do
 			done
 			TOKEN=$(echo "$HTTP_BODY" | \
 			jq -r '.token')
-			while true; 
+			while true;
 			do
 				DEVICES=$(curl -s -X GET \
 				 $SERVER_IP/devices/external \

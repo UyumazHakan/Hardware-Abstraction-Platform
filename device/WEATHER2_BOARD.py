@@ -66,4 +66,3 @@ class WEATHER2_BOARD(Device):
 	def get_altitude(self, pressure, seaLevel):
 		atmospheric = pressure / 100.0
 		return 44330.0 * (1.0 - pow(atmospheric/seaLevel, 0.1903))
-

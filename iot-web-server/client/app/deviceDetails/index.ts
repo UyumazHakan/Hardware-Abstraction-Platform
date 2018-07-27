@@ -1,1 +1,0 @@
-export * from './deviceDetails.component';
