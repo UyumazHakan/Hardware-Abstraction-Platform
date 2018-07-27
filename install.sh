@@ -22,13 +22,18 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "Installing dependencies..."
 
-#sudo apt-get update
-#sudo apt-get upgrade
-#sudo apt-get install curl jq wget
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install curl jq wget
 
+# install protocol libraries in python
+pip3 install kafka
+pip3 install paho-mqtt
 
-#pip3 install kafka
-#pip3 install tinydb
+#install intermediate storage
+pip3 install tinydb
+sudo mkdir /home/$USERNAME/data > /dev/null
+DATA_DIR="/home/$USERNAME/data"
 
 echo "Deleting old files..."
 
@@ -148,7 +153,7 @@ sudo rm -rf $TMP_DIR
 
 echo "Running..."
 
-sudo python3 $DST_DIR/db_setup.py
+sudo python3 $DST_DIR/db_setup.py $DATA_DIR &
 sudo bash $DST_DIR/$MAIN_SH_FILE &
 
 echo "Installation finished."

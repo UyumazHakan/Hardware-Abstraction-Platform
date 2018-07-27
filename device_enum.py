@@ -24,8 +24,7 @@ device_constructors ={
 	37 : KY_37,
 	50 : KY_50,
 	51 : WEATHER2_BOARD,
-        52 : KY_52,
-	53 : MYAHRS_PLUS
+        52 : KY_52
 }
 
 class DeviceEnum(Enum):
@@ -79,6 +78,6 @@ class DeviceEnum(Enum):
 	KY48 = 48
 	KY49 = 49
 	KY50 = 50
-	WEATHER2_BOARD = 51
+	WEATHER2BOARD = 51
 	KY52 = 52
-	MYAHRS_PLUS = 53
+

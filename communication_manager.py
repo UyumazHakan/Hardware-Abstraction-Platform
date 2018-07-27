@@ -10,7 +10,6 @@ class CommunicationManager:
 	receive_callback = None
 
 	def __init__(self, communication_protocols_config, send_callback, receive_callback):
-		print(communication_protocols_config)
 		self.communication_protocols_config = communication_protocols_config
 		self.send_callback = send_callback
 		self.receive_callback = receive_callback
@@ -28,8 +27,8 @@ class CommunicationManager:
 
 
 	def send_all(self, data, callback = None):
-		print("communication manager: send_all")
-		print(data)
+		#print("communication manager: send_all")
+		#print(data)
 		if not callback:
 			callback = self.send_callback
 		for protocol_id in self.communication_protocols:
