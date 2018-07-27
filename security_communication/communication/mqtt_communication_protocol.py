@@ -49,11 +49,15 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         # Connect with MQTT Broker
         try:
             print(broker)
-            print("{}, {}".format(broker.user, broker.password))
-            # mqttc.connect(broker.ip_address, broker.port) #connect to broker
-            # mqttc.username_pw_set(broker.user, password=broker.password)
-            # mqttc.subscribe(self.topic)
+            print("{}, {}".format(broker['user'], broker['password']))
+            try:
+                # mqttc.connect(broker['ip_address'], broker['port']) #connect to broker
+            except:
+                print("connection to {}:{} failed".format(broker['ip_address'], ['broker.port']))
+                raise Exception("not connected")
 
+            mqttc.username_pw_set(broker['user'], broker['password'])
+            mqttc.subscribe(self['topic'])
 
             msg = {}
             msg["timestamp"] = data["msg"]["timestamp"] * 1000
@@ -62,11 +66,12 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
             print(msg)
             #print(json.dumps(msg, indent=4, sort_keys=True))
-            mqttc.publish(self.topic, msg)
+            mqttc.publish(self['topic'], msg)
             #Loop forever
-            #mqttc.loop_forever()
-        except:
-            print("connection to {}:{} failed".format(broker.ip_address, broker.port))
+            mqttc.loop_forever()
+        except Exception as e:
+            print(e)
+            print("something went wrong while sending message")
 
     def send(self, data, callback = None):
         if not callback:
