@@ -80,4 +80,3 @@ class DeviceEnum(Enum):
 	KY50 = 50
 	WEATHER2BOARD = 51
 	KY52 = 52
-
