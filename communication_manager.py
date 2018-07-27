@@ -27,8 +27,8 @@ class CommunicationManager:
 
 
 	def send_all(self, data, callback = None):
-		print("communication manager: send_all")
-		print(data)
+		#print("communication manager: send_all")
+		#print(data)
 		if not callback:
 			callback = self.send_callback
 		for protocol_id in self.communication_protocols:

@@ -57,7 +57,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
                 raise Exception("not connected")
 
             mqttc.username_pw_set(broker['user'], broker['password'])
-            mqttc.subscribe(self['topic'])
+            mqttc.subscribe(self.topic)
 
             msg = {}
             msg["timestamp"] = data["msg"]["timestamp"] * 1000
@@ -66,7 +66,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
             print(msg)
             #print(json.dumps(msg, indent=4, sort_keys=True))
-            mqttc.publish(self['topic'], msg)
+            mqttc.publish(self.topic, msg)
             #Loop forever
             mqttc.loop_forever()
         except Exception as e:
