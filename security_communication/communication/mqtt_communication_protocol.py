@@ -11,18 +11,17 @@ import paho.mqtt.publish as publish
 
 class MQTTCommunicationProtocol(CommunicationProtocol):
 
-	def __init__(self, config, send_callback = None, receive_callback = None):
-		super(HTTPCommunicationProtocol, self).__init__(config, send_callback, receive_callback)
-
+    def __init__(self, config, send_callback = None, receive_callback = None):
+        super(MQTTCommunicationProtocol, self).__init__(config, send_callback, receive_callback)
         self.servers = self.config["bootstrap_servers"]
-		self.topic = self.config["topic"]
-		self.time_interval = self.config["time_interval"]
-		self.packet["id"] = self.config["device_id"]
-		send_timer = Timer(self.time_interval, self.__send_buffer, [])
+        self.topic = self.config["topic"]
+        self.time_interval = self.config["time_interval"]
+        self.packet["id"] = self.config["device_id"]
+        send_timer = Timer(self.time_interval, self.__send_buffer, [])
 
     # Define on_publish event function
-    def on_publish(client, userdata, mid):
-        print "Message Published..."
+    def on_publish(self, client, userdata, mid):
+        print("Message Published...")
 
     def on_connect(client, userdata, flags, rc):
         if rc==0:
@@ -55,7 +54,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             mqttc.subscribe(self.topic)
 
             packet = copy.deepcopy(self.packet)
-    		packet["devices"]["sensors"].append(data["msg"])
+            packet["devices"]["sensors"].append(data["msg"])
             print(json.dumps(packet, indent=4, sort_keys=True))
             #mqttc.publish(self.topic, MQTT_MSG)
         except:
@@ -64,16 +63,17 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         # Loop forever
         mqttc.loop_forever()
 
-	def send(self, data, callback = None):
-		if not callback:
-			callback = self.send_callback
+    def send(self, data, callback = None):
+        if not callback:
+            callback = self.send_callback
 
         for server in self.servers:
             _send_to_single_broker(server, data)
 
-		if callback:
-			callback(self.connection.getresponse())
-		return self.connection.getresponse()
+        if callback:
+            callback()
+        #     callback(self.connection.getresponse())
+        # return self.connection.getresponse()
 
-	def receive(self, callback = None):
-		pass
+    def receive(self, callback = None):
+        pass
