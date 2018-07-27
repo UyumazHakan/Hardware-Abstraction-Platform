@@ -54,7 +54,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
                 mqttc.username_pw_set(broker['user'], broker['password'])
                 mqttc.subscribe(self.topic)
             except:
-                print("connection to {}:{} failed".format(broker['ip_address'], broker['broker.port']))
+                print("connection to {}:{} failed".format(broker['ip_address'], broker['port']))
                 raise Exception("not connected")
 
             msg = {}
