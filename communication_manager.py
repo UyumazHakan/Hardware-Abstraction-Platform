@@ -10,6 +10,7 @@ class CommunicationManager:
 	receive_callback = None
 
 	def __init__(self, communication_protocols_config, send_callback, receive_callback):
+		print(communication_protocols_config)
 		self.communication_protocols_config = communication_protocols_config
 		self.send_callback = send_callback
 		self.receive_callback = receive_callback
