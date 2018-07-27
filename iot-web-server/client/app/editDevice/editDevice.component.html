@@ -118,16 +118,24 @@
                         </div>
 
                         <div class="panel-body" *ngFor="let bootstrap_server of communication_protocol.bootstrap_servers; let j = index" >
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label>Bootstrap Server IP Address</label>
                                 <input type="text" class="form-control" name="bootstrap_ip_address-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.ip_address"
                                        minlength="7" maxlength="15" placeholder="127.0.0.1" required/>
                                 <div *ngIf="f.submitted && !bootstrap_ip_address-i-j.valid" class="help-block">IP Address is required</div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label>Bootstrap Server Port</label>
                                 <input type="number" class="form-control" name="bootstrap_server.port-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.port" [min]="0" [max]="65535" required />
                                 <div *ngIf="f.submitted && !bootstrap_server.port-i-j.valid" class="help-block">Port is required</div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Bootstrap Server Username</label>
+                                <input type="text" class="form-control" name="bootstrap_ip_address-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.ip_username" required/>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Bootstrap Server Token</label>
+                                <input type="text" class="form-control" name="bootstrap_ip_address-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.ip_token" required/>
                             </div>
                             <div class="col-md-2 pull-left">
                                 <div (click)="removeBootstrapServer(i, j)" class="btn btn-xs btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></div>
