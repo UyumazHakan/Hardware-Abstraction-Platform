@@ -48,8 +48,6 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
         # Connect with MQTT Broker
         try:
-            print(broker)
-            print("{}, {}".format(broker['user'], broker['password']))
             try:
                 mqttc.connect(broker['ip_address'], broker['port']) #connect to broker
             except:
@@ -64,9 +62,9 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg["sensor_id"] = data["msg"]["custom_id"]
             msg["value"] = data["msg"]["values"]
 
-            print(msg)
+            print(json.dumps(msg))
             #print(json.dumps(msg, indent=4, sort_keys=True))
-            mqttc.publish(self.topic, msg)
+            mqttc.publish(self.topic, json.dumps(msg))
             #Loop forever
             mqttc.loop_forever()
         except Exception as e:
