@@ -48,6 +48,8 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
         # Connect with MQTT Broker
         try:
+            print(broker)
+            print("{}, {}".format(broker.user, broker.password))
             # mqttc.connect(broker.ip_address, broker.port) #connect to broker
             # mqttc.username_pw_set(broker.user, password=broker.password)
             # mqttc.subscribe(self.topic)
@@ -60,7 +62,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
             print(msg)
             #print(json.dumps(msg, indent=4, sort_keys=True))
-            #mqttc.publish(self.topic, MQTT_MSG)
+            mqttc.publish(self.topic, msg)
             #Loop forever
             #mqttc.loop_forever()
         except:
