@@ -31,11 +31,12 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             client.bad_connection_flag=True
 
     def on_message(self, client, userdata, msg):
-        print(msg.topic)
-        print(msg.payload)
-        payload = json.loads(msg.payload)
-        print(payload)
-        client.disconnect()
+        # print(msg.topic)
+        # print(msg.payload)
+        # payload = json.loads(msg.payload)
+        # print(payload)
+        # client.disconnect()
+        print("on message callback called...\n")
 
     def _send_to_single_broker(self, broker, data):
         # Initiate MQTT Client
@@ -50,12 +51,11 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         try:
             try:
                 mqttc.connect(broker['ip_address'], broker['port']) #connect to broker
+                mqttc.username_pw_set(broker['user'], broker['password'])
+                mqttc.subscribe(self.topic)
             except:
-                print("connection to {}:{} failed".format(broker['ip_address'], ['broker.port']))
+                print("connection to {}:{} failed".format(broker['ip_address'], broker['broker.port']))
                 raise Exception("not connected")
-
-            mqttc.username_pw_set(broker['user'], broker['password'])
-            mqttc.subscribe(self.topic)
 
             msg = {}
             msg["timestamp"] = data["msg"]["timestamp"] * 1000
@@ -63,7 +63,6 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg["value"] = data["msg"]["values"]
 
             print(json.dumps(msg))
-            #print(json.dumps(msg, indent=4, sort_keys=True))
             mqttc.publish(self.topic, json.dumps(msg))
             #Loop forever
             mqttc.loop_forever()
