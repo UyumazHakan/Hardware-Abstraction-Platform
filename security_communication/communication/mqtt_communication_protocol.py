@@ -48,13 +48,17 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
         # Connect with MQTT Broker
         try:
-            #mqttc.connect(broker.ip_address, broker.port) #connect to broker
-            #mqttc.username_pw_set(broker.user, password=broker.password)
-            #mqttc.subscribe(self.topic)
+            # mqttc.connect(broker.ip_address, broker.port) #connect to broker
+            # mqttc.username_pw_set(broker.user, password=broker.password)
+            # mqttc.subscribe(self.topic)
 
-            packet = copy.deepcopy(self.packet)
-            packet["devices"]["sensors"].append(data["msg"])
-            print(json.dumps(packet, indent=4, sort_keys=True))
+
+            msg = {}
+            msg["timestamp"] = data["msg"]["timestamp"] * 1000
+            msg["sensor_id"] = data["msg"]["custom_id"]
+            msg["value"] = data["msg"]["values"]
+
+            print(json.dumps(msg, indent=4, sort_keys=True))
             #mqttc.publish(self.topic, MQTT_MSG)
             #Loop forever
             #mqttc.loop_forever()

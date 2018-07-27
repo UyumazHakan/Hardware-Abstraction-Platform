@@ -13,7 +13,7 @@ class Device:
 
 	def read_value(self, callback=None):
 		values = self.read_value_imp()
-		data = {"sub_topic":"","msg":{"id": self.config["id"], "timestamp":int(time.time()), "values": values}}
+		data = {"sub_topic":"","msg":{"id": self.config["id"], "custom_id": self.config["custom_id"], core "timestamp":int(time.time()), "values": values}}
 		callback(data) if callback else self.callback(data)
 
 	def read_value_loop(self, interval = None, callback=None):
