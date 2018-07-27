@@ -13,7 +13,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
     def __init__(self, config, send_callback = None, receive_callback = None):
         super(MQTTCommunicationProtocol, self).__init__(config, send_callback, receive_callback)
-        self.servers = self.config["bootstrap_servers"]
+        self.brokers = self.config["bootstrap_servers"]
         self.topic = self.config["topic"]
         self.time_interval = self.config["time_interval"]
         #self.packet["id"] = self.config["device_id"]
@@ -37,7 +37,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         print(payload)
         client.disconnect()
 
-    def _send_to_single_broker(self, broker):
+    def _send_to_single_broker(self, broker, data):
         # Initiate MQTT Client
         mqttc = mqtt.Client()
 
@@ -65,8 +65,8 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         if not callback:
             callback = self.send_callback
 
-        for server in self.servers:
-            self._send_to_single_broker(server, data)
+        for broker in self.brokers:
+            self._send_to_single_broker(broker, data)
 
         if callback:
             callback()
