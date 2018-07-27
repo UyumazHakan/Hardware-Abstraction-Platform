@@ -95,7 +95,7 @@
                         </div>
 
                         <div class="col-md-3" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.topic-i.valid }">
-                            <label>Kafka Topic</label>
+                            <label>Topic</label>
                             <input type="text" class="form-control" name="topic-{{i}}" [(ngModel)]="communication_protocol.topic" #communication_protocol.topic="ngModel" required/>
                             <div *ngIf="f.submitted && !communication_protocol.topic-i.valid" class="help-block">Kafka topic is required</div>
                         </div>
@@ -131,11 +131,11 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Bootstrap Server Username</label>
-                                <input type="text" class="form-control" name="bootstrap_ip_address-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.ip_username" required/>
+                                <input type="text" class="form-control" name="bootstrap_server.username-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.username" required/>
                             </div>
                             <div class="col-md-3">
                                 <label>Bootstrap Server Token</label>
-                                <input type="text" class="form-control" name="bootstrap_ip_address-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.ip_token" required/>
+                                <input type="text" class="form-control" name="bootstrap_server.token-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.token" required/>
                             </div>
                             <div class="col-md-2 pull-left">
                                 <div (click)="removeBootstrapServer(i, j)" class="btn btn-xs btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></div>

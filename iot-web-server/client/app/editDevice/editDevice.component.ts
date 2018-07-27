@@ -237,9 +237,12 @@ export class EditDeviceComponent implements OnInit {
     }
 
     public addBootstrapServer(communication_protocol_index: any) {
+        console.log("--->" + communication_protocol_index);
         this.currentDevice.communication_protocols[communication_protocol_index]["bootstrap_servers"].push({
             "ip_address": "",
-            "port": 9092
+            "port": 9092,
+            "username": "",
+            "token": ""
         });
     }
 
