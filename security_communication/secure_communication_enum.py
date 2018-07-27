@@ -10,6 +10,7 @@ class SecurityEnum(Enum):
 class CommunicationEnum(Enum):
 	Kafka = 1
 	HTTP = 2
+	mqtt = 3
 
 security_constructors = {
 	1 : PlainTextSecurityProtocol
@@ -17,7 +18,6 @@ security_constructors = {
 
 communication_constructors = {
 	1 : KafkaCommunicationProtocol,
-	2 : HTTPCommunicationProtocol
+	2 : HTTPCommunicationProtocol,
+	3 : MQTTCommunicationProtocol
 }
-
-

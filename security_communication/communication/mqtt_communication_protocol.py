@@ -34,10 +34,10 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
     def on_message(client, userdata, msg):
         print(msg.topic)
-        print(msg.payload) # <- do you mean this payload = {...} ?
-        payload = json.loads(msg.payload) # you can use json.loads to convert string to json
-        print(payload['sepalWidth']) # then you can check the value
-        client.disconnect() # Got message then disconnect
+        print(msg.payload)
+        payload = json.loads(msg.payload)
+        print(payload)
+        client.disconnect()
 
     def _send_to_single_broker(self, broker):
         # Initiate MQTT Client
@@ -52,15 +52,14 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         try:
             mqttc.connect(broker.ip_address, broker.port) #connect to broker
             mqttc.username_pw_set(broker.user, password=broker.password)
+            mqttc.subscribe(self.topic)
+
+            packet = copy.deepcopy(self.packet)
+    		packet["devices"]["sensors"].append(data["msg"])
+            print(json.dumps(packet, indent=4, sort_keys=True))
+            #mqttc.publish(self.topic, MQTT_MSG)
         except:
             print("connection to {}:{} failed".format(broker.ip_address, broker.port))
-
-        packet = copy.deepcopy(self.packet)
-		packet["devices"]["sensors"].append(data["msg"])
-
-
-
-		print(json.dumps(packet, indent=4, sort_keys=True))
 
         # Loop forever
         mqttc.loop_forever()
