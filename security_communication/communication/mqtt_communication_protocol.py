@@ -66,12 +66,10 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             callback = self.send_callback
 
         for server in self.servers:
-            _send_to_single_broker(server, data)
+            self._send_to_single_broker(server, data)
 
         if callback:
             callback()
-        #     callback(self.connection.getresponse())
-        # return self.connection.getresponse()
 
     def receive(self, callback = None):
         pass
