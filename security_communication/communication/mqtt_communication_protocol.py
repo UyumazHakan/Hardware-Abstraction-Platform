@@ -58,7 +58,8 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg["sensor_id"] = data["msg"]["custom_id"]
             msg["value"] = data["msg"]["values"]
 
-            print(json.dumps(msg, indent=4, sort_keys=True))
+            print(msg)
+            #print(json.dumps(msg, indent=4, sort_keys=True))
             #mqttc.publish(self.topic, MQTT_MSG)
             #Loop forever
             #mqttc.loop_forever()
