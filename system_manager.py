@@ -46,8 +46,7 @@ class SystemManager:
 		self.device_manager.read_all()
 
 
-
-def main():
+def log_worker():
 	with open(config_file_directory) as config_file:
 		config = json.loads(config_file.read())
 	web_server = security_constructors[SecurityEnum.PlainText.value] \
@@ -77,6 +76,9 @@ def main():
 		filemode= "w", level=logging.DEBUG, \
 		format="%(asctime)s - %(funcName)-25s:%(filename)-30s:%(thread)d - %(levelname)-5s - %(message)s")
 	logging.info("Started")
+
+def main():
+	#log_worker()
 	system_manager = SystemManager(config_file_directory)
 	while True:
 		pass
