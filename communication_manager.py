@@ -29,7 +29,8 @@ class CommunicationManager:
 	def send_all(self, data, callback = None):
 		try:
 			self.save_to_local_storage(data)
-		except:
+		except Exception as e:
+			print(e)
 			print("data could not be saved locally")
 
 		if not callback:
