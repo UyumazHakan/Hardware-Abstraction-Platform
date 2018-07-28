@@ -41,4 +41,4 @@ class CommunicationManager:
 	def save_to_local_storage(self, data):
 		print(data["msg"])
 		db = TinyDB('db.json')
-		db.insert(data["msg"])
+		db.insert({"test": "2423"})
