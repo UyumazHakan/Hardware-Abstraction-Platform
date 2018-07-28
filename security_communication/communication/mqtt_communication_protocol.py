@@ -75,8 +75,8 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             print(mqttc.publish(self.topic, json.dumps(msg)))
             #Loop forever
             print('disconnect and stop loop..', end=": ")
-            mqttc.disconnect()
-            mqttc.loop_stop()
+            #mqttc.disconnect()
+            mqttc.loop_forever()
 
         except Exception as e:
             print(e)
