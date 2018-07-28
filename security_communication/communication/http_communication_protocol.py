@@ -26,8 +26,10 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 			msg["value"] = data["msg"]["values"]
 			print(msg)
 			url = server['ip_address']+":"+server['port']
+			print('sending requests with token..')
 			response = requests.post(url, data=json.dumps(msg), headers=headers)
-			print(response)
+			print("response")
+			print(response, end='\n\n')
 
 		except Exception as e:
 			print(e)
