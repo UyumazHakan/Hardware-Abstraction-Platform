@@ -24,6 +24,8 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         # Define on_publish event function
         def on_publish(client, userdata, mid):
             print("Message Published...")
+            client.disconnect()
+            client.loop_stop()
 
         def on_connect(client, userdata, flags, rc):
             print("on_connect:", end=': ')
@@ -67,15 +69,10 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg = {}
             msg["timestamp"] = data["msg"]["timestamp"] * 1000
             msg["sensor_id"] = data["msg"]["custom_id"]
-            msg["value"] = 5 # data["msg"]["values"]
+            msg["value"] = data["msg"]["values"]["value"]
 
-            #print(json.dumps(msg))
             print("publishing:", end=': ')
             print(mqttc.publish(self.topic, json.dumps(msg)))
-            #Loop forever
-            print('disconnect and stop loop..', end=": ")
-            mqttc.disconnect()
-            mqttc.loop_stop()
 
         except Exception as e:
             print(e)
