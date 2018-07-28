@@ -66,7 +66,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
                 print("connection to {}:{} failed".format(broker['ip_address'], broker['port']))
                 raise Exception("not connected")
 
-            print(msg)
+            print(data)
             msg = {}
             msg["timestamp"] = data["msg"]["timestamp"] * 1000
             msg["sensor_id"] = data["msg"]["custom_id"]
