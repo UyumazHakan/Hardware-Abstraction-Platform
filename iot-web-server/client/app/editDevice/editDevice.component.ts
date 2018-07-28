@@ -152,10 +152,10 @@ export class EditDeviceComponent implements OnInit {
     }
 
     private validateIPAddress(ip_address: string): Boolean {
-        if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip_address)) {
-            return true;
-        }
-        return false;
+        // if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip_address)) {
+        //     return true;
+        // }
+        return true;
     }
 
     private validateForm(): Boolean {
@@ -271,9 +271,9 @@ export class EditDeviceComponent implements OnInit {
         this.currentDevice.devices.push({
             "id": this.newGuid(),
             "type": "",
+            "input_output": [],
             "interval": 5,
-            "custom_id": "",
-            "input_output": []
+            "custom_id": ""            
         });
     }
 

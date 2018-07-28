@@ -43,7 +43,8 @@ var device = new Schema({
     id: String,
     type: String,
     input_output: [io_entry],
-    interval: Number
+    interval: Number,
+    custom_id: String
 });
 
 var deviceSchema = new Schema({
