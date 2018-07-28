@@ -23,12 +23,10 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
         # Define on_publish event function
         def on_publish(client, userdata, mid):
-            print("Message Published...mid: {}".format(mid))
             client.disconnect()
             client.loop_stop()
 
         def on_connect(client, userdata, flags, rc):
-            print("on_connect:", end=': ')
             if rc==0:
                 client.connected_flag=True #set flag
                 print("connected OK")
@@ -57,23 +55,17 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             mqttc.on_message = on_message
             try:
                 mqttc.loop_start()
-                print("connecting", end=': ')
-                print(mqttc.connect(broker['ip_address'], broker['port'])) #connect to broker
-
-                print("subscribing:", end=': ')
-                print(mqttc.subscribe(self.topic))
+                mqttc.connect(broker['ip_address'], broker['port']) #connect to broker
             except:
                 print("connection to {}:{} failed".format(broker['ip_address'], broker['port']))
                 raise Exception("not connected")
 
-            print(data)
             msg = {}
             msg["timestamp"] = data["msg"]["timestamp"] * 1000
             msg["sensor_id"] = data["msg"]["custom_id"]
             msg["value"] = data["msg"]["values"]
-            print(msg)
-            print("publishing:", end=': ')
-            print(mqttc.publish(self.topic, json.dumps(msg), qos=1))
+            mqttc.subscribe(self.topic)
+            mqttc.publish(self.topic, json.dumps(msg), qos=1)
 
         except Exception as e:
             print(e)
