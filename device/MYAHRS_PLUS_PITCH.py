@@ -9,7 +9,7 @@ import traceback
 class MYAHRS_PLUS_PITCH(Device):
 
         values = {
-            "name": "ROLL",
+            "name": "PITCH",
             "value": None,
             "unit": "%%"
         }
