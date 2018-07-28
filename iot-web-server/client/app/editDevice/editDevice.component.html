@@ -180,14 +180,14 @@
                         <div class="col-md-5" [ngClass]="{ 'has-error': f.submitted && !device.type-i.valid }">
                             <label>Device Type</label>
                             <select class="select form-control input-sm" name="device.type-{{i}}" #device.type="ngModel" [(ngModel)]="device.type" required>
-                                <option value="KY01">WEATHER2_BOARD_UV</option>
-                                <option value="KY01">WEATHER2_BOARD_VISIBILITY</option>
-                                <option value="KY01">WEATHER2_BOARD_IR</option>
-                                <option value="KY01">WEATHER2_BOARD_TEMPERATURE</option>
-                                <option value="KY01">WEATHER2_BOARD_HUMIDITY</option>
-                                <option value="KY01">WEATHER2_BOARD_PRESSURE</option>
-                                <option value="KY01">WEATHER2_BOARD_ALTITUDE</option>                                
-                                <option value="KY01">-------------------------</option>
+                                <option value="WEATHER2_BOARD_UV">Weatherboard UV sensor</option>
+                                <option value="WEATHER2_BOARD_VISIBILITY">Weatherboard visibility sensor</option>
+                                <option value="WEATHER2_BOARD_IR">Weatherboard IR snsor</option>
+                                <option value="WEATHER2_BOARD_TEMPERATURE">Weatherboard temperature sensor</option>
+                                <option value="WEATHER2_BOARD_HUMIDITY">Weatherboard humidity sensor</option>
+                                <option value="WEATHER2_BOARD_PRESSURE">Weatherboard pressure sensor</option>
+                                <option value="WEATHER2_BOARD_ALTITUDE">Weatherboard altitude sensor</option>                                
+                                <option value="">-------------------------</option>
                                 <option value="KY01">Temperature sensor module</option>
                                 <option value="KY02">Vibration-switch module</option>
                                 <option value="KY03">Hall Magneticfield-Sensor module</option>
