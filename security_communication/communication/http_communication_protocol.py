@@ -14,6 +14,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		MULTIPART = 2
 
 	def __init__(self, config, send_callback = None, receive_callback = None):
+		print(config)
 		super(HTTPCommunicationProtocol, self).__init__(config, send_callback, receive_callback)
 		self.host = self.config["ip"] if self.config["ip"] else self.config["domain"]
 		self.port = self.config["port"]
@@ -73,6 +74,6 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		lines.extend(('--%s--' % boundary, ''))
 		body = '\r\n'.join(lines)
 
-		headers = {'content-type': 'multipart/form-data; boundary=' + boundary,
+		headers = {'Authorization': 'Bearer ', 'content-type': 'multipart/form-data; boundary=' + boundary,
 				   'content-length': str(len(body))}
 		return body, headers
