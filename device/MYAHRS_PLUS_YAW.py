@@ -9,7 +9,7 @@ import traceback
 class MYAHRS_PLUS_YAW(Device):
 
         values = {
-            "name": "ROLL",
+            "name": "YAW",
             "value": None,
             "unit": "%%"
         }
