@@ -197,7 +197,7 @@ export class EditDeviceComponent implements OnInit {
             "id": this.newGuid(),
             "device_id": this.currentDevice.id,
             "security_type": "PlainText",
-            "communication_type": "Kafka",
+            "communication_type": "MQTT",
             "topic": "sensor-input", // default
             "time_interval": 5,
             "api_version": this.currentDevice.api_version,
