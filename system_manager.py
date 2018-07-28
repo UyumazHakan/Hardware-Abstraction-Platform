@@ -41,8 +41,12 @@ class SystemManager:
 			import RPi.GPIO as GPIO
 			GPIO.setmode(GPIO.BOARD)
 		self.device_manager = DeviceManager(self.config["devices"], self.config["board_type"], self.device_manager_callback)
-		
-		self.communication_manager = CommunicationManager(self.config["communication_protocols"], self.communication_manager_send_callback, self.communication_manager_receive_callback)
+		if self.device_manager.connected > 0:
+			self.communication_manager = CommunicationManager(self.config["communication_protocols"], self.communication_manager_send_callback, self.communication_manager_receive_callback)
+		else:
+			print('no sensor initiated')
+			exit()
+
 		time.sleep(5)
 		self.device_manager.read_all()
 
