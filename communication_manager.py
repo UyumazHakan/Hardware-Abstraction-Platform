@@ -30,14 +30,9 @@ class CommunicationManager:
 		self.save_to_local_storage(data)
 		if not callback:
 			callback = self.send_callback
-		# for protocol_id in self.communication_protocols:
-		# 	self.communication_protocols[protocol_id].send(data, callback)
+		for protocol_id in self.communication_protocols:
+			self.communication_protocols[protocol_id].send(data, callback)
 
 	def save_to_local_storage(self, data):
-		print(data)
-		print("saving data to local storage")
 		db = TinyDB('db.json')
-		#table = db.table(data["id"])
-		db.insert(data)
-		print(db.all())
-		print('\n\n')
+		db.insert(data["msg"])
