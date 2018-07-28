@@ -99,20 +99,21 @@ export class EditDeviceComponent implements OnInit {
         if (this.validateForm()) {
             console.log(this.currentDevice);
             // additional check for odroid: create default array & io if it's selected
-            if (this.currentDevice.board_type === 'odroid') {
-                this.currentDevice.devices = [];
-                this.currentDevice.devices.push({
-                    "id": this.newGuid(),
-                    "type": "WEATHER2BOARD",
-                    "interval": 5,
-                    "input_output": []
-                });
-                this.currentDevice.devices[0].input_output.push({
-                    "type": "I2C",
-                    "name": "odroid i2c",
-                    "pin": 5
-                });
-            } else if(this.currentDevice.board_type === 'raspberry_pi') {
+            // if (this.currentDevice.board_type === 'odroid') {
+            //     this.currentDevice.devices = [];
+            //     this.currentDevice.devices.push({
+            //         "id": this.newGuid(),
+            //         "type": "WEATHER2BOARD",
+            //         "interval": 5,
+            //         "input_output": []
+            //     });
+            //     this.currentDevice.devices[0].input_output.push({
+            //         "type": "I2C",
+            //         "name": "odroid i2c",
+            //         "pin": 5
+            //     });
+            // } else 
+            if(this.currentDevice.board_type === 'raspberry_pi') {
                 for (let i = 0; i < this.currentDevice.devices.length; i++) {
                     for (let j = 0; j < this.currentDevice.devices[i].input_output.length; j++) {
                         let io_entity = this.currentDevice.devices[i].input_output[j];
