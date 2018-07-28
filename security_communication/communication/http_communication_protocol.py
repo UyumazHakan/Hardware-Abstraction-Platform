@@ -16,7 +16,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		super(HTTPCommunicationProtocol, self).__init__(config, send_callback, receive_callback)
 		self.servers = self.config["bootstrap_servers"]
 		self.topic = self.config["topic"]
-        self.time_interval = self.config["time_interval"]
+		self.time_interval = self.config["time_interval"]
 
 	def _send_to_single_server(self, server, data):
         try:
