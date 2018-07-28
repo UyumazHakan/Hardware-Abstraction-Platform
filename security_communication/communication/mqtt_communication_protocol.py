@@ -12,6 +12,7 @@ import paho.mqtt.publish as publish
 class MQTTCommunicationProtocol(CommunicationProtocol):
 
     def __init__(self, config, send_callback = None, receive_callback = None):
+        print("MQTT initiated..")
         super(MQTTCommunicationProtocol, self).__init__(config, send_callback, receive_callback)
         self.brokers = self.config["bootstrap_servers"]
         self.topic = self.config["topic"]
@@ -25,6 +26,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             print("Message Published...")
 
         def on_connect(client, userdata, flags, rc):
+            print("on_connect:", end=': ')
             if rc==0:
                 client.connected_flag=True #set flag
                 print("connected OK")
@@ -33,12 +35,11 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
                 client.bad_connection_flag=True
 
         def on_message(self, client, userdata, msg):
-            # print(msg.topic)
-            # print(msg.payload)
-            # payload = json.loads(msg.payload)
-            # print(payload)
-            # client.disconnect()
+            print("on_message:", end=': ')
+            print(msg)
+            client.disconnect()
             print("on message callback called...\n")
+            client.loop_stop()
 
         # Connect with MQTT Broker
         try:
@@ -50,8 +51,14 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             mqttc.on_connect = on_connect
             mqttc.on_message = on_message
             try:
+                print("connecting", end=': ')
                 print(mqttc.connect(broker['ip_address'], broker['port'])) #connect to broker
+                print("Authorization:", end=': ')
                 print(mqttc.username_pw_set(broker['user'], broker['password']))
+
+                mqttc.loop_start()
+
+                print("subscribing:", end=': ')
                 print(mqttc.subscribe(self.topic))
             except:
                 print("connection to {}:{} failed".format(broker['ip_address'], broker['port']))
@@ -62,10 +69,11 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg["sensor_id"] = data["msg"]["custom_id"]
             msg["value"] = 5 # data["msg"]["values"]
 
-            print(json.dumps(msg))
+            #print(json.dumps(msg))
+            print("publishing:", end=': ')
             print(mqttc.publish(self.topic, json.dumps(msg)))
             #Loop forever
-            mqttc.loop_forever()
+
         except Exception as e:
             print(e)
             print("something went wrong while sending message")
