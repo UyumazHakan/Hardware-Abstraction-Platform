@@ -37,9 +37,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         def on_message(self, client, userdata, msg):
             print("on_message:", end=': ')
             print(msg)
-            client.disconnect()
             print("on message callback called...\n")
-            client.loop_stop()
 
         # Connect with MQTT Broker
         try:
@@ -73,6 +71,9 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             print("publishing:", end=': ')
             print(mqttc.publish(self.topic, json.dumps(msg)))
             #Loop forever
+            print('disconnect and stop loop..', end=": ")
+            mqttc.disconnect()
+            mqttc.loop_stop()
 
         except Exception as e:
             print(e)
