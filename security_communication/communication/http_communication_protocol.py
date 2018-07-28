@@ -27,7 +27,8 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 			msg["sensor_id"] = data["msg"]["custom_id"]
 			msg["value"] = data["msg"]["values"]
 			print(msg)
-			print(requests.post(server['ip_address']+":"+server['port'], data=msg, headers=headers))
+			url = server['ip_address']+":"+server['port']
+			print(requests.post(url, data=json.dumps(msg), headers=headers))
 
 		except Exception as e:
 			print(e)
@@ -35,10 +36,12 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 
 
 	def send(self, connection, data, callback = None):
+		print(data)
 		if not callback:
 		    callback = self.send_callback
 
 		for server in self.servers:
+			print(server)
 		    self._send_to_single_server(server, data)
 
 		if callback:
