@@ -9,7 +9,7 @@ import traceback
 class MYAHRS_PLUS_ACCEL_X(Device):
 
         values = {
-            "name": "ROLL",
+            "name": "ACCEL_X",
             "value": None,
             "unit": "%%"
         }
