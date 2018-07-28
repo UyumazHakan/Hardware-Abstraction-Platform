@@ -6,16 +6,16 @@ import traceback
 
 
 
-class MYAHRS_PLUS_TEMPERATURE(Device):
+class MYAHRS_PLUS_ACCEL_X(Device):
 
         values = {
-            "name": "TEMPERATURE",
+            "name": "ACCEL_X",
             "value": None,
             "unit": "%%"
         }
 
         def __init__(self, config, callback):
-                super(MYAHRS_PLUS_TEMPERATURE, self).__init__(config, callback)
+                super(MYAHRS_PLUS_ACCEL_X, self).__init__(config, callback)
                 self.read_value_imp = self.__read_value
 
         def __read_value(self):
@@ -74,7 +74,7 @@ class MYAHRS_PLUS_TEMPERATURE(Device):
 
                 items = self.parse_data_message_rpyimu(line)
 
-                self.values = items[13]
+                self.values = items[4]
                 if self.values == None:
                     print('Error collecting data')
                 else:
