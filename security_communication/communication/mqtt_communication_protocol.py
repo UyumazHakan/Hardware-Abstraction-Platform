@@ -23,7 +23,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
 
         # Define on_publish event function
         def on_publish(client, userdata, mid):
-            print("Message Published...")
+            print("Message Published...mid: {}".format(mid))
             client.disconnect()
             client.loop_stop()
 
@@ -73,7 +73,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg["value"] = data["msg"]["values"]
             print(msg)
             print("publishing:", end=': ')
-            print(mqttc.publish(self.topic, json.dumps(data)))
+            print(mqttc.publish(self.topic, json.dumps(data), qos=1))
 
         except Exception as e:
             print(e)
