@@ -57,7 +57,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
                 print("Authorization:", end=': ')
                 print(mqttc.username_pw_set(broker['user'], broker['password']))
 
-                mqttc.loop_start()
+                #mqttc.loop_start()
 
                 print("subscribing:", end=': ')
                 print(mqttc.subscribe(self.topic))
