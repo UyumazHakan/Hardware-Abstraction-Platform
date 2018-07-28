@@ -27,7 +27,11 @@ class CommunicationManager:
 		self.communication_protocols[communication_protocol_config["id"]] = security_constructors[security_type](communication_protocol_config, communication_protocol, self.send_callback, self.receive_callback)
 
 	def send_all(self, data, callback = None):
-		self.save_to_local_storage(data)
+		try:
+			self.save_to_local_storage(data)
+		except:
+			print("data could not be saved locally")
+
 		if not callback:
 			callback = self.send_callback
 		for protocol_id in self.communication_protocols:

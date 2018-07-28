@@ -17,7 +17,10 @@ class DeviceManager:
 
 	def init_devices(self):
 		for device_config in self.devices_config:
-			self.init_device(device_config)
+			try:
+				self.init_device(device_config)
+			except:
+				print("could not connect to sensor")
 
 	def init_device(self, device_config):
 		device_type = DeviceEnum[device_config["type"]].value
@@ -30,5 +33,3 @@ class DeviceManager:
 				device_thread = Thread(target=device.read_value_loop,  kwargs={'callback': self.callback})
 				device_thread.daemon = True
 				device_thread.start()
-
-
