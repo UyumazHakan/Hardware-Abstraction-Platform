@@ -27,7 +27,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 			msg["sensor_id"] = data["msg"]["custom_id"]
 			msg["value"] = data["msg"]["values"]
 			print(msg)
-			print(requests.post(server['ip_address']+":"+server['port'], data=msg, headers=headers).json())
+			print(requests.post(server['ip_address']+":"+server['port'], data=msg, headers=headers))
 
 		except Exception as e:
 			print(e)
