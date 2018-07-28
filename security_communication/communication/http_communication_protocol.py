@@ -42,7 +42,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 
 		for server in self.servers:
 			print(server)
-		    self._send_to_single_server(server, data)
+			self._send_to_single_server(server, data)
 
 		if callback:
 		    callback()
