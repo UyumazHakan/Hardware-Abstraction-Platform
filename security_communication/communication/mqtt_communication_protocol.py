@@ -61,7 +61,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
                 print(mqttc.connect(broker['ip_address'], broker['port'])) #connect to broker
 
                 print("subscribing:", end=': ')
-                print(mqttc.subscribe(self.topic), qos=1)
+                print(mqttc.subscribe(self.topic))
             except:
                 print("connection to {}:{} failed".format(broker['ip_address'], broker['port']))
                 raise Exception("not connected")
