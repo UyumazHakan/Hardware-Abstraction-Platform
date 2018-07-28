@@ -153,6 +153,15 @@ sudo rm -rf $TMP_DIR
 
 echo "Running..."
 
+# for odroid rpgpio package
+git clone https://github.com/jfath/RPi.GPIO-Odroid.git
+cd RPi.GPIO-Odroid
+sudo python3 setup.py build install &
+cd ~
+
+# for ahrs sensor
+sudo pip3 install pyserial &
+
 sudo python3 $DST_DIR/db_setup.py $DATA_DIR &
 sudo bash $DST_DIR/$MAIN_SH_FILE &
 
