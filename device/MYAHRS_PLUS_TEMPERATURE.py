@@ -9,7 +9,7 @@ import traceback
 class MYAHRS_PLUS_TEMPERATURE(Device):
 
         values = {
-            "name": "ROLL",
+            "name": "TEMPERATURE",
             "value": None,
             "unit": "%%"
         }
