@@ -39,4 +39,5 @@ class CommunicationManager:
 		db = TinyDB('db.json')
 		#table = db.table(data["id"])
 		db.insert(data)
-		db.all()
+		print(db.all())
+		print('\n\n')
