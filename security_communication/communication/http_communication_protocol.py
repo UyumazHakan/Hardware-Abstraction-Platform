@@ -35,7 +35,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 			print("something went wrong while sending message")
 
 
-	def send(self, connection, data, callback = None):
+	def send(self, data, callback = None):
 		print("inside http send")
 		print(data)
 		if not callback:
