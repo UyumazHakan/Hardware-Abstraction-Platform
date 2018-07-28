@@ -255,6 +255,7 @@
                             <div class="col-md-3">
                                 <label>Type</label>
                                 <select class="select form-control input-sm" id="iotype-{{i}}-{{j}}" name="iotype-{{i}}-{{j}}" #io_entry.type="ngModel" [(ngModel)]="io_entry.type" required>
+                                    <option value="USB">USB Input</option>
                                     <option value="OneWireInputOutput">One Wire Input/Output</option>
                                     <option value="GPIOInput">GPIO Input</option>
                                     <option value="GPIOOutput">GPIO Output</option>
@@ -270,7 +271,8 @@
                             </div>
                             <div class="col-md-1">
                                 <label>Pin</label>
-                                <input type="number" class="form-control" name="iopin-{{i}}-{{j}}" [(ngModel)]="io_entry.pin" #io_entry.pin="ngModel" [min]="0" [max]="50" required/>
+                                <input type="number" class="form-control" name="iopin-{{i}}-{{j}}" [(ngModel)]="io_entry.pin" #io_entry.pin="ngModel" [min]="0" [max]="50" 
+                                [disabled]="io_entry.type==='USB'" required/>
                             </div>
 
                             <div class="col-md-2" *ngIf="io_entry.type==='OneWireInputOutput'">
