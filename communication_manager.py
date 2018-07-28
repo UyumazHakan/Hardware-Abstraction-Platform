@@ -1,5 +1,6 @@
 import threading
 import logging
+from tinydb import TinyDB
 from security_communication.secure_communication_enum import SecurityEnum, CommunicationEnum, security_constructors, communication_constructors
 
 class CommunicationManager:
@@ -25,9 +26,16 @@ class CommunicationManager:
 		security_type = SecurityEnum[communication_protocol_config["security_type"]].value
 		self.communication_protocols[communication_protocol_config["id"]] = security_constructors[security_type](communication_protocol_config, communication_protocol, self.send_callback, self.receive_callback)
 
-
 	def send_all(self, data, callback = None):
+		self.save_to_local_storage(data)
 		if not callback:
 			callback = self.send_callback
 		for protocol_id in self.communication_protocols:
 			self.communication_protocols[protocol_id].send(data, callback)
+
+	def save_to_local_storage(self, data):
+		# db = TinyDB('db.json')
+		# table = db.table()
+		# table.insert(data)
+		print("saving data to local storage")
+		print(data)

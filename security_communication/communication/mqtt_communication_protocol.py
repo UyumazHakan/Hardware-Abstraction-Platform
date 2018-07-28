@@ -9,55 +9,48 @@ from enum import Enum
 import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
 
+
+def on_publish(client, userdata, mid):
+    client.disconnect()
+    client.loop_stop()
+
+def on_connect(client, userdata, flags, rc):
+    if rc==0:
+        client.connected_flag=True #set flag
+    else:
+        print("Bad connection Returned code=", rc)
+        client.bad_connection_flag=True
+
+def on_subscribe(client, obj, mid, granted_qos):
+    pass #print("Subscribed: " + str(mid) + " " + str(granted_qos))
+
+def on_message(client, userdata, msg):
+    # print("on_message:", end=': ')
+    # print(msg)
+    # print("on message callback called...\n")
+    pass
+
 class MQTTCommunicationProtocol(CommunicationProtocol):
 
     def __init__(self, config, send_callback = None, receive_callback = None):
-        print("MQTT initiated..")
         super(MQTTCommunicationProtocol, self).__init__(config, send_callback, receive_callback)
         self.brokers = self.config["bootstrap_servers"]
         self.topic = self.config["topic"]
         self.time_interval = self.config["time_interval"]
-        #self.packet["id"] = self.config["device_id"]
 
     def _send_to_single_broker(self, broker, data):
-
-        # Define on_publish event function
-        def on_publish(client, userdata, mid):
-            client.disconnect()
-            client.loop_stop()
-
-        def on_connect(client, userdata, flags, rc):
-            if rc==0:
-                client.connected_flag=True #set flag
-                print("connected OK")
-            else:
-                print("Bad connection Returned code=", rc)
-                client.bad_connection_flag=True
-
-        def on_subscribe(client, obj, mid, granted_qos):
-            print("Subscribed: " + str(mid) + " " + str(granted_qos))
-
-        def on_message(client, userdata, msg):
-            print("on_message:", end=': ')
-            print(msg)
-            print("on message callback called...\n")
-
-        # Connect with MQTT Broker
         try:
-            # Initiate MQTT Client
             mqttc = mqtt.Client()
-            print("Authorization:", end=': ')
-            print(mqttc.username_pw_set(broker['user'], broker['password']))
-
-            # Register callback function
+            mqttc.username_pw_set(broker['user'], broker['password'])
             mqttc.on_publish = on_publish
             mqttc.on_connect = on_connect
             mqttc.on_message = on_message
+
             try:
                 mqttc.loop_start()
                 mqttc.connect(broker['ip_address'], broker['port']) #connect to broker
             except:
-                print("connection to {}:{} failed".format(broker['ip_address'], broker['port']))
+                #print("connection to {}:{} failed".format(broker['ip_address'], broker['port']))
                 raise Exception("not connected")
 
             msg = {}
@@ -68,7 +61,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             mqttc.publish(self.topic, json.dumps(msg), qos=1)
 
         except Exception as e:
-            print(e)
+            #print(e)
             print("something went wrong while sending message")
 
     def send(self, data, callback = None):
