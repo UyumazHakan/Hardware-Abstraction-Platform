@@ -170,7 +170,11 @@
                         <div class="col-sm-1 pull-left" style="padding-right: 0; padding-top: 3%">
                             <div (click)="removeDevice(i, device)" class="btn btn-xs btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></div>
                         </div>
-                        <div class="col-md-6" [ngClass]="{ 'has-error': f.submitted && !device.type-i.valid }">
+                        <div class="col-md-2" [ngClass]="{ 'has-error': f.submitted && !device.custom_id-i.valid }">
+                            <label>Custom Id</label>
+                            <input type="number" class="form-control" name="device.custom_id-{{i}}" [(ngModel)]="device.custom_id" #device.interval="ngModel" required/>
+                        </div>
+                        <div class="col-md-5" [ngClass]="{ 'has-error': f.submitted && !device.type-i.valid }">
                             <label>Device Type</label>
                             <select class="select form-control input-sm" name="device.type-{{i}}" #device.type="ngModel" [(ngModel)]="device.type" required>
                                 <option value="KY01">Temperature sensor module</option>

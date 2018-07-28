@@ -271,6 +271,7 @@ export class EditDeviceComponent implements OnInit {
             "id": this.newGuid(),
             "type": "",
             "interval": 5,
+            "custom_id": "",
             "input_output": []
         });
     }
