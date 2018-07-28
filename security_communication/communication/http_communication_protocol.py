@@ -30,7 +30,10 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 			response = requests.post(url, data=json.dumps(msg), headers=headers)
 			print("response")
 			print(response, end='\n\n')
-
+			geturl = "http://iot.pcxd.me:3000/api/consumers/consume/1/_search"
+			getheaders = {"Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MzI3ODYyMzIsImlzcyI6ImlvdHBsYXRmb3JtIiwic3ViIjoiMSJ9.kvPImDLeEEzQj7S2IiIDa_DO1lxMObnPVftyHWRhcmbwhoYj4Rk6s8mE37GZusU5yVKCq00BC9rq57wDNTuWWfToRLo0FpEKJ3Eqp52Vhnea27RQl-PoMZlom9BdBR-ld2TTlDIIUnQ06lUXtaP174Hxr-mvMn_Gr_dzHU3u6kMxVtpnZhrYH38ZqZ1CLzAutu3dZ-DnzL3QQS7JB5f5L2qaxI2jVWxYLxVwU7O2-BGrawbmjc4gLoCobb8y6GkkgE9JxcPYQJ20SFAZwhibwlwtDJIctNpNyVNFFRw39KUEFZosX00nVzEH4DtgVlrom6fCRolO2BXkPuRxemHsUVj_8xK8U9XEdYwmls2F8R3i2-joB4CoOO0Z0WkDljnOlf6IbiX9cmSbOU7nKMIEcOQLSg0Z-gpul-VynAzXl6HqXjr9-2fHpTDX6U5xr9hHBFkk8nLLnrVaEZ1lDxd97nD5wBIjFRgMtDW2F85enzD3cUndR_ZwQGlKe9QQ4SHi1y0wE5MzKfJhJtvRxMOFqiKt2LtdSOPPWFH55f_h1t4Z49evBqa5TdcQ9yusc7DnkboYwqmT6MnMrHVLzV18zb-bomR6XW_3t8Z9WBIX6B4c6ey1FHOeV0HypQEs6VlW3A9UM_LwycluX2wpQAZiEaDeNip0LX1RNt62H2owSu8"}
+			print(requests.get(geturl, headers=getheaders))
+			
 		except Exception as e:
 			print(e)
 			print("something went wrong while sending message")
