@@ -78,7 +78,7 @@
                         <div class="col-sm-1 pull-left" style="padding-right: 0; padding-top: 3%">
                             <div (click)="removeCommunicationProtocol(i, communication_protocol)" class="btn btn-xs btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></div>
                         </div>
-                        
+
                         <div class="col-md-2" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.security_type-i.valid }">
                             <label>Security Type</label>
                             <select class="select form-control input-sm" name="security_type-{{i}}" #communication_protocol.security_type="ngModel" [(ngModel)]="communication_protocol.security_type" required>
@@ -180,6 +180,14 @@
                         <div class="col-md-5" [ngClass]="{ 'has-error': f.submitted && !device.type-i.valid }">
                             <label>Device Type</label>
                             <select class="select form-control input-sm" name="device.type-{{i}}" #device.type="ngModel" [(ngModel)]="device.type" required>
+                                <option value="KY01">WEATHER2_BOARD_UV</option>
+                                <option value="KY01">WEATHER2_BOARD_VISIBILITY</option>
+                                <option value="KY01">WEATHER2_BOARD_IR</option>
+                                <option value="KY01">WEATHER2_BOARD_TEMPERATURE</option>
+                                <option value="KY01">WEATHER2_BOARD_HUMIDITY</option>
+                                <option value="KY01">WEATHER2_BOARD_PRESSURE</option>
+                                <option value="KY01">WEATHER2_BOARD_ALTITUDE</option>                                
+                                <option value="KY01">-------------------------</option>
                                 <option value="KY01">Temperature sensor module</option>
                                 <option value="KY02">Vibration-switch module</option>
                                 <option value="KY03">Hall Magneticfield-Sensor module</option>
