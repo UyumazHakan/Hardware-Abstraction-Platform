@@ -34,8 +34,8 @@ class CommunicationManager:
 			self.communication_protocols[protocol_id].send(data, callback)
 
 	def save_to_local_storage(self, data):
-		# db = TinyDB('db.json')
-		# table = db.table()
-		# table.insert(data)
 		print("saving data to local storage")
-		print(data)
+		db = TinyDB('db.json')
+		table = db.table(data["id"])
+		table.insert(data)
+		table.all()
