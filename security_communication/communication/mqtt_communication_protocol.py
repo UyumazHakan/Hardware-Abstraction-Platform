@@ -46,18 +46,17 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         try:
             # Initiate MQTT Client
             mqttc = mqtt.Client()
+            print("Authorization:", end=': ')
+            print(mqttc.username_pw_set(broker['user'], broker['password']))
 
             # Register callback function
             mqttc.on_publish = on_publish
             mqttc.on_connect = on_connect
             mqttc.on_message = on_message
             try:
+                mqttc.loop_start()
                 print("connecting", end=': ')
                 print(mqttc.connect(broker['ip_address'], broker['port'])) #connect to broker
-                print("Authorization:", end=': ')
-                print(mqttc.username_pw_set(broker['user'], broker['password']))
-
-                #mqttc.loop_start()
 
                 print("subscribing:", end=': ')
                 print(mqttc.subscribe(self.topic))
@@ -75,8 +74,8 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             print(mqttc.publish(self.topic, json.dumps(msg)))
             #Loop forever
             print('disconnect and stop loop..', end=": ")
-            #mqttc.disconnect()
-            mqttc.loop_forever()
+            mqttc.disconnect()
+            mqttc.loop_stop()
 
         except Exception as e:
             print(e)
