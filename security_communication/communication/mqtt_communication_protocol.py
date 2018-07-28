@@ -39,20 +39,20 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             # print(payload)
             # client.disconnect()
             print("on message callback called...\n")
-        # Initiate MQTT Client
-        mqttc = mqtt.Client()
-
-        # Register publish callback function
-        mqttc.on_publish = on_publish
-        mqttc.on_connect = on_connect
-        mqttc.on_message = on_message
 
         # Connect with MQTT Broker
         try:
+            # Initiate MQTT Client
+            mqttc = mqtt.Client()
+
+            # Register callback function
+            mqttc.on_publish = on_publish
+            mqttc.on_connect = on_connect
+            mqttc.on_message = on_message
             try:
-                mqttc.connect(broker['ip_address'], broker['port']) #connect to broker
-                mqttc.username_pw_set(broker['user'], broker['password'])
-                mqttc.subscribe(self.topic)
+                print(mqttc.connect(broker['ip_address'], broker['port'])) #connect to broker
+                print(mqttc.username_pw_set(broker['user'], broker['password']))
+                print(mqttc.subscribe(self.topic))
             except:
                 print("connection to {}:{} failed".format(broker['ip_address'], broker['port']))
                 raise Exception("not connected")
@@ -60,10 +60,10 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg = {}
             msg["timestamp"] = data["msg"]["timestamp"] * 1000
             msg["sensor_id"] = data["msg"]["custom_id"]
-            msg["value"] = data["msg"]["values"]
+            msg["value"] = 5 # data["msg"]["values"]
 
             print(json.dumps(msg))
-            mqttc.publish(self.topic, json.dumps(msg))
+            print(mqttc.publish(self.topic, json.dumps(msg)))
             #Loop forever
             mqttc.loop_forever()
         except Exception as e:
