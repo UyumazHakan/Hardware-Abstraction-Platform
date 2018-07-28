@@ -45,7 +45,7 @@ class MYAHRS_PLUS_ROLL(Device):
                 data_message = data_message.strip()  # discard crc field
                 fields = [x.strip() for x in data_message.split(',')]
 
-                if (fields[0] != '$RPY'):
+                if (fields[0] != '$RPYIMU'):
                     return None
 
                 sequence_number, roll, pitch, yaw, accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, mag_x, mag_y, mag_z, temperature = (
@@ -74,7 +74,7 @@ class MYAHRS_PLUS_ROLL(Device):
 
                 items = self.parse_data_message_rpyimu(line)
 
-                self.values = items
+                self.values = items[1]
                 if self.values == None:
                     print('Error collecting data')
                 else:
