@@ -37,7 +37,7 @@ device_constructors ={
 	62 : MYAHRS_PLUS_PITCH,
 	63 : MYAHRS_PLUS_YAW,
 	64 : MYAHRS_PLUS_TEMPERATURE,
-	65 : MYAHRS_PLUS_ACCEL_x
+	65 : MYAHRS_PLUS_ACCEL_X
 }
 
 class DeviceEnum(Enum):
