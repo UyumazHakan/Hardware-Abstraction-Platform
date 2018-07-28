@@ -34,7 +34,10 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
                 print("Bad connection Returned code=", rc)
                 client.bad_connection_flag=True
 
-        def on_message(self, client, userdata, msg):
+        def on_subscribe(client, obj, mid, granted_qos):
+            print("Subscribed: " + str(mid) + " " + str(granted_qos))
+
+        def on_message(client, userdata, msg):
             print("on_message:", end=': ')
             print(msg)
             print("on message callback called...\n")
