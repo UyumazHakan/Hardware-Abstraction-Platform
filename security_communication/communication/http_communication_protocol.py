@@ -25,7 +25,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 			msg["sensor_id"] = data["msg"]["custom_id"]
 			msg["value"] = data["msg"]["values"]
 			print(msg)
-			url = server['ip_address']+":"+ str(server['port'])
+			url = "http://" +server['ip_address']+":"+ str(server['port'])
 			print('sending requests with token.. to ' + url)
 			response = requests.post(url, data=json.dumps(msg), headers=headers)
 			print("response")
