@@ -74,7 +74,7 @@ class MYAHRS_PLUS_ROLL(Device):
 
                 items = self.parse_data_message_rpyimu(line)
 
-                self.values = items[1]
+                self.values["value"] = items[1]
                 if self.values == None:
                     print('Error collecting data')
                 else:
