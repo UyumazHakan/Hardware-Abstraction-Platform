@@ -15,7 +15,7 @@ class MYAHRS_PLUS_ROLL(Device):
         }
 
         def __init__(self, config, callback):
-                super(MYAHRS_PLUS, self).__init__(config, callback)
+                super(MYAHRS_PLUS_ROLL, self).__init__(config, callback)
                 self.read_value_imp = self.__read_value
 
         def __read_value(self):
