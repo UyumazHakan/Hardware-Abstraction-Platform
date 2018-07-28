@@ -35,7 +35,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 
 			print('sending requests with token.. to ' + geturl)
 			res = requests.get(geturl, headers=getheaders)
-			print(response)
+			print(res)
 			print("response ends here")
 
 		except Exception as e:
