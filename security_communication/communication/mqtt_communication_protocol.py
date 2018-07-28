@@ -73,7 +73,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg["value"] = data["msg"]["values"]
             print(msg)
             print("publishing:", end=': ')
-            print(mqttc.publish(self.topic, json.dumps(data), qos=1))
+            print(mqttc.publish(self.topic, json.dumps(msg), qos=1))
 
         except Exception as e:
             print(e)
