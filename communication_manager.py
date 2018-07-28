@@ -28,7 +28,6 @@ class CommunicationManager:
 
 	def send_all(self, data, callback = None):
 		try:
-			print(data)
 			self.save_to_local_storage(data)
 		except Exception as e:
 			print(e)
@@ -41,4 +40,5 @@ class CommunicationManager:
 
 	def save_to_local_storage(self, data):
 		db = TinyDB('db.json')
+		print(data["msg"])
 		db.insert(data["msg"])
