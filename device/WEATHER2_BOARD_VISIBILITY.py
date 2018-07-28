@@ -12,10 +12,4 @@ class WEATHER2_BOARD_VISIBILITY(Device):
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
-		value = {
-			"name": "Visible",
-			"value": None,
-			"unit": "Lux"
-		}
-		value["value"] = int(self.si1132.readVisible())
-		return value
+		return int(self.si1132.readVisible())

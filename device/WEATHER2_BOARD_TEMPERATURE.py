@@ -12,10 +12,4 @@ class WEATHER2_BOARD_TEMPERATURE(Device):
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
-		value = {
-			"name": "temperature",
-			"value": None,
-			"unit": "'C"
-		}
-		value["value"] = self.bme280.read_temperature()
-		return value
+		return self.bme280.read_temperature()

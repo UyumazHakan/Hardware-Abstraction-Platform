@@ -12,10 +12,4 @@ class WEATHER2_BOARD_PRESSURE(Device):
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
-		value = {
-			"name": "pressure",
-			"value": None,
-			"unit":"hPa"
-		}
-		value["value"] = self.bme280.read_pressure() / 100.0
-		return value
+		return self.bme280.read_pressure() / 100.0

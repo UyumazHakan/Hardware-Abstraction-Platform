@@ -70,10 +70,10 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg = {}
             msg["timestamp"] = data["msg"]["timestamp"] * 1000
             msg["sensor_id"] = data["msg"]["custom_id"]
-            msg["value"] = data["msg"]["values"]["value"]
+            msg["value"] = data["msg"]["values"]
             print(msg)
             print("publishing:", end=': ')
-            print(mqttc.publish(self.topic, json.dumps(msg)))
+            print(mqttc.publish(self.topic, json.dumps(data)))
 
         except Exception as e:
             print(e)

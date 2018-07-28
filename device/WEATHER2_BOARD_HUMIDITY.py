@@ -12,10 +12,4 @@ class WEATHER2_BOARD_HUMIDITY(Device):
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
-		value = {
-			"name": "humidity",
-			"value": None,
-			"unit": "%%"
-		}
-		value["value"] = self.bme280.read_humidity()
-		return value
+		return self.bme280.read_humidity()

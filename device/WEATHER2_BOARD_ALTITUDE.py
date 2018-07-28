@@ -12,13 +12,7 @@ class WEATHER2_BOARD_ALTITUDE(Device):
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
-		value = {
-			"name": "altitude",
-			"value": None,
-			"unit":"m"
-		}
-		value["value"] = self.get_altitude(self.bme280.read_pressure(), 1024.25)
-		return value
+		return self.get_altitude(self.bme280.read_pressure(), 1024.25)
 
 	def get_altitude(self, pressure, seaLevel):
 		atmospheric = pressure / 100.0

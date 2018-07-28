@@ -13,10 +13,4 @@ class WEATHER2_BOARD_UV(Device):
 		self.read_value_imp = self.__read_value
 
 	def __read_value(self):
-		value = {
-			"name": "UV_index",
-			"value": None,
-			"unit": "%%"
-		}
-		value["value"] = self.si1132.readUV() / 100.0
-		return value
+		return self.si1132.readUV() / 100.0
