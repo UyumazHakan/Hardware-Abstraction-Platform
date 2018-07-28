@@ -38,7 +38,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		if not callback:
 		    callback = self.send_callback
 
-		for server in self.server:
+		for server in self.servers:
 		    self._send_to_single_server(server, data)
 
 		if callback:
