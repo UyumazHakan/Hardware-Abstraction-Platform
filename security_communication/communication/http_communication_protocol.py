@@ -19,32 +19,30 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		self.time_interval = self.config["time_interval"]
 
 	def _send_to_single_server(self, server, data):
-        try:
-            # Initiate MQTT Client
+		try:
 			headers = {"Authorization":"Bearer "+server['password']}
-            print(data)
-            msg = {}
-            msg["timestamp"] = data["msg"]["timestamp"] * 1000
-            msg["sensor_id"] = data["msg"]["custom_id"]
-            msg["value"] = data["msg"]["values"]
-            print(msg)
-			print requests.post(server['ip_address']+":"+server['port'], data=msg, headers=headers).json()
+			print(data)
+			msg = {}
+			msg["timestamp"] = data["msg"]["timestamp"] * 1000
+			msg["sensor_id"] = data["msg"]["custom_id"]
+			msg["value"] = data["msg"]["values"]
+			print(msg)
+			print(requests.post(server['ip_address']+":"+server['port'], data=msg, headers=headers).json())
 
-
-        except Exception as e:
-            print(e)
-            print("something went wrong while sending message")
+		except Exception as e:
+			print(e)
+			print("something went wrong while sending message")
 
 
 	def send(self, connection, data, callback = None):
 		if not callback:
-            callback = self.send_callback
+		    callback = self.send_callback
 
-        for server in self.server:
-            self._send_to_single_server(server, data)
+		for server in self.server:
+		    self._send_to_single_server(server, data)
 
-        if callback:
-            callback()
+		if callback:
+		    callback()
 
 	def receive(self, callback = None):
 		pass
