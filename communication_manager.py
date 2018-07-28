@@ -32,11 +32,11 @@ class CommunicationManager:
 		except Exception as e:
 			print(e)
 			print("data could not be saved locally")
-
-		if not callback:
-			callback = self.send_callback
-		for protocol_id in self.communication_protocols:
-			self.communication_protocols[protocol_id].send(data, callback)
+		finally:
+			if not callback:
+				callback = self.send_callback
+			for protocol_id in self.communication_protocols:
+				self.communication_protocols[protocol_id].send(data, callback)
 
 	def save_to_local_storage(self, data):
 		print(data["msg"])
