@@ -70,7 +70,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             msg["timestamp"] = data["msg"]["timestamp"] * 1000
             msg["sensor_id"] = data["msg"]["custom_id"]
             msg["value"] = data["msg"]["values"]["value"]
-
+            print("data: {}".format(data))
             print("publishing:", end=': ')
             print(mqttc.publish(self.topic, json.dumps(msg)))
 
