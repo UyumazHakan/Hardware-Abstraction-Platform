@@ -32,7 +32,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		while failed and attempt < 5:
 			try:
 				response = requests.post(url, data=json.dumps(msg), headers=headers)
-				print(response)
+				print(type(response.status_code))
 				if response.status_code == 200:
 					failed = False
 					raise Exception("request failed")
