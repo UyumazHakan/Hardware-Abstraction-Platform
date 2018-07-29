@@ -1,3 +1,5 @@
+import os
+from random import randint
 import threading
 import logging
 import time
@@ -43,7 +45,9 @@ class CommunicationManager:
 				db.insert(data["msg"])
 				failed = False
 			except Exception as e:
-				print("trying again to save data..")
-				import os
 				os.rename('db.json', 'db_fault' +str(time.time())+ '.json')
 				attempt = attempt + 1
+				time.sleep(randint(1, 3))
+
+		if failed and attempt >= 5:
+			print('Data could not be saved locally')

@@ -22,7 +22,6 @@ class Device:
 			except:
 				print("could not read from sensor(id: {})".format(self.config["custom_id"]))
 				time.sleep(5)
-				#exit()
 
 		callback(data) if callback else self.callback(data)
 

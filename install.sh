@@ -1,12 +1,12 @@
 #!/bin/bash
-if [[ ! $# -gt 1 ]]
+if [[ ! $# -gt 0 ]]
 	then
-		echo "Usage: sudo bash install.sh [username] [config file server ip]"
+		echo "Usage: sudo bash install.sh [config file server ip]"
 		exit 0
 fi
 
-USERNAME=$1
-SERVER_IP=$2
+USERNAME=$(logname)
+SERVER_IP=$1
 
 echo "Starting..."
 CONFIG="config.json"
@@ -22,7 +22,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Installing dependencies..."
 
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade > /dev/null
 sudo apt-get install curl jq wget
 
 # install protocol libraries in python
@@ -160,7 +160,7 @@ cd ~
 # for ahrs sensor
 sudo pip3 install pyserial &
 
-sudo python3 $DST_DIR/db_setup.py $DATA_DIR &
+sudo python3 $DST_DIR/db_setup.py $DATA_DIR > /dev/null &
 sudo bash $DST_DIR/$MAIN_SH_FILE &
 
 echo "Installation finished."

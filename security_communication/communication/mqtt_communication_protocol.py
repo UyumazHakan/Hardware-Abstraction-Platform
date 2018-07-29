@@ -22,12 +22,9 @@ def on_connect(client, userdata, flags, rc):
         client.bad_connection_flag=True
 
 def on_subscribe(client, obj, mid, granted_qos):
-    pass #print("Subscribed: " + str(mid) + " " + str(granted_qos))
+    pass
 
 def on_message(client, userdata, msg):
-    # print("on_message:", end=': ')
-    # print(msg)
-    # print("on message callback called...\n")
     pass
 
 class MQTTCommunicationProtocol(CommunicationProtocol):
@@ -39,33 +36,31 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         self.time_interval = self.config["time_interval"]
 
     def _send_to_single_broker(self, broker, data):
+
+        mqttc = mqtt.Client()
+        if "user" in broker and "password" in broker :
+            if broker["user"].strip() != '' and  broker["password"].strip() != '':
+                mqttc.username_pw_set(broker['user'], broker['password'])
+
+        mqttc.on_publish = on_publish
+        mqttc.on_connect = on_connect
+        mqttc.on_message = on_message
+
         try:
-            mqttc = mqtt.Client()
-            if "user" in broker and "password" in broker :
-                if broker["user"].strip() != '' and  broker["password"].strip() != '':
-                    mqttc.username_pw_set(broker['user'], broker['password'])
-
-            mqttc.on_publish = on_publish
-            mqttc.on_connect = on_connect
-            mqttc.on_message = on_message
-
-            try:
-                mqttc.loop_start()
-                mqttc.connect(broker['ip_address'], broker['port']) #connect to broker
-            except:
-                print("connection to {}:{} failed".format(broker['ip_address'], broker['port']))
-                raise Exception("not connected")
+            mqttc.loop_start()
+            mqttc.connect(broker['ip_address'], broker['port']) #connect to broker
 
             msg = {}
             msg["timestamp"] = data["msg"]["timestamp"]
             msg["sensor_id"] = data["msg"]["custom_id"]
             msg["value"] = data["msg"]["values"]
-            mqttc.subscribe(self.topic)
-            mqttc.publish(self.topic, json.dumps(msg), qos=1)
-
-        except Exception as e:
-            print(e)
-            print("MQTT: something went wrong while sending message")
+            try:
+                mqttc.subscribe(self.topic)
+                mqttc.publish(self.topic, json.dumps(msg), qos=1)
+            except Exception as e:
+                print(e.message)
+        except:
+            print("MQTT Communication with {}:{} failed".format(broker['ip_address'], broker['port']))
 
     def send(self, data, callback = None):
         if not callback:

@@ -29,7 +29,7 @@ class SystemManager:
 		self.communication_manager.send_all(data)
 
 	def communication_manager_send_callback(self):
-		print("Successfully sent a packet")
+		pass
 
 	def communication_manager_receive_callback(self, data):
 		pass

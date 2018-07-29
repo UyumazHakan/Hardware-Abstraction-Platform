@@ -18,11 +18,13 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		self.servers = self.config["bootstrap_servers"]
 		self.topic = self.config["topic"]
 		self.time_interval = self.config["time_interval"]
-		print('HTTP initiated')
 
 	def _send_to_single_server(self, server, data):
-		print('single server block')
-		headers = {"Authorization":"Bearer "+server['password'], 'content-type': 'application/json'}
+		headers = {'content-type': 'application/json'}
+		if "user" in server and "password" in server :
+            if server["user"].strip() != '' and  server["password"].strip() != '':
+				headers = {"Authorization":"Bearer "+server['password'], 'content-type': 'application/json'}
+
 		msg = {}
 		msg["timestamp"] = data["msg"]["timestamp"]
 		msg["sensor_id"] = data["msg"]["custom_id"]
@@ -34,24 +36,19 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 
 		while failed and attempt < 5:
 			try:
-				print(msg)
-				print(headers)
 				response = requests.post(url, data=json.dumps(msg), headers=headers)
 				if response.status_code == 200:
-					print("http success")
 					failed = False
 				else:
 					raise Exception("request failed")
 
 			except Exception as e:
-				print(e)
-				print("HTTP: something went wrong while sending message")
 				attempt = attempt + 1
 
 			time.sleep(2)
 
 		if failed and attempt > 4:
-			print("server denied to save data 5 times consecutively. Data is probably saved locally")
+			print("HTTP Communication with {} Failed".format(url))
 
 
 	def send(self, data, callback = None):
