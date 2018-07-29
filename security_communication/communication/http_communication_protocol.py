@@ -18,26 +18,30 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		self.time_interval = self.config["time_interval"]
 
 	def _send_to_single_server(self, server, data):
-		try:
-			headers = {"Authorization":"Bearer "+server['password'], 'content-type': 'application/json'}
-			msg = {}
-			msg["timestamp"] = data["msg"]["timestamp"] * 1000
-			msg["sensor_id"] = data["msg"]["custom_id"]
-			msg["value"] = data["msg"]["values"]
-			url = "http://" +server['ip_address']+":"+ str(server['port'])
 
-			failed = True
-			attempt = 0
-			while failed and attempt > 5:
+		headers = {"Authorization":"Bearer "+server['password'], 'content-type': 'application/json'}
+		msg = {}
+		msg["timestamp"] = data["msg"]["timestamp"] * 1000
+		msg["sensor_id"] = data["msg"]["custom_id"]
+		msg["value"] = data["msg"]["values"]
+		url = "http://" +server['ip_address']+":"+ str(server['port'])
+
+		failed = True
+		attempt = 0
+
+		while failed and attempt < 5:
+			try:
 				response = requests.post(url, data=json.dumps(msg), headers=headers)
-				attempt = attempt + 1
 				print(response)
 				failed = False
 
+			except Exception as e:
+				print(e)
+				print("something went wrong while sending message")
+				attempt = attempt + 1
 
-		except Exception as e:
-			print(e)
-			print("something went wrong while sending message")
+		if failed and attempt > 4:
+			print("server denied to save data 5 times consecutively. Data is probably saved locally")
 
 
 	def send(self, data, callback = None):
