@@ -51,13 +51,13 @@ class SystemManager:
 		self.device_manager.read_all()
 
 
-def log_worker():
+def log_worker(server):
 	with open(config_file_directory) as config_file:
 		config = json.loads(config_file.read())
 	web_server = security_constructors[SecurityEnum.PlainText.value] \
 	({}, \
 	communication_constructors[CommunicationEnum.HTTP.value] \
-	({"ip": "141.40.254.150", "port": 80}))
+	(server))
 	login_response = web_server.send( \
 		{"msg":{"username": config["username"], "password": config["password"]}, \
 		"http_header":{"Content-Type": "application/json"}, "http_method": "POST", \
@@ -83,7 +83,8 @@ def log_worker():
 	logging.info("Started")
 
 def main():
-	#log_worker()
+	log_server = {"ip": "141.40.254.150", "port": 80}
+	#log_worker(log_server)
 	system_manager = SystemManager(config_file_directory)
 	while True:
 		pass
@@ -93,7 +94,7 @@ def exit_handler():
 		config = json.loads(config_file.read())
 	logging.info("Stopped")
 	logging.shutdown()
-	if config["board_type"] == "raspberry_pi":
+	if config["board_type"] == "raspberry_pi" or config["board_type"] == "odroid":
 		import RPi.GPIO as GPIO
 		GPIO.cleanup()
 
