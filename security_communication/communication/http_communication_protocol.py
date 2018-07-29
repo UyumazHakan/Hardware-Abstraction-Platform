@@ -41,7 +41,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 
 			except Exception as e:
 				print(e)
-				print("something went wrong while sending message")
+				print("HTTP: something went wrong while sending message")
 				attempt = attempt + 1
 
 			time.sleep(5)
