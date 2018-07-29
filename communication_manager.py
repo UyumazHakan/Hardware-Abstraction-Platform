@@ -1,6 +1,5 @@
 import threading
 import logging
-import time
 from tinydb import TinyDB
 from security_communication.secure_communication_enum import SecurityEnum, CommunicationEnum, security_constructors, communication_constructors
 
@@ -20,8 +19,6 @@ class CommunicationManager:
 	def init_communication_protocols(self):
 		for communication_protocol_config in self.communication_protocols_config:
 			self.init_communication_protocol(communication_protocol_config)
-			time.sleep(1)
-
 
 	def init_communication_protocol(self, communication_protocol_config):
 		communication_type = CommunicationEnum[communication_protocol_config["communication_type"]].value
@@ -42,6 +39,5 @@ class CommunicationManager:
 				self.communication_protocols[protocol_id].send(data, callback)
 
 	def save_to_local_storage(self, data):
-		print(data["msg"])
 		db = TinyDB('db.json')
 		db.insert(data["msg"])

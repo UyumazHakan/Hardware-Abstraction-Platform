@@ -1,6 +1,7 @@
 from threading import Thread
 import logging
 from device_enum import DeviceEnum, device_constructors
+import time
 
 class DeviceManager:
 
@@ -35,3 +36,4 @@ class DeviceManager:
 				device_thread = Thread(target=device.read_value_loop,  kwargs={'callback': self.callback})
 				device_thread.daemon = True
 				device_thread.start()
+				time.sleep(1)
