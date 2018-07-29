@@ -82,8 +82,8 @@
                         <div class="col-md-2" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.security_type-i.valid }">
                             <label>Security Type</label>
                             <select class="select form-control input-sm" name="security_type-{{i}}" #communication_protocol.security_type="ngModel" [(ngModel)]="communication_protocol.security_type" required>
-                                <option value="plain_text">Plain text</option>
-                                <option value="asymmetric">Asymmetric</option>                                                               
+                                <option value="PlainText">Plain text</option>
+                                <option value="Asymmetric">Asymmetric</option>                                                               
                             </select>
                         </div>
 
@@ -94,7 +94,11 @@
 
                         <div class="col-md-3" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.communication_type-i.valid }">
                             <label>Communication Type</label>
-                            <input type="text" class="form-control" name="communication_type-{{i}}" [(ngModel)]="communication_protocol.communication_type" #communication_protocol.communication_type="ngModel"/>
+                            <select class="select form-control input-sm" name="communication_type-{{i}}" #communication_protocol.communication_type="ngModel" [(ngModel)]="communication_protocol.communication_type" required>
+                                <option value="KAFKA">KAFKA</option>
+                                <option value="HTTP">HTTP</option>    
+                                <option value="MQTT">MQTT</option>                                                                                                                                                          
+                            </select>
                         </div>
 
                         <div class="col-md-3" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.topic-i.valid }">
