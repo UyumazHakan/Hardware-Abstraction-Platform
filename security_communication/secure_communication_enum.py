@@ -14,7 +14,7 @@ class CommunicationEnum(Enum):
 	MQTT = 3
 
 security_constructors = {
-	1 : PlainTextSecurityProtocol
+	1 : PlainTextSecurityProtocol,
 	2 : AsymmetricSecurityProtocol
 }
 
