@@ -6,8 +6,8 @@ var Schema = mongoose.Schema;
 var bootstrap_server = new Schema({
     ip_address: String,
     port: Number,
-    username: String,
-    token: String
+    user: String,
+    password: String
 });
 
 var io_entry = new Schema({

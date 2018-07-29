@@ -242,8 +242,8 @@ export class EditDeviceComponent implements OnInit {
         this.currentDevice.communication_protocols[communication_protocol_index]["bootstrap_servers"].push({
             "ip_address": "",
             "port": 9092,
-            "username": "",
-            "token": ""
+            "user": "",
+            "password": ""
         });
     }
 
