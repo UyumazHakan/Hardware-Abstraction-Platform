@@ -41,11 +41,11 @@ class CommunicationManager:
 		attempt = 0
 		while failed and attempt < 5:
 			try:
-				db = TinyDB('db.json')
+				db = TinyDB(data["msg"]["custom_id"] + '_db.json')
 				db.insert(data["msg"])
 				failed = False
 			except Exception as e:
-				os.rename('db.json', 'db_fault' +str(time.time())+ '.json')
+				os.rename(data["msg"]["custom_id"] + '_db.json', data["msg"]["custom_id"] + '_db_fault' +str(time.time())+ '.json')
 				attempt = attempt + 1
 				time.sleep(randint(1, 3))
 
