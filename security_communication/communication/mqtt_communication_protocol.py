@@ -42,7 +42,9 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
         try:
             mqttc = mqtt.Client()
             if "user" in broker and "password" in broker :
-                mqttc.username_pw_set(broker['user'], broker['password'])
+                if broker["user"].strip() != '' and  broker["password"].strip() != '':
+                    mqttc.username_pw_set(broker['user'], broker['password'])
+
             mqttc.on_publish = on_publish
             mqttc.on_connect = on_connect
             mqttc.on_message = on_message
