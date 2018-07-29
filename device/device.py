@@ -13,11 +13,14 @@ class Device:
 
 	def read_value(self, callback=None):
 		data = {}
-		try:
-			values = self.read_value_imp()
-			data = {"sub_topic":"","msg":{"id": self.config["id"], "custom_id": self.config["custom_id"], "timestamp":int(time.time()), "values": values}}
-		except:
-			print("could not read from sensor(id: {})".format(self.config["id"]))
+		success = False
+		while not success:
+			try:
+				values = self.read_value_imp()
+				data = {"sub_topic":"","msg":{"id": self.config["id"], "custom_id": self.config["custom_id"], "timestamp":int(time.time()), "values": values}}
+			except:
+				print("could not read from sensor(id: {})".format(self.config["custom_id"]))
+
 		callback(data) if callback else self.callback(data)
 
 	def read_value_loop(self, interval = None, callback=None):
