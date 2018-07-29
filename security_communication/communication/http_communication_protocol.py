@@ -24,7 +24,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		print('single server block')
 		headers = {"Authorization":"Bearer "+server['password'], 'content-type': 'application/json'}
 		msg = {}
-		msg["timestamp"] = data["msg"]["timestamp"] * 1000
+		msg["timestamp"] = data["msg"]["timestamp"]
 		msg["sensor_id"] = data["msg"]["custom_id"]
 		msg["value"] = data["msg"]["values"]
 		url = "http://" +server['ip_address']+":"+ str(server['port'])

@@ -57,7 +57,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
                 raise Exception("not connected")
 
             msg = {}
-            msg["timestamp"] = data["msg"]["timestamp"] * 1000
+            msg["timestamp"] = data["msg"]["timestamp"]
             msg["sensor_id"] = data["msg"]["custom_id"]
             msg["value"] = data["msg"]["values"]
             mqttc.subscribe(self.topic)
