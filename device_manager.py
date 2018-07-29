@@ -23,7 +23,7 @@ class DeviceManager:
 				self.init_device(device_config)
 				self.connected = self.connected + 1
 			except:
-				print("could not connect to sensor")
+				print("could not connect to sensor : {}".format(device_config))
 
 	def init_device(self, device_config):
 		device_type = DeviceEnum[device_config["type"]].value

@@ -37,9 +37,11 @@ class SystemManager:
 	def __init__(self, config_file_directory):
 		self.config_file_directory = config_file_directory
 		self.update_config()
+
 		if self.config["board_type"] == "raspberry_pi":
 			import RPi.GPIO as GPIO
 			GPIO.setmode(GPIO.BOARD)
+
 		self.device_manager = DeviceManager(self.config["devices"], self.config["board_type"], self.device_manager_callback)
 		if self.device_manager.connected > 0:
 			self.communication_manager = CommunicationManager(self.config["communication_protocols"], self.communication_manager_send_callback, self.communication_manager_receive_callback)
