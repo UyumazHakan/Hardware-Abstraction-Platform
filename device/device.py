@@ -18,6 +18,7 @@ class Device:
 			try:
 				values = self.read_value_imp()
 				data = {"sub_topic":"","msg":{"id": self.config["id"], "custom_id": self.config["custom_id"], "timestamp":int(time.time()), "values": values}}
+				success = True
 			except:
 				print("could not read from sensor(id: {})".format(self.config["custom_id"]))
 
