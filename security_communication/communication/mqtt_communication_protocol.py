@@ -41,8 +41,8 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
     def _send_to_single_broker(self, broker, data):
         try:
             mqttc = mqtt.Client()
-            print(broker["user"] and broker["password"] )
-            if broker["user"] and broker["password"] :
+            print("testing user and pass")
+            if "user" in broker and "password" in broker :
                 mqttc.username_pw_set(broker['user'], broker['password'])
             mqttc.on_publish = on_publish
             mqttc.on_connect = on_connect
