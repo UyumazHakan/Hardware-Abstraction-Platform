@@ -1,3 +1,3 @@
 from .plain_text_security_protocol import PlainTextSecurityProtocol
-from .asymmetric_security_protocol import AsymmetricSecurityProtocol
+#from .asymmetric_security_protocol import AsymmetricSecurityProtocol
 from .security_protocol import SecurityProtocol

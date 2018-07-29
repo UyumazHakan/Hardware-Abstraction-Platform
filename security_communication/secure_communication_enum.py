@@ -5,7 +5,7 @@ from security_communication.communication import *
 
 class SecurityEnum(Enum):
 	PlainText = 1
-	Asymmetric = 2
+	#Asymmetric = 2
 
 
 class CommunicationEnum(Enum):
@@ -14,8 +14,8 @@ class CommunicationEnum(Enum):
 	MQTT = 3
 
 security_constructors = {
-	1 : PlainTextSecurityProtocol,
-	2 : AsymmetricSecurityProtocol
+	1 : PlainTextSecurityProtocol
+	#2 : AsymmetricSecurityProtocol
 }
 
 communication_constructors = {
