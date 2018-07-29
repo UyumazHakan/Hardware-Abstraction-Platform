@@ -22,7 +22,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 	def _send_to_single_server(self, server, data):
 		headers = {'content-type': 'application/json'}
 		if "user" in server and "password" in server :
-            if server["user"].strip() != '' and  server["password"].strip() != '':
+			if server["user"].strip() != '' and  server["password"].strip() != '':
 				headers = {"Authorization":"Bearer "+server['password'], 'content-type': 'application/json'}
 
 		msg = {}
