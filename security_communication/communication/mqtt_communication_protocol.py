@@ -62,8 +62,8 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             mqttc.publish(self.topic, json.dumps(msg), qos=1)
 
         except Exception as e:
-            #print(e)
-            print("something went wrong while sending message")
+            print(e)
+            print("MQTT: something went wrong while sending message")
 
     def send(self, data, callback = None):
         if not callback:
