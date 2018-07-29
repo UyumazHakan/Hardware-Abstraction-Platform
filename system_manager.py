@@ -94,12 +94,9 @@ def exit_handler():
 		config = json.loads(config_file.read())
 	logging.info("Stopped")
 	logging.shutdown()
-	if config["board_type"] == "raspberry_pi" or config["board_type"] == "odroid":
-		try:
-			import RPi.GPIO as GPIO
-			GPIO.cleanup()
-		except:
-			print("Segmentation Fault here?")
+	if config["board_type"] == "raspberry_pi":
+		import RPi.GPIO as GPIO
+		GPIO.cleanup()
 
 atexit.register(exit_handler)
 
