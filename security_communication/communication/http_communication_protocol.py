@@ -32,7 +32,6 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		attempt = 0
 
 		while failed and attempt < 5:
-			time.sleep(5)
 			try:
 				response = requests.post(url, data=json.dumps(msg), headers=headers)
 				if response.status_code == 200:
@@ -44,6 +43,8 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 				print(e)
 				print("something went wrong while sending message")
 				attempt = attempt + 1
+
+			time.sleep(5)
 
 		if failed and attempt > 4:
 			print("server denied to save data 5 times consecutively. Data is probably saved locally")
