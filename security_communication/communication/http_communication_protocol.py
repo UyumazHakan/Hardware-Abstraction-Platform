@@ -18,9 +18,10 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		self.servers = self.config["bootstrap_servers"]
 		self.topic = self.config["topic"]
 		self.time_interval = self.config["time_interval"]
+		print('HTTP initiated')
 
 	def _send_to_single_server(self, server, data):
-
+		print('single server block')
 		headers = {"Authorization":"Bearer "+server['password'], 'content-type': 'application/json'}
 		msg = {}
 		msg["timestamp"] = data["msg"]["timestamp"] * 1000
