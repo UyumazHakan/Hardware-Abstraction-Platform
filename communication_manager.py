@@ -1,5 +1,6 @@
 import threading
 import logging
+import time
 from tinydb import TinyDB
 from security_communication.secure_communication_enum import SecurityEnum, CommunicationEnum, security_constructors, communication_constructors
 
@@ -27,17 +28,22 @@ class CommunicationManager:
 		self.communication_protocols[communication_protocol_config["id"]] = security_constructors[security_type](communication_protocol_config, communication_protocol, self.send_callback, self.receive_callback)
 
 	def send_all(self, data, callback = None):
-		try:
-			self.save_to_local_storage(data)
-		except Exception as e:
-			print(e)
-			print("data could not be saved locally")
-		finally:
-			if not callback:
-				callback = self.send_callback
-			for protocol_id in self.communication_protocols:
-				self.communication_protocols[protocol_id].send(data, callback)
+		self.save_to_local_storage(data)
+		if not callback:
+			callback = self.send_callback
+		for protocol_id in self.communication_protocols:
+			self.communication_protocols[protocol_id].send(data, callback)
 
 	def save_to_local_storage(self, data):
-		db = TinyDB('db.json')
-		db.insert(data["msg"])
+		failed = True
+		attempt = 0
+		while failed and attempt < 5:
+			try:
+				db = TinyDB('db.json')
+				db.insert(data["msg"])
+				failed = False
+			except Exception as e:
+				print("trying again to save data..")
+				import os
+				os.rename('db.json', 'db_fault' +time.time()+ '.json')
+				attempt = attempt + 1
