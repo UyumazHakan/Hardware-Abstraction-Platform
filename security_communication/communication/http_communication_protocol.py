@@ -7,6 +7,8 @@ import mimetypes
 import http.client
 from enum import Enum
 import requests
+import time
+
 
 
 class HTTPCommunicationProtocol(CommunicationProtocol):
@@ -30,6 +32,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 		attempt = 0
 
 		while failed and attempt < 5:
+			time.sleep(5)
 			try:
 				response = requests.post(url, data=json.dumps(msg), headers=headers)
 				if response.status_code == 200:
