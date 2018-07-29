@@ -1,13 +1,12 @@
 #!/bin/bash
 if [[ ! $# -gt 1 ]]
 	then
-		echo "Usage: sudo bash install.sh [username] [api server ip]"
+		echo "Usage: sudo bash install.sh [username] [config file server ip]"
 		exit 0
 fi
 
 USERNAME=$1
 SERVER_IP=$2
-#"http://141.40.254.150/api"
 
 echo "Starting..."
 CONFIG="config.json"
@@ -154,7 +153,7 @@ sudo rm -rf $TMP_DIR
 echo "Running..."
 
 # for odroid rpgpio package
-git clone https://github.com/jfath/RPi.GPIO-Odroid.git
+git clone https://github.com/jfath/RPi.GPIO-Odroid.git > /dev/null
 cd RPi.GPIO-Odroid
 sudo python3 setup.py build install &
 cd ~
