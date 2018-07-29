@@ -35,6 +35,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 				print(type(response.status_code))
 				if response.status_code == 200:
 					failed = False
+				else:
 					raise Exception("request failed")
 
 			except Exception as e:
