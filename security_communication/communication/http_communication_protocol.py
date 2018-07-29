@@ -48,7 +48,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 				print("HTTP: something went wrong while sending message")
 				attempt = attempt + 1
 
-			time.sleep(5)
+			time.sleep(2)
 
 		if failed and attempt > 4:
 			print("server denied to save data 5 times consecutively. Data is probably saved locally")

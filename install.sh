@@ -48,7 +48,6 @@ if [ -d $DST_DIR ]
 		if pgrep -f $DST_DIR/system_manager.py > /dev/null
 			then
 			sudo pkill -9 -f $DST_DIR/system_manager.py
-			sudo rm -rf $DST_DIR
 		fi
 fi
 
