@@ -45,5 +45,5 @@ class CommunicationManager:
 			except Exception as e:
 				print("trying again to save data..")
 				import os
-				os.rename('db.json', 'db_fault' +time.time()+ '.json')
+				os.rename('db.json', 'db_fault' +str(time.time())+ '.json')
 				attempt = attempt + 1
