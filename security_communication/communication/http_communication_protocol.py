@@ -39,6 +39,7 @@ class HTTPCommunicationProtocol(CommunicationProtocol):
 				response = requests.post(url, data=json.dumps(msg), headers=headers)
 				if response.status_code == 200:
 					failed = False
+					print("Data sent to HTTP server: {}".format(url))
 				else:
 					raise Exception("request failed")
 

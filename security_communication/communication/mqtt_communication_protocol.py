@@ -57,6 +57,7 @@ class MQTTCommunicationProtocol(CommunicationProtocol):
             try:
                 mqttc.subscribe(self.topic)
                 mqttc.publish(self.topic, json.dumps(msg), qos=1)
+                print("Data sent to MQTT server: {}:{}".format(broker['ip_address'], broker['port']))
             except Exception as e:
                 print(e.message)
         except:
