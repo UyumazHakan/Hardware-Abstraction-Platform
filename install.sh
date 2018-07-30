@@ -21,8 +21,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "Installing dependencies..."
 
-sudo apt-get update
-sudo apt-get upgrade > /dev/null
+#sudo apt-get update
+#sudo apt-get upgrade > /dev/null
 sudo apt-get install curl jq wget
 
 # install protocol libraries in python
