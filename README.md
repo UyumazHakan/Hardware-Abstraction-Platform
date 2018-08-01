@@ -39,3 +39,7 @@ See [MongoDB installation instructions](https://docs.mongodb.com/manual/tutorial
 - `npm start` or `forever start -c "npm start" ./`
 - navigate to `<ip_address_of_server>:3001`
 
+#### How to Deploy Backend and Frontend using Kubernetes
+See [Installing kubeadm](https://kubernetes.io/docs/setup/independent/install-kubeadm/)
+See [Creating a single master cluster with kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)
+See [Kubernetes Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment)
