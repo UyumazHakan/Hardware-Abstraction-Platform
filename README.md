@@ -86,7 +86,7 @@ Follow "To send data to IoT Core Team" section except,
 
 -   Bootstrap Server Password = (mosquitto password of listener machine, if any or a blank space)
 
--   To receive data in another machine
+### To receive data in another machine
 
 -   Download files from m2m folder
 
