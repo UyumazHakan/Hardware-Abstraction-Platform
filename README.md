@@ -1,10 +1,10 @@
-#READ ME
+# READ ME
 
 * * * * *
 
 This document provides a step by step guide to set up the HAL, retrieve data from the sensor devices, send it to various other devices / IoT Core Team.
 
-##Features
+## Features
 
 * * * * *
 
@@ -23,7 +23,7 @@ This document provides a step by step guide to set up the HAL, retrieve data fro
 -   Machine to Machine communication.
 
 
-##Deployment
+## Deployment
 
 * * * * *
 
@@ -39,7 +39,7 @@ This document provides a step by step guide to set up the HAL, retrieve data fro
 
 -   Run `sudo bash install.sh <config-web-server-ip:4000>`
 
-Components Supported
+## Components Supported
 
 * * * * *
 
@@ -58,7 +58,7 @@ Components Supported
 
 ## Usage
 
-###To send data to IoT Core Team
+### To send data to IoT Core Team
 
 * * * * *
 
@@ -78,11 +78,11 @@ Components Supported
 
 -   Run `sudo bash install.sh <config-web-server-ip:4000>`  to collect data from the sensor and send it to the IoT Core Team.
 
-##Machine-to-Machine Communication
+## Machine-to-Machine Communication
 
 * * * * *
 
-###To send data to another machine: 
+### To send data to another machine: 
 
 Follow "To send data to IoT Core Team" section except,
 
