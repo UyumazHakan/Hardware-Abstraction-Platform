@@ -21,8 +21,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "Installing dependencies..."
 
-sudo apt-get update
-sudo apt-get upgrade > /dev/null
+#sudo apt-get update
+#sudo apt-get upgrade > /dev/null
 sudo apt-get install curl jq wget
 
 # install protocol libraries in python
@@ -154,7 +154,7 @@ echo "Running..."
 # for odroid rpgpio package
 git clone https://github.com/jfath/RPi.GPIO-Odroid.git > /dev/null
 cd RPi.GPIO-Odroid
-sudo python3 setup.py build install &
+sudo python3 setup.py build install > /dev/null &
 cd ~
 
 # for ahrs sensor
