@@ -1,12 +1,10 @@
 # READ ME
 
-* * * * *
 
 This document provides a step by step guide to set up the HAL, retrieve data from the sensor devices, send it to various other devices / IoT Core Team.
 
 ## Features
 
-* * * * *
 
 -   Support for numerous sensors.
 
@@ -25,7 +23,6 @@ This document provides a step by step guide to set up the HAL, retrieve data fro
 
 ## Deployment
 
-* * * * *
 
 -   Clone this repo
 
@@ -41,7 +38,6 @@ This document provides a step by step guide to set up the HAL, retrieve data fro
 
 ## Components Supported
 
-* * * * *
 
 -   Raspberry Pi:
  - List of sensors mentioned in the [SensorKit X40](http://sensorkit.en.joy-it.net/index.php?title=Main_Page)
@@ -60,7 +56,6 @@ This document provides a step by step guide to set up the HAL, retrieve data fro
 
 ### To send data to IoT Core Team
 
-* * * * *
 
 -   Register the device and respective sensors with the IoT Core Team via[ http://iot.pcxd.me:8080/](http://iot.pcxd.me:8080/)
 
@@ -80,7 +75,6 @@ This document provides a step by step guide to set up the HAL, retrieve data fro
 
 ## Machine-to-Machine Communication
 
-* * * * *
 
 ### To send data to another machine: 
 
@@ -109,7 +103,7 @@ Follow "To send data to IoT Core Team" section except,
 - Hakan Uyumaz ([Github page](https://github.com/UyumazHakan), [LinkedIn page](https://www.linkedin.com/in/uyumazhakan/))
 - Erkin Kırdan
 - Mikayil Murad [LinkedIn page](https://www.linkedin.com/in/mikayilmurad/)
-- Anjali
+- Anjali Sasihithlu
 - Admir Jashari
 - Rakibul Alam
 
