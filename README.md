@@ -1,4 +1,4 @@
-# MEAN Stack with Angular 5 
+# MEAN Stack
 
 [For more info](https://gitlab.lrz.de/IoT-Practicum-Group/sensors)
 
@@ -41,7 +41,7 @@ See [MongoDB installation instructions](https://docs.mongodb.com/manual/tutorial
 
 #### How to Deploy Backend and Frontend using Kubernetes
 See: 
- 
+
 - [Installing kubeadm](https://kubernetes.io/docs/setup/independent/install-kubeadm/) 
 
 - [Creating a single master cluster with kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)
