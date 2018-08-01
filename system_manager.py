@@ -57,7 +57,7 @@ def main():
 	login_response = web_server.send( \
 		{"msg":{"username": config["username"], "password": config["password"]}, \
 		"http_header":{"Content-Type": "application/json"}, "http_method": "POST", \
-		"http_selector": "/users/authenticate", \
+		"http_selector": "/api/users/authenticate", \
 		"http_body_type": web_server.communication_protocol.BodyTypes.RAW})
 	token = json.loads(login_response.read().decode("utf-8"))["token"]
 	for root, dirs, files in os.walk(config["log_directory"], topdown=False):
@@ -67,7 +67,7 @@ def main():
 			{"fields":{"id": config["id"]}, \
 			"files":{"file":old_log}, \
 			"http_header":{"Authorization": "Bearer "+token}, "http_method": "POST", \
-			"http_selector": "/devices/upload", \
+			"http_selector": "/api/devices/upload", \
 			"http_body_type": web_server.communication_protocol.BodyTypes.MULTIPART})
 			print(response.read())
 			status = response.status

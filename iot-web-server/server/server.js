@@ -1,4 +1,4 @@
-﻿﻿require('rootpath')();
+require('rootpath')();
 var express = require('express');
 var fileUpload = require('express-fileupload');
 var app = express();
@@ -15,6 +15,8 @@ var serveStatic = require('serve-static');
 var contentDisposition = require('content-disposition');
 var path = require('path');
 
+var morgan  = require('morgan')
+
 mongoose.connect(config.connectionString);
 
 app.use(cors());
@@ -23,15 +25,17 @@ app.use(bodyParser.json());
 // default options for file-upload
 app.use(fileUpload());
 
+app.use(morgan('combined'))
+
 // Use unprotected APIs
 const unprotected = [
-    pathToRegexp('/users/authenticate'),
-    pathToRegexp('/users/register'),
-    pathToRegexp('/devices/api'),
-    pathToRegexp('/uploads'),
-    pathToRegexp('/uploads/:file_name'),
-    pathToRegexp('/uploads/:id/:file_name'),
-    pathToRegexp('/favicon.ico')
+    pathToRegexp('/api/users/authenticate'),
+    pathToRegexp('/api/users/register'),
+    pathToRegexp('/api/devices/api'),
+    pathToRegexp('/api/uploads'),
+    pathToRegexp('/api/uploads/:file_name'),
+    pathToRegexp('/api/uploads/:id/:file_name'),
+    pathToRegexp('/api/favicon.ico')
 ];
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
@@ -55,10 +59,10 @@ function setHeaders (res, path) {
 const dirToServe = process.cwd();
 
 // routes
-app.use('/uploads', serveIndex('uploads', {'icons': true})); // shows you the file list
-app.use('/', serveStatic(dirToServe, {setHeaders: setHeaders})); // https://stackoverflow.com/questions/38208658/node-js-file-server-with-file-index
-app.use('/users', require('./controllers/users.controller'));
-app.use('/devices', require('./controllers/devices.controller'));
+app.use('/api/uploads', serveIndex('uploads', {'icons': true})); // shows you the file list
+app.use('/api/', serveStatic(dirToServe, {setHeaders: setHeaders})); // https://stackoverflow.com/questions/38208658/node-js-file-server-with-file-index
+app.use('/api/users', require('./controllers/users.controller'));
+app.use('/api/devices', require('./controllers/devices.controller'));
 
 
 // error handler
