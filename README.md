@@ -6,10 +6,14 @@
 
 
 ### Contributors:
+- Admir Jashari
+- Anjali Sasihithlu
+- Rakibul Alam
 - Ali Naci Uysal
 - Hakan Uyumaz
 - Erkin Kırdan
 - Mikayil Murad
+
 
 [Original project readme](http://jasonwatmore.com/post/2017/02/22/mean-with-angular-2-user-registration-and-login-example-tutorial)
 
