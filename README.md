@@ -80,11 +80,11 @@ This document provides a step by step guide to set up the HAL, retrieve data fro
 
 Follow "To send data to IoT Core Team" section except,
 
--   Topic = <could be anything>
+-   Topic = <<could be anything>>
 
--   Bootstrap Server Username = <mosquitto username of listener machine, if any> or a blank space
+-   Bootstrap Server Username = <<mosquitto username of listener machine, if any>> or a blank space
 
--   Bootstrap Server Password = <mosquitto password of listener machine, if any> or a blank space
+-   Bootstrap Server Password = <<mosquitto password of listener machine, if any>> or a blank space
 
 -   To receive data in another machine
 
