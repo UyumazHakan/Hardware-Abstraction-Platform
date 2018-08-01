@@ -81,7 +81,10 @@
 
                         <div class="col-md-2" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.security_type-i.valid }">
                             <label>Security Type</label>
-                            <input type="text" class="form-control" name="security_type-{{i}}" [(ngModel)]="communication_protocol.security_type" #communication_protocol.security_type="ngModel" disabled/>
+                            <select class="select form-control input-sm" name="security_type-{{i}}" #communication_protocol.security_type="ngModel" [(ngModel)]="communication_protocol.security_type" required>
+                                <option value="PlainText">Plain text</option>
+                                <option value="Asymmetric">Asymmetric</option>                                                               
+                            </select>
                         </div>
 
                         <div class="col-md-2">
@@ -91,11 +94,15 @@
 
                         <div class="col-md-3" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.communication_type-i.valid }">
                             <label>Communication Type</label>
-                            <input type="text" class="form-control" name="communication_type-{{i}}" [(ngModel)]="communication_protocol.communication_type" #communication_protocol.communication_type="ngModel"/>
+                            <select class="select form-control input-sm" name="communication_type-{{i}}" #communication_protocol.communication_type="ngModel" [(ngModel)]="communication_protocol.communication_type" required>
+                                <option value="KAFKA">KAFKA</option>
+                                <option value="HTTP">HTTP</option>    
+                                <option value="MQTT">MQTT</option>                                                                                                                                                          
+                            </select>
                         </div>
 
                         <div class="col-md-3" [ngClass]="{ 'has-error': f.submitted && !communication_protocol.topic-i.valid }">
-                            <label>Kafka Topic</label>
+                            <label>Topic</label>
                             <input type="text" class="form-control" name="topic-{{i}}" [(ngModel)]="communication_protocol.topic" #communication_protocol.topic="ngModel" required/>
                             <div *ngIf="f.submitted && !communication_protocol.topic-i.valid" class="help-block">Kafka topic is required</div>
                         </div>
@@ -118,16 +125,24 @@
                         </div>
 
                         <div class="panel-body" *ngFor="let bootstrap_server of communication_protocol.bootstrap_servers; let j = index" >
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label>Bootstrap Server IP Address</label>
                                 <input type="text" class="form-control" name="bootstrap_ip_address-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.ip_address"
                                        minlength="7" maxlength="15" placeholder="127.0.0.1" required/>
                                 <div *ngIf="f.submitted && !bootstrap_ip_address-i-j.valid" class="help-block">IP Address is required</div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label>Bootstrap Server Port</label>
                                 <input type="number" class="form-control" name="bootstrap_server.port-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.port" [min]="0" [max]="65535" required />
                                 <div *ngIf="f.submitted && !bootstrap_server.port-i-j.valid" class="help-block">Port is required</div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Bootstrap Server User</label>
+                                <input type="text" class="form-control" name="bootstrap_server.user-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.user" required/>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Bootstrap Server Password</label>
+                                <input type="text" class="form-control" name="bootstrap_server.password-{{i}}-{{j}}" [(ngModel)]="bootstrap_server.password" required/>
                             </div>
                             <div class="col-md-2 pull-left">
                                 <div (click)="removeBootstrapServer(i, j)" class="btn btn-xs btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></div>
@@ -141,7 +156,7 @@
         </div>
 
 
-        <div class="form-group" *ngIf="currentDevice.board_type === 'raspberry_pi' ">
+        <div class="form-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && currentDevice.devices.length === 0 }">
@@ -162,9 +177,35 @@
                         <div class="col-sm-1 pull-left" style="padding-right: 0; padding-top: 3%">
                             <div (click)="removeDevice(i, device)" class="btn btn-xs btn-primary"><i class="fa fa-minus" aria-hidden="true"></i></div>
                         </div>
-                        <div class="col-md-6" [ngClass]="{ 'has-error': f.submitted && !device.type-i.valid }">
+                        <div class="col-md-2" [ngClass]="{ 'has-error': f.submitted && !device.custom_id-i.valid }">
+                            <label>Custom Id</label>
+                            <input type="number" class="form-control" name="device.custom_id-{{i}}" [(ngModel)]="device.custom_id" #device.custom_id="ngModel" required/>
+                        </div>
+                        <div class="col-md-5" [ngClass]="{ 'has-error': f.submitted && !device.type-i.valid }">
                             <label>Device Type</label>
                             <select class="select form-control input-sm" name="device.type-{{i}}" #device.type="ngModel" [(ngModel)]="device.type" required>
+                                <option value="WEATHER2_BOARD_UV">Weatherboard UV sensor</option>
+                                <option value="WEATHER2_BOARD_VISIBILITY">Weatherboard visibility sensor</option>
+                                <option value="WEATHER2_BOARD_IR">Weatherboard IR snsor</option>
+                                <option value="WEATHER2_BOARD_TEMPERATURE">Weatherboard temperature sensor</option>
+                                <option value="WEATHER2_BOARD_HUMIDITY">Weatherboard humidity sensor</option>
+                                <option value="WEATHER2_BOARD_PRESSURE">Weatherboard pressure sensor</option>
+                                <option value="WEATHER2_BOARD_ALTITUDE">Weatherboard altitude sensor</option>                                
+                                <option value="">-------------------------</option>
+                                <option value="AHRS_ROLL">Ahrs roll sensor</option>                                
+                                <option value="AHRS_PITCH">Ahrs pitch sensor</option>                                
+                                <option value="AHRS_YAW">Ahrs yaw sensor</option>                                
+                                <option value="AHRS_ACCELERATION_X">Ahrs acceleration x</option>                                
+                                <option value="AHRS_ACCELERATION_Y">Ahrs acceleration y</option>                                
+                                <option value="AHRS_ACCELERATION_Z">Ahrs acceleration z </option>                                
+                                <option value="AHRS_GYRO_X">Ahrs gyro x</option>                                
+                                <option value="AHRS_GYRO_Y">Ahrs gyro y</option>                                
+                                <option value="AHRS_GYRO_Z">Ahrs gyro z</option>                                
+                                <option value="AHRS_MAG_X">Ahrs mag x</option>                                
+                                <option value="AHRS_MAG_Y">Ahrs mag y</option>                                
+                                <option value="AHRS_MAG_Z">Ahrs mag z</option>                                
+                                <option value="AHRS_TEMPERATURE">Ahrs temperature sensor</option>                                
+                                <option value="">-------------------------</option>                                
                                 <option value="KY01">Temperature sensor module</option>
                                 <option value="KY02">Vibration-switch module</option>
                                 <option value="KY03">Hall Magneticfield-Sensor module</option>
@@ -218,6 +259,7 @@
                             <div class="col-md-3">
                                 <label>Type</label>
                                 <select class="select form-control input-sm" id="iotype-{{i}}-{{j}}" name="iotype-{{i}}-{{j}}" #io_entry.type="ngModel" [(ngModel)]="io_entry.type" required>
+                                    <option value="USB">USB Input</option>
                                     <option value="OneWireInputOutput">One Wire Input/Output</option>
                                     <option value="GPIOInput">GPIO Input</option>
                                     <option value="GPIOOutput">GPIO Output</option>
@@ -233,7 +275,8 @@
                             </div>
                             <div class="col-md-1">
                                 <label>Pin</label>
-                                <input type="number" class="form-control" name="iopin-{{i}}-{{j}}" [(ngModel)]="io_entry.pin" #io_entry.pin="ngModel" [min]="0" [max]="50" required/>
+                                <input type="number" class="form-control" name="iopin-{{i}}-{{j}}" [(ngModel)]="io_entry.pin" #io_entry.pin="ngModel" [min]="0" [max]="50" 
+                                [disabled]="io_entry.type==='USB'" required/>
                             </div>
 
                             <div class="col-md-2" *ngIf="io_entry.type==='OneWireInputOutput'">

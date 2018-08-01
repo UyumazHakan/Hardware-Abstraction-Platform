@@ -14,7 +14,7 @@ DST_DIR="/home/$USERNAME/sensors"
 TMP_DIR="/tmp/sensors"
 LOG_DIR="/var/log/iot"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-SERVER_IP="http://141.40.254.150/api"
+SERVER_IP="http://141.40.254.122:4000"
 
 echo "Installing dependencies..."
 

@@ -99,20 +99,21 @@ export class EditDeviceComponent implements OnInit {
         if (this.validateForm()) {
             console.log(this.currentDevice);
             // additional check for odroid: create default array & io if it's selected
-            if (this.currentDevice.board_type === 'odroid') {
-                this.currentDevice.devices = [];
-                this.currentDevice.devices.push({
-                    "id": this.newGuid(),
-                    "type": "WEATHER2BOARD",
-                    "interval": 5,
-                    "input_output": []
-                });
-                this.currentDevice.devices[0].input_output.push({
-                    "type": "I2C",
-                    "name": "odroid i2c",
-                    "pin": 5
-                });
-            } else if(this.currentDevice.board_type === 'raspberry_pi') {
+            // if (this.currentDevice.board_type === 'odroid') {
+            //     this.currentDevice.devices = [];
+            //     this.currentDevice.devices.push({
+            //         "id": this.newGuid(),
+            //         "type": "WEATHER2BOARD",
+            //         "interval": 5,
+            //         "input_output": []
+            //     });
+            //     this.currentDevice.devices[0].input_output.push({
+            //         "type": "I2C",
+            //         "name": "odroid i2c",
+            //         "pin": 5
+            //     });
+            // } else 
+            if(this.currentDevice.board_type === 'raspberry_pi') {
                 for (let i = 0; i < this.currentDevice.devices.length; i++) {
                     for (let j = 0; j < this.currentDevice.devices[i].input_output.length; j++) {
                         let io_entity = this.currentDevice.devices[i].input_output[j];
@@ -151,10 +152,10 @@ export class EditDeviceComponent implements OnInit {
     }
 
     private validateIPAddress(ip_address: string): Boolean {
-        if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip_address)) {
-            return true;
-        }
-        return false;
+        // if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip_address)) {
+        //     return true;
+        // }
+        return true;
     }
 
     private validateForm(): Boolean {
@@ -197,7 +198,7 @@ export class EditDeviceComponent implements OnInit {
             "id": this.newGuid(),
             "device_id": this.currentDevice.id,
             "security_type": "PlainText",
-            "communication_type": "Kafka",
+            "communication_type": "MQTT",
             "topic": "sensor-input", // default
             "time_interval": 5,
             "api_version": this.currentDevice.api_version,
@@ -237,9 +238,12 @@ export class EditDeviceComponent implements OnInit {
     }
 
     public addBootstrapServer(communication_protocol_index: any) {
+        console.log("--->" + communication_protocol_index);
         this.currentDevice.communication_protocols[communication_protocol_index]["bootstrap_servers"].push({
             "ip_address": "",
-            "port": 9092
+            "port": 9092,
+            "user": "",
+            "password": ""
         });
     }
 
@@ -267,8 +271,9 @@ export class EditDeviceComponent implements OnInit {
         this.currentDevice.devices.push({
             "id": this.newGuid(),
             "type": "",
+            "input_output": [],
             "interval": 5,
-            "input_output": []
+            "custom_id": ""            
         });
     }
 

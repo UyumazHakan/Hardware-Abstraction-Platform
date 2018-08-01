@@ -27,6 +27,7 @@ See [MongoDB installation instructions](https://docs.mongodb.com/manual/tutorial
 - `cd server`
 - `npm install`
 - `node server.js` or `forever start server.js` to run in the background. See [forever package](https://www.npmjs.com/package/forever)
+- if using pm2 - `pm2 start npm --name "ui" -- start`
 
 #### How to Deploy Frontend Module
 - `cd client`
