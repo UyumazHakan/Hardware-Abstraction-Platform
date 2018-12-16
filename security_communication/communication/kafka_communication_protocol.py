@@ -71,5 +71,3 @@ class KafkaCommunicationProtocol(CommunicationProtocol):
 
 	def receive(self, callback = None):
 		pass
-
-

@@ -1,0 +1,56 @@
+{
+  "log_directory": "/var/log/iot/",
+  "communication_protocols": [
+    {
+      "bootstrap_servers": [
+        {
+          "_id": "5b4f6fd84cc991635e5c143d",
+          "ip_address": "127.0.0.1",
+          "port": 9092
+        }
+      ],
+      "api_version": 10,
+      "_id": "5b4f6fd84cc991635e5c143c",
+      "id": "ddb7c1d4-1d04-4085-9942-cf416cdda699",
+      "device_id": "bebfe51f-cd41-4393-a58b-7b0a3d6daf7d",
+      "security_type": "PlainText",
+      "communication_type": "Kafka",
+      "topic": "sensor-input",
+      "time_interval": 5
+    }
+  ],
+  "devices": [
+    {
+      "input_output": [
+        {
+          "_id": "5b4f43c287e19a60ab9d97cb",
+          "type": "USB",
+          "name": "ahrs",
+          "pin": 0,
+          "gpiopullupdown": "None",
+          "gpioadsvalue": 0,
+          "gpioadcchannel": 0,
+          "bmp_address": "0",
+          "base_dir": "/sys/bus/w1/devices/",
+          "bcm_pin": 0,
+          "slave_name": "w1_slave",
+          "index_key": 0
+        }
+      ],
+      "_id": "5b4f43c287e19a60ab9d97ca",
+      "id": "9febed4c-5f1b-4b1d-90c0-074f1415622a",
+      "type": "MYAHRS_PLUS",
+      "interval": 5
+    }
+  ],
+  "_id": "5b4f43a387e19a60ab9d97c7",
+  "id": "bebfe51f-cd41-4393-a58b-7b0a3d6daf7d",
+  "name": "AHRS Plus Sensor",
+  "description": "AHRS",
+  "created_by": "asas",
+  "board_type": "odroid",
+  "__v": 3,
+  "log_level": 0,
+  "username": "asas",
+  "password": "asas"
+}

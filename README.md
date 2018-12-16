@@ -1,27 +1,111 @@
-## Sensor Layer of [IoT Practical Course](http://www.caps.in.tum.de/en/teaching/ss18/practical-courses/internet-of-things-iot/) Project
-This project contains different components to retrieve data from a wide variety of sensors that can be deployed with Raspberry PIs and Odroid devices. 
+# READ ME
+
+
+This document provides a step by step guide to set up the HAL, retrieve data from the sensor devices, send it to various other devices / IoT Core Team.
 
 ## Features
-- Support for most of the sensors (NOT actuators, i.e. buttons etc.) in [SensorKit X40](http://sensorkit.en.joy-it.net/index.php?title=Main_Page)
-- Support for [Odroid XU 4](https://www.odroid.co.uk/hardkernel-odroid-xu4) and its [weather board](http://www.hardkernel.com/main/products/prdt_info.php?g_code=G140264897696)
-- Modular & extensible architecture
-- Configuration of devices and their sensors easily with the help of its web-server. [See](https://gitlab.lrz.de/IoT-Practicum-Group/sensors/tree/master/iot-web-server)
-- Data transfer to [Layer 2](https://gitlab.lrz.de/IoT-Practicum-Group/data_layer)
 
-## Deployment & Usage
 
-- Deploy supported sensors to your device (Raspberry PI, Odroid etc.) and note-down sensors' corresponding PINs etc.
-- Clone this repository, and follow [web-server deployment instructions](https://github.com/UyumazHakan/Hardware-Abstraction-Platform/tree/master/iot-web-server)
-- Assuming that web-server is running smoothly in a cloud environment, use it to register yourself as a user (write down your username), create a device, and make necessary edit operations for newly-created device.
-- Make sure your device is connected to the internet
-- Install [Python 3.5+](https://www.python.org/) to your device
-- run `sudo bash install.sh <username>` in the root folder of this repository, and follow instructions via command line
+-   Support for numerous sensors.
+
+-   Modular and extensible structure.
+
+-   Simple UI to enable user to configure his devices and sensors.
+
+-   Secure data transmission to other devices/IoT Core Layer.
+
+-   Intermediate data storage.
+
+-   Detection of sensor failures.
+
+-   Machine to Machine communication.
+
+
+## Deployment
+
+
+-   Clone this repo
+
+-   Assuming that the config web server(https://gitlab.lrz.de/IoT-Practicum-Group/sensors/tree/v2018) is running smoothly, use it to register yourself, create your device and edit the device details accordingly.
+
+-   Make sure to mention the appropriate sensor, communication and security protocols without fail.
+
+-   Make sure that the device is connected to Internet.
+
+-   Install python3.5+ on the device
+
+-   Run `sudo bash install.sh <config-web-server-ip:4000>`
+
+## Components Supported
+
+
+-   Raspberry Pi:
+ - List of sensors mentioned in the [SensorKit X40](http://sensorkit.en.joy-it.net/index.php?title=Main_Page)
+
+-   Odroid XU4:
+
+ -   Weather Board
+
+ -   myAHRS+
+
+ -   List of sensors mentioned in the [SensorKit X40](http://sensorkit.en.joy-it.net/index.php?title=Main_Page) that are based on RPGPIO library
+
+
+
+## Usage
+
+### To send data to IoT Core Team
+
+
+-   Register the device and respective sensors with the IoT Core Team via[ http://iot.pcxd.me:8080/](http://iot.pcxd.me:8080/)
+
+-   Note down the **Sensor_ID**, **Device_ID** and also download the **Device Key**.
+
+-   Login to the config web server and modify the config details accordingly
+
+ -   HAL_custom_id = Sensor_ID
+
+ -   Topic = Device_ID
+
+ -   Bootstrap Server Username = "JWT"
+
+ -   Bootstrap Server Password = Device Key
+
+-   Run `sudo bash install.sh <config-web-server-ip:4000>`  to collect data from the sensor and send it to the IoT Core Team.
+
+## Machine-to-Machine Communication
+
+
+### To send data to another machine: 
+
+Follow "To send data to IoT Core Team" section except,
+
+-   Topic = (Could be anything)
+
+-   Bootstrap Server Username = (mosquitto username of listener machine, if any or a blank space)
+
+-   Bootstrap Server Password = (mosquitto password of listener machine, if any or a blank space)
+
+### To receive data in another machine
+
+-   Download files from m2m folder
+
+-   Run `sudo mosquitto_install.sh`
+
+-   To receive data, run - `sudo python3 mqtt_subscribe.py`
+
+## Documentation for Intermediate Data Storage on Edge Device
+- http://tinydb.readthedocs.io/en/latest/usage.html
+
 
 ## Contributors
-- Ali Naci Uysal ([Github page](https://github.com/alinaciuysal), [LinkedIn](https://www.linkedin.com/in/ali-naci-uysal/))
-- Hakan Uyumaz ([Github page](https://github.com/UyumazHakan), [LinkedIn](https://www.linkedin.com/in/uyumazhakan/))
+- Ali Naci Uysal ([Github page](https://github.com/alinaciuysal), [LinkedIn page](https://www.linkedin.com/in/ali-naci-uysal/))
+- Hakan Uyumaz ([Github page](https://github.com/UyumazHakan), [LinkedIn page](https://www.linkedin.com/in/uyumazhakan/))
 - Erkin Kırdan
-- Mikayil Murad [LinkedIn](https://www.linkedin.com/in/mikayilmurad/)
+- Mikayil Murad [LinkedIn page](https://www.linkedin.com/in/mikayilmurad/)
+- Anjali Sasihithlu
+- Admir Jashari
+- Rakibul Alam
 
 ## License
 >You can check out the full license [here](https://github.com/UyumazHakan/Hardware-Abstraction-Platform/blob/master/LICENSE)
