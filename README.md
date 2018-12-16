@@ -108,6 +108,6 @@ Follow "To send data to IoT Core Team" section except,
 - Rakibul Alam
 
 ## License
->You can check out the full license [here](https://gitlab.lrz.de/IoT-Practicum-Group/sensors/blob/master/LICENSE)
+>You can check out the full license [here](https://github.com/UyumazHakan/Hardware-Abstraction-Platform/blob/master/LICENSE)
 
 This project is licensed under the terms of the MIT license.
