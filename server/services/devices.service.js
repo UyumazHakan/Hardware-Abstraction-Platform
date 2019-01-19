@@ -40,6 +40,7 @@ function create(deviceParam) {
         description: deviceParam.description,
         log_directory: deviceParam.log_directory,
         board_type: deviceParam.board_type,
+        ontology: deviceParam.ontology
     });
 
     // save the user

@@ -60,6 +60,7 @@ var deviceSchema = new Schema({
         type: String,
         default: "/var/log/iot/"
     },
+    ontology : String,
     board_type: {
         type: String,
         // required: true

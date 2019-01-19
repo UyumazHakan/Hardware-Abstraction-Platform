@@ -31,7 +31,7 @@ app.use(morgan('combined'))
 const unprotected = [
     pathToRegexp('/api/users/authenticate'),
     pathToRegexp('/api/users/register'),
-    pathToRegexp('/api/devices/api'),
+    pathToRegexp('/api/devices'),
     pathToRegexp('/api/uploads'),
     pathToRegexp('/api/uploads/:file_name'),
     pathToRegexp('/api/uploads/:id/:file_name'),

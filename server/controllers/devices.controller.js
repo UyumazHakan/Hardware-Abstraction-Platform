@@ -140,7 +140,8 @@ function createDevice(req, res) {
         name: deviceParam.name,
         description: deviceParam.description,
         created_by: deviceParam.created_by,
-        board_type: deviceParam.board_type
+        board_type: deviceParam.board_type,
+        ontology: deviceParam.ontology
     });
 
     newDevice.save(function(err) {
